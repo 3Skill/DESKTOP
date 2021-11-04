@@ -1,14 +1,18 @@
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
-//PENDIENTE:
-//-Al iniciar el programa se tienen que alamcenar las etiquetas de la configuracion en variables
+
 public class Main {
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException {
 		// TODO Auto-generated method stub
 		LecturaXML lxml = new LecturaXML();
-		lxml.lecturaConfigXML();
+		String[] arrayConf = lxml.lecturaConfigXML();
+		System.out.println("Idioma : " + arrayConf[0]);
+        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
+        System.out.println("Time out entre pregunta : " + arrayConf[2]);
+        System.out.println("NumMax preguntes : " + arrayConf[3]);
+        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
 	}
 
 }
