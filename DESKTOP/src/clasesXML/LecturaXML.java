@@ -1,3 +1,4 @@
+package clasesXML;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,7 +17,7 @@ public class LecturaXML {
 	}
 	
 	//Preguntar si esta bien en public o protected
-	protected String[] lecturaConfigXML() throws ParserConfigurationException, SAXException {
+	public String[] lecturaConfigXML() throws ParserConfigurationException, SAXException {
 		String[] array = new String[5];
 		try {
 			 
