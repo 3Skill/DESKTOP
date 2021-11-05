@@ -1,6 +1,7 @@
 package ParteSwing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -33,10 +34,13 @@ public class MainSwing extends JFrame {
 			        //cambiarIdioma(arrayConf[0]);
 					//Configuracio basica
 					MainSwing frame = new MainSwing();
-					frame.setTitle("Benvingut!");
-					frame.setSize(400, 450);
+					
+					frame.setBackground(Color.gray);
+					frame.setTitle("Benvingut a Kadamm!");
+					frame.setSize(650, 450);
 					frame.setLocationRelativeTo(null);
 					frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					frame.setResizable(false);
 					//Anyadim el panel de Login a aquest
 					JPanel panelLogin = new Login();
 					frame.add(panelLogin);
