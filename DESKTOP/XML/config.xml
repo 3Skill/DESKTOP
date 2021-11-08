@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<idioma>Catala</idioma>
+	<idioma>espanol</idioma>
 	<tipus_preguntes>1</tipus_preguntes>
 	<timeout>30</timeout>
 	<num_max_preguntes>20</num_max_preguntes>
