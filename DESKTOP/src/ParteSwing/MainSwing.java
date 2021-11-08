@@ -3,79 +3,112 @@ package ParteSwing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import funciones.Idioma;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
-	private JPanel contentPane;
-	private static JFrame frame;
+	private static JPanel contentPane,panelLogin;
+	
 	/**
 	 * Launch the application.
 	 */
+	public MainSwing(){
+		
+		//Acedemos a la configuracion inical del config.xml
+		LecturaXML lxml = new LecturaXML();
+		String[] arrayConf;
+		try {
+			arrayConf = lxml.lecturaConfigXML();
+			System.out.println("Idioma : " + arrayConf[0]);
+	        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
+	        System.out.println("Time out entre pregunta : " + arrayConf[2]);
+	        System.out.println("NumMax preguntes : " + arrayConf[3]);
+	        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        
+		//Configuracio basica
+		
+		
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//Acedemos a la configuracion inical del config.xml
-					LecturaXML lxml = new LecturaXML();
-					String[] arrayConf = lxml.lecturaConfigXML();
-					System.out.println("Idioma : " + arrayConf[0]);
-			        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
-			        System.out.println("Time out entre pregunta : " + arrayConf[2]);
-			        System.out.println("NumMax preguntes : " + arrayConf[3]);
-			        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
-			        
-			        //cambiarIdioma(arrayConf[0]);
-					//Configuracio basica
-					MainSwing frame = new MainSwing();
-					
-					frame.setBackground(Color.gray);
-					frame.setTitle("Benvingut a Kadamm!");
-					frame.setSize(650, 450);
-					frame.setLocationRelativeTo(null);
-					frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-					frame.setResizable(false);
-					//Anyadim el panel de Login a aquest
-					JPanel panelLogin = new Login();
-					frame.add(panelLogin);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		
+		setBackground(Color.gray);
+		setTitle("Benvingut a Kadamm!");
+		setSize(650, 450);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		//Anyadim el panel de Login a aquest
+		panelLogin = new Login();
+		JButton botonLogin = ((Login) panelLogin).getBtnNewButton();
+		botonLogin.addActionListener(new activeBotons());
+		
+		
+		add(panelLogin);
+		//
+		
+		setVisible(true);
+	}
+	
+	//Clase para gestionar las acciones de los Botones
+	class activeBotons implements ActionListener {
+		
+
+		public void actionPerformed(ActionEvent e) {
+			
+			if ((e.getActionCommand().equals("Accedir"))){
+				
+				remove(panelLogin);
+				setTitle("Explorador de Kadamm");
+				setSize(800, 550);
+				add(new GestorKahoots());
 			}
-		});
+			
+		}
+		
+	}
+	public static void main(String[] args) {
+		new MainSwing();
+		
+		
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public MainSwing() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-	}
 	
-	public static void cambiarIdioma(String nombreIdioma){
-		 
-        Idioma idioma=new Idioma(nombreIdioma);
- 
-        //btnCambio.setText(idioma.getProperty("cambio"));
-        frame.setTitle(idioma.getProperty("titulo"));
-        //lblHola.setText(idioma.getProperty("saludo"));
- 
-        String idiomas[]={
-                          idioma.getProperty("espanol"),
-                          idioma.getProperty("catala")
-                          };
-    }
+		
+	
+	
+//	public static void cambiarIdioma(String nombreIdioma){
+//		 
+//        Idioma idioma=new Idioma(nombreIdioma);
+// 
+//        //btnCambio.setText(idioma.getProperty("cambio"));
+//        setTitle(idioma.getProperty("titulo"));
+//        //lblHola.setText(idioma.getProperty("saludo"));
+// 
+//        String idiomas[]={
+//                          idioma.getProperty("espanol"),
+//                          idioma.getProperty("catala")
+//                          };
+//    }
 
 }

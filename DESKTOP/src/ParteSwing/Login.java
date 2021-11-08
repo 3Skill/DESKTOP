@@ -22,6 +22,8 @@ import java.awt.SystemColor;
 import javax.swing.JCheckBox;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JPanel {
 	private JTextField username;
@@ -30,6 +32,7 @@ public class Login extends JPanel {
 	private JButton button;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private JButton btnNewButton;
 	
 	/**
 	 * Create the panel.
@@ -37,8 +40,13 @@ public class Login extends JPanel {
 	
 	//Falta poner el check box de recordar contrasenya
 	public Login() {
+		setLayout(new BorderLayout());
 		
-		setBackground(Color.white);
+		JPanel principal = new JPanel();
+		
+		
+		
+		principal.setBackground(Color.white);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(10, 30, 587, 114);
@@ -65,26 +73,86 @@ public class Login extends JPanel {
 		chckbxNewCheckBox.setBounds(231, 277, 206, 21);
 		chckbxNewCheckBox.setBackground(Color.white);
 		
-		JButton btnNewButton = new JButton("Accedir");
+		btnNewButton = new JButton("Accedir");
+		btnNewButton.setBackground(SystemColor.menu);
+		
 		btnNewButton.setBounds(251, 326, 138, 38);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(259, 241, 130, 19);
-		setLayout(null);
-		add(lblNewLabel);
-		add(lblNewLabel_1);
-		add(lblNewLabel_2_1);
-		add(textField);
-		add(lblNewLabel_2);
-		add(passwordField);
-		add(chckbxNewCheckBox);
-		add(btnNewButton);
+		principal.setLayout(null);
+		principal.add(lblNewLabel);
+		principal.add(lblNewLabel_1);
+		principal.add(lblNewLabel_2_1);
+		principal.add(textField);
+		principal.add(lblNewLabel_2);
+		principal.add(passwordField);
+		principal.add(chckbxNewCheckBox);
+		principal.add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("\u00A9 2021 3Skill Solutions ");
 		lblNewLabel_3.setBounds(10, 385, 144, 13);
-		add(lblNewLabel_3);
+		principal.add(lblNewLabel_3);
 		
+		add(principal,BorderLayout.CENTER);
 		
 	}
+
+	public JTextField getUsername() {
+		return username;
+	}
+
+	public void setUsername(JTextField username) {
+		this.username = username;
+	}
+
+	public JTextField getTx1() {
+		return tx1;
+	}
+
+	public void setTx1(JTextField tx1) {
+		this.tx1 = tx1;
+	}
+
+	public JPasswordField getTx2() {
+		return tx2;
+	}
+
+	public void setTx2(JPasswordField tx2) {
+		this.tx2 = tx2;
+	}
+
+	public JButton getButton() {
+		return button;
+	}
+
+	public void setButton(JButton button) {
+		this.button = button;
+	}
+
+	public JTextField getTextField() {
+		return textField;
+	}
+
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
+
+	public JPasswordField getPasswordField() {
+		return passwordField;
+	}
+
+	public void setPasswordField(JPasswordField passwordField) {
+		this.passwordField = passwordField;
+	}
+
+	public JButton getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public void setBtnNewButton(JButton btnNewButton) {
+		this.btnNewButton = btnNewButton;
+	}
+	
 }
