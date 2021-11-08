@@ -42,7 +42,7 @@ public class Login extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(10, 30, 587, 114);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1vict\\Desktop\\Proyecte\\DESKTOP\\DESKTOP\\img\\fotoLogin.png"));
+		lblNewLabel.setIcon(new ImageIcon("."+File.separator+"img"+File.separator+"fotoLogin.png"));
 		
 		JLabel lblNewLabel_1 = new JLabel("Inici de Sessi\u00F3");
 		lblNewLabel_1.setBounds(243, 154, 153, 38);
