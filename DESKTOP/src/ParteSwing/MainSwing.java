@@ -51,7 +51,7 @@ public class MainSwing extends JFrame {
 		
 		setBackground(Color.gray);
 		setTitle("Benvingut a Kadamm!");
-		setSize(650, 450);
+		setSize(650, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
@@ -77,7 +77,8 @@ public class MainSwing extends JFrame {
 				
 				remove(panelLogin);
 				setTitle("Explorador de Kadamm");
-				setSize(800, 550);
+				setSize(800, 600);
+				setLocationRelativeTo(null);
 				add(new GestorKahoots());
 			}
 			
