@@ -21,7 +21,7 @@ public class ErrorHandlerComponent extends JPanel{
 		
 		// Crea els components d'area de text i el component Scroll
 
-	    display = new JTextArea ( 2, 58 );
+	    display = new JTextArea ( 2, 50 );
 	    display.setEditable ( false ); 				// Estableix el textArea no-editable
 	    display.setLineWrap(true);    				// Estableix el textArea per que salti de linia si ocupa tot l'espai
 	    JScrollPane scroll = new JScrollPane ( display );

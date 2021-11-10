@@ -20,7 +20,45 @@ import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	private static JPanel contentPane,panelLogin;
+
+
+	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
+	
+	
+//	comentada funcionaltat a la espera de connexi� entre repos
+//	public boolean login(String nom, String pass) {
+//		
+//		// comentat a la espera de establir connexio entre repos
+//		Usuari usuari = usuariDao.recuperarUsuariPerNom(nom);
+//		
+//		
+//		if (usuari.getPassword() == pass) {
+//			return true;
+//		} else {
+//			ehc.actualitzaErrors("Contrasenya incorrecta");
+//		}
+//		return false;
+//		
+//	}
+//	
+	public boolean login(String nom, String pass) {
+		String usuariNom = nom;
+		String usuariPass = pass;
+		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
+			return true;
+		} else {
+			
+			ehc.actualitzaErrors("Login incorrecte");
+			
+			
+			
+		}
+		return false;
+	}
+	
+
 	private static String[] arrayConf = new String[5];
+
 	/**
 	 * Launch the application.
 	 */
@@ -50,7 +88,7 @@ public class MainSwing extends JFrame {
 		
 		
 	
-		
+		setLayout(new BorderLayout());
 		setBackground(Color.gray);
 		setTitle("Benvingut a Kadamm!");
 		setSize(650, 500);
@@ -63,7 +101,8 @@ public class MainSwing extends JFrame {
 		botonLogin.addActionListener(new activeBotons());
 		
 		
-		add(panelLogin);
+		add(panelLogin,BorderLayout.CENTER);
+		
 		//
 		
 		setVisible(true);
@@ -77,11 +116,21 @@ public class MainSwing extends JFrame {
 			
 			if ((e.getActionCommand().equals("Accedir"))){
 				
-				remove(panelLogin);
-				setTitle("Explorador de Kadamm");
-				setSize(800, 600);
-				setLocationRelativeTo(null);
-				add(new GestorKahoots());
+				if(login(((Login) panelLogin).getTextField().getText(), 
+						((Login) panelLogin).getPasswordField().getText()) == true) {
+					remove(panelLogin);
+					remove(ehc);
+					setTitle("Explorador de Kadamm");
+					setSize(800, 600);
+					setLocationRelativeTo(null);
+					add(new GestorKahoots());
+				} else {
+					System.out.println("login incorrecte");
+					setSize(650, 540);
+					setResizable(true);
+					setResizable(false);
+					add(ehc,BorderLayout.SOUTH);
+				}
 			}
 			
 		}
