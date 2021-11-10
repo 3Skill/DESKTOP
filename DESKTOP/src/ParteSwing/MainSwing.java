@@ -45,7 +45,10 @@ public class MainSwing extends JFrame {
 		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
 			return true;
 		} else {
-			System.out.println("login incorrecte");
+			
+			ehc.actualitzaErrors("Login incorrecte");
+			
+			
 			
 		}
 		return false;
@@ -79,7 +82,7 @@ public class MainSwing extends JFrame {
 		
 		
 	
-		
+		setLayout(new BorderLayout());
 		setBackground(Color.gray);
 		setTitle("Benvingut a Kadamm!");
 		setSize(650, 500);
@@ -92,7 +95,8 @@ public class MainSwing extends JFrame {
 		botonLogin.addActionListener(new activeBotons());
 		
 		
-		add(panelLogin);
+		add(panelLogin,BorderLayout.CENTER);
+		
 		//
 		
 		setVisible(true);
@@ -109,12 +113,17 @@ public class MainSwing extends JFrame {
 				if(login(((Login) panelLogin).getTextField().getText(), 
 						((Login) panelLogin).getPasswordField().getText()) == true) {
 					remove(panelLogin);
+					remove(ehc);
 					setTitle("Explorador de Kadamm");
 					setSize(800, 600);
 					setLocationRelativeTo(null);
 					add(new GestorKahoots());
 				} else {
-					ehc.actualitzaErrors("Login incorrecte");
+					System.out.println("login incorrecte");
+					setSize(650, 540);
+					setResizable(true);
+					setResizable(false);
+					add(ehc,BorderLayout.SOUTH);
 				}
 			}
 			
