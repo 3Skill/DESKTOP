@@ -15,10 +15,25 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import funciones.Idioma;
+import kadamm.hibernate.dao.UsuariDao;
+import kadamm.hibernate.model.Usuari;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	private static JPanel contentPane,panelLogin;
+	private UsuariDao usuariDao;
+	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
+	
+	public boolean login(String nom, String pass) {
+		Usuari usuari = usuariDao.recuperarUsuariPerNom(nom);
+		if (usuari.getPassword() == pass) {
+			return true;
+		} else {
+			ehc.actualitzaErrors("Contrasenya incorrecta");
+		}
+		return false;
+		
+	}
 	
 	/**
 	 * Launch the application.
@@ -75,11 +90,15 @@ public class MainSwing extends JFrame {
 			
 			if ((e.getActionCommand().equals("Accedir"))){
 				
-				remove(panelLogin);
-				setTitle("Explorador de Kadamm");
-				setSize(800, 600);
-				setLocationRelativeTo(null);
-				add(new GestorKahoots());
+				if(login(((Login) panelLogin).getTextField().getText(), ((Login) panelLogin).getPasswordField().getText()) == true) {
+					remove(panelLogin);
+					setTitle("Explorador de Kadamm");
+					setSize(800, 600);
+					setLocationRelativeTo(null);
+					add(new GestorKahoots());
+				} else {
+					ehc.actualitzaErrors("Login incorrecte");
+				}
 			}
 			
 		}

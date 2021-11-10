@@ -1,5 +1,9 @@
 package ParteSwing;
 
+import kadamm.hibernate.*;
+import kadamm.hibernate.dao.UsuariDao;
+import kadamm.hibernate.model.Usuari;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -33,6 +37,10 @@ public class Login extends JPanel {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton btnNewButton;
+	private UsuariDao usuariDao;
+	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
+	
+	
 	
 	/**
 	 * Create the panel.
@@ -90,11 +98,15 @@ public class Login extends JPanel {
 		add(passwordField);
 		add(chckbxNewCheckBox);
 		add(btnNewButton);
-	
+		
+		
+		
 		
 		
 		
 	}
+	
+	
 
 	public JTextField getUsername() {
 		return username;
@@ -151,5 +163,7 @@ public class Login extends JPanel {
 	public void setBtnNewButton(JButton btnNewButton) {
 		this.btnNewButton = btnNewButton;
 	}
+	
+	
 	
 }
