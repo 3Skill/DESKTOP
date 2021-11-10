@@ -64,7 +64,7 @@ public class MainSwing extends JFrame {
 	 */
 	public MainSwing(){
 		//Empieza la conexion con el server
-		new ServerRMI();
+		
 		//Acedemos a la configuracion inical del config.xml
 		LecturaXML lxml = new LecturaXML();
 	
@@ -124,6 +124,7 @@ public class MainSwing extends JFrame {
 					setSize(800, 600);
 					setLocationRelativeTo(null);
 					add(new GestorKahoots());
+					new ServerRMI();
 				} else {
 					System.out.println("login incorrecte");
 					setSize(650, 540);
