@@ -24,15 +24,34 @@ public class MainSwing extends JFrame {
 	private UsuariDao usuariDao;
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
+	
+//	comentada funcionaltat a la espera de connexió entre repos
+//	public boolean login(String nom, String pass) {
+//		
+//		// comentat a la espera de establir connexio entre repos
+//		Usuari usuari = usuariDao.recuperarUsuariPerNom(nom);
+//		
+//		
+//		if (usuari.getPassword() == pass) {
+//			return true;
+//		} else {
+//			ehc.actualitzaErrors("Contrasenya incorrecta");
+//		}
+//		return false;
+//		
+//	}
+//	
 	public boolean login(String nom, String pass) {
-		Usuari usuari = usuariDao.recuperarUsuariPerNom(nom);
-		if (usuari.getPassword() == pass) {
+		String usuariNom = nom;
+		String usuariPass = pass;
+		System.out.println(pass);
+		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
 			return true;
 		} else {
-			ehc.actualitzaErrors("Contrasenya incorrecta");
+			System.out.println("login incorrecte");
+			
 		}
 		return false;
-		
 	}
 	
 	/**
@@ -90,7 +109,8 @@ public class MainSwing extends JFrame {
 			
 			if ((e.getActionCommand().equals("Accedir"))){
 				
-				if(login(((Login) panelLogin).getTextField().getText(), ((Login) panelLogin).getPasswordField().getText()) == true) {
+				if(login(((Login) panelLogin).getTextField().getText(), 
+						((Login) panelLogin).getPasswordField().getText()) == true) {
 					remove(panelLogin);
 					setTitle("Explorador de Kadamm");
 					setSize(800, 600);
