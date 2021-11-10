@@ -14,16 +14,18 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import ConnRMILipe.ServerRMI;
 import funciones.Idioma;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	private static JPanel contentPane,panelLogin;
 
+
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
 	
-//	comentada funcionaltat a la espera de connexió entre repos
+//	comentada funcionaltat a la espera de connexiï¿½ entre repos
 //	public boolean login(String nom, String pass) {
 //		
 //		// comentat a la espera de establir connexio entre repos
@@ -54,21 +56,25 @@ public class MainSwing extends JFrame {
 		return false;
 	}
 	
+
+	private static String[] arrayConf = new String[5];
+
 	/**
 	 * Launch the application.
 	 */
 	public MainSwing(){
-		
+		//Empieza la conexion con el server
+		new ServerRMI();
 		//Acedemos a la configuracion inical del config.xml
 		LecturaXML lxml = new LecturaXML();
-		String[] arrayConf;
+	
 		try {
 			arrayConf = lxml.lecturaConfigXML();
-			System.out.println("Idioma : " + arrayConf[0]);
-	        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
-	        System.out.println("Time out entre pregunta : " + arrayConf[2]);
-	        System.out.println("NumMax preguntes : " + arrayConf[3]);
-	        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
+//			System.out.println("Idioma : " + arrayConf[0]);
+//	        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
+//	        System.out.println("Time out entre pregunta : " + arrayConf[2]);
+//	        System.out.println("NumMax preguntes : " + arrayConf[3]);
+//	        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

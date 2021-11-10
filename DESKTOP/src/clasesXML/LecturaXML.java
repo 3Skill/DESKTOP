@@ -26,9 +26,9 @@ public class LecturaXML {
 	         DocumentBuilder db = dbf.newDocumentBuilder();
 	         Document document = db.parse(file);
 	         document.getDocumentElement().normalize();
-	         System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
+	         //System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
 	         NodeList nList = document.getElementsByTagName("configuration");
-	         System.out.println("----------------------------");
+	         //System.out.println("----------------------------");
 	         
 	         array[0] = ((Element) nList.item(0)).getElementsByTagName("idioma").item(0).getTextContent();         
 	         array[1] = ((Element) nList.item(0)).getElementsByTagName("tipus_preguntes").item(0).getTextContent(); 
