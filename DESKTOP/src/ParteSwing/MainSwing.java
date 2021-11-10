@@ -14,27 +14,29 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import ConnRMILipe.ServerRMI;
 import funciones.Idioma;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	private static JPanel contentPane,panelLogin;
-	
+	private static String[] arrayConf = new String[5];
 	/**
 	 * Launch the application.
 	 */
 	public MainSwing(){
-		
+		//Empieza la conexion con el server
+		new ServerRMI();
 		//Acedemos a la configuracion inical del config.xml
 		LecturaXML lxml = new LecturaXML();
-		String[] arrayConf;
+	
 		try {
 			arrayConf = lxml.lecturaConfigXML();
-			System.out.println("Idioma : " + arrayConf[0]);
-	        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
-	        System.out.println("Time out entre pregunta : " + arrayConf[2]);
-	        System.out.println("NumMax preguntes : " + arrayConf[3]);
-	        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
+//			System.out.println("Idioma : " + arrayConf[0]);
+//	        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
+//	        System.out.println("Time out entre pregunta : " + arrayConf[2]);
+//	        System.out.println("NumMax preguntes : " + arrayConf[3]);
+//	        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
