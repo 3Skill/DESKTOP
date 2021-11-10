@@ -15,13 +15,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import funciones.Idioma;
-import kadamm.hibernate.dao.UsuariDao;
-import kadamm.hibernate.model.Usuari;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	private static JPanel contentPane,panelLogin;
-	private UsuariDao usuariDao;
+
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
 	
@@ -44,7 +42,6 @@ public class MainSwing extends JFrame {
 	public boolean login(String nom, String pass) {
 		String usuariNom = nom;
 		String usuariPass = pass;
-		System.out.println(pass);
 		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
 			return true;
 		} else {
