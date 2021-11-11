@@ -16,12 +16,13 @@ import org.xml.sax.SAXException;
 
 import ConnRMILipe.ServerRMI;
 import funciones.Idioma;
+import sun.jvm.hotspot.debugger.posix.elf.ELFSectionHeader;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
-	private static JPanel contentPane,panelLogin;
-
-
+	private static JPanel contentPane,panelLogin,gk;
+	private LecturaXML lxml;
+	
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
 	
@@ -66,15 +67,8 @@ public class MainSwing extends JFrame {
 		//Empieza la conexion con el server
 		
 		//Acedemos a la configuracion inical del config.xml
-		LecturaXML lxml = new LecturaXML();
-	
 		try {
-			arrayConf = lxml.lecturaConfigXML();
-//			System.out.println("Idioma : " + arrayConf[0]);
-//	        System.out.println("Tipus de Preguntes : " + arrayConf[1]);
-//	        System.out.println("Time out entre pregunta : " + arrayConf[2]);
-//	        System.out.println("NumMax preguntes : " + arrayConf[3]);
-//	        System.out.println("Ruta XML de creacio de Kahoot : " + arrayConf[4]);
+			lxml = new LecturaXML();
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,6 +76,7 @@ public class MainSwing extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		
         
 		//Configuracio basica
@@ -123,7 +118,11 @@ public class MainSwing extends JFrame {
 					setTitle("Explorador de Kadamm");
 					setSize(800, 600);
 					setLocationRelativeTo(null);
-					add(new GestorKahoots());
+					gk = new GestorKahoots();
+					//Añadimos el listener de crear kahoots
+					JButton botonCrearKahoots = ((GestorKahoots) gk).getBtnNewButton_1_1();
+					botonCrearKahoots.addActionListener(new activeBotons());
+					add(gk);
 					new ServerRMI();
 				} else {
 					System.out.println("login incorrecte");
@@ -133,6 +132,15 @@ public class MainSwing extends JFrame {
 					add(ehc,BorderLayout.SOUTH);
 				}
 			}
+			else if((e.getActionCommand().equals("Crear Kahoot"))) {
+				remove(gk);
+				repaint();
+				setTitle("Explorador de Kadamm");
+				setSize(800, 690);
+				setLocationRelativeTo(null);
+				add(new CreacionKahoots());
+			}
+			
 			
 		}
 		

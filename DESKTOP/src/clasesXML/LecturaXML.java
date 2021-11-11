@@ -12,13 +12,9 @@ import org.xml.sax.SAXException;
 
 
 public class LecturaXML {
-	public LecturaXML(){
-		
-	}
+	private String idioma,tipus_preguntes,timeout,num_max_preguntes,rutaXML;
 	
-	//Preguntar si esta bien en public o protected
-	public String[] lecturaConfigXML() throws ParserConfigurationException, SAXException {
-		String[] array = new String[5];
+	public LecturaXML() throws ParserConfigurationException, SAXException{
 		try {
 			 
 	         File file = new File("."+File.separator+"XML"+File.separator+"config.xml");
@@ -30,21 +26,62 @@ public class LecturaXML {
 	         NodeList nList = document.getElementsByTagName("configuration");
 	         //System.out.println("----------------------------");
 	         
-	         array[0] = ((Element) nList.item(0)).getElementsByTagName("idioma").item(0).getTextContent();         
-	         array[1] = ((Element) nList.item(0)).getElementsByTagName("tipus_preguntes").item(0).getTextContent(); 
-	         array[2] = ((Element) nList.item(0)).getElementsByTagName("timeout").item(0).getTextContent(); 
-	         array[3] = ((Element) nList.item(0)).getElementsByTagName("timeout").item(0).getTextContent(); 
-	         array[4] = ((Element) nList.item(0)).getElementsByTagName("rutaXML").item(0).getTextContent(); 
+	         idioma = ((Element) nList.item(0)).getElementsByTagName("idioma").item(0).getTextContent();         
+	         tipus_preguntes = ((Element) nList.item(0)).getElementsByTagName("tipus_preguntes").item(0).getTextContent(); 
+	         timeout = ((Element) nList.item(0)).getElementsByTagName("timeout").item(0).getTextContent(); 
+	         num_max_preguntes = ((Element) nList.item(0)).getElementsByTagName("num_max_preguntes").item(0).getTextContent(); 
+	         rutaXML = ((Element) nList.item(0)).getElementsByTagName("rutaXML").item(0).getTextContent(); 
 	         
 	         
 	     }
 	     catch(IOException e) {
 	         System.out.println(e);
-	         array = null;
+	         
 	     } 
-		 return array;
-			
+		 
 	}
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
+	public String getTipus_preguntes() {
+		return tipus_preguntes;
+	}
+
+	public void setTipus_preguntes(String tipus_preguntes) {
+		this.tipus_preguntes = tipus_preguntes;
+	}
+
+	public String getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(String timeout) {
+		this.timeout = timeout;
+	}
+
+	public String getNum_max_preguntes() {
+		return num_max_preguntes;
+	}
+
+	public void setNum_max_preguntes(String num_max_preguntes) {
+		this.num_max_preguntes = num_max_preguntes;
+	}
+
+	public String getRutaXML() {
+		return rutaXML;
+	}
+
+	public void setRutaXML(String rutaXML) {
+		this.rutaXML = rutaXML;
+	}
+	
+	
 	 
 }
 
