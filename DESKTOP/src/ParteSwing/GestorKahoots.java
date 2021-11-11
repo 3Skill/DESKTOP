@@ -17,9 +17,11 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
-
+//ATTENTION:
+//PUEDE SER QUE LOS JLIST ALFINAL SEAN JTEXTAREA
 public class GestorKahoots extends JPanel {
-
+	
+	private JButton btnJugar,btnNewButton_1_1;
 	/**
 	 * Create the panel.
 	 */
@@ -58,13 +60,13 @@ public class GestorKahoots extends JPanel {
 		btnNewButton.setBounds(36, 328, 184, 51);
 		panel_1.add(btnNewButton);
 		
-		JButton btnJugar = new JButton("JUGAR");
+		btnJugar = new JButton("JUGAR");
 		btnJugar.setForeground(Color.RED);
 		btnJugar.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnJugar.setBounds(160, 390, 189, 82);
 		panel_1.add(btnJugar);
 		
-		JButton btnNewButton_1_1 = new JButton("Crear Kahoot");
+		btnNewButton_1_1 = new JButton("Crear Kahoot");
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnNewButton_1_1.setBounds(261, 328, 184, 51);
 		panel_1.add(btnNewButton_1_1);
@@ -131,4 +133,17 @@ public class GestorKahoots extends JPanel {
 		
 
 	}
+	public JButton getBtnJugar() {
+		return btnJugar;
+	}
+	public void setBtnJugar(JButton btnJugar) {
+		this.btnJugar = btnJugar;
+	}
+	public JButton getBtnNewButton_1_1() {
+		return btnNewButton_1_1;
+	}
+	public void setBtnNewButton_1_1(JButton btnNewButton_1_1) {
+		this.btnNewButton_1_1 = btnNewButton_1_1;
+	}
+	
 }
