@@ -16,6 +16,12 @@ import org.xml.sax.SAXException;
 
 import ConnRMILipe.ServerRMI;
 import funciones.Idioma;
+
+import kadamm.hibernate.model.*;
+import kadamm.hibernate.dao.*;
+import kadamm.hibernate.util.*;
+import kadamm.hibernate.test.*;
+
 import sun.jvm.hotspot.debugger.posix.elf.ELFSectionHeader;
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
@@ -23,17 +29,19 @@ public class MainSwing extends JFrame {
 	private static JPanel contentPane,panelLogin,gk;
 	private LecturaXML lxml;
 	
+
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
 	
-//	comentada funcionaltat a la espera de connexi� entre repos
+//	// comentada funcionaltat a la espera de connexiï¿½ entre repos
 //	public boolean login(String nom, String pass) {
 //		
 //		// comentat a la espera de establir connexio entre repos
-//		Usuari usuari = usuariDao.recuperarUsuariPerNom(nom);
+//		Usuari usuari = ud.recuperarUsuariPerNom(nom);
+//		System.out.println(usuari.getPassword());
 //		
 //		
-//		if (usuari.getPassword() == pass) {
+//		if (usuari.getPassword().equals(pass)) {
 //			return true;
 //		} else {
 //			ehc.actualitzaErrors("Contrasenya incorrecta");
@@ -119,7 +127,7 @@ public class MainSwing extends JFrame {
 					setSize(800, 600);
 					setLocationRelativeTo(null);
 					gk = new GestorKahoots();
-					//A�adimos el listener de crear kahoots
+					//Añadimos el listener de crear kahoots
 					JButton botonCrearKahoots = ((GestorKahoots) gk).getBtnNewButton_1_1();
 					botonCrearKahoots.addActionListener(new activeBotons());
 					add(gk);
