@@ -3,6 +3,7 @@
 	<name>DESKTOP</name>
 	<comment></comment>
 	<projects>
+		<project>hibernate-lib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
