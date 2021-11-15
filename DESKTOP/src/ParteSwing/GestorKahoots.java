@@ -17,48 +17,50 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
-//ATTENTION:
-//PUEDE SER QUE LOS JLIST ALFINAL SEAN JTEXTAREA
+
 public class GestorKahoots extends JPanel {
 	
-	private JButton btnJugar,btnNewButton_1_1;
-	/**
-	 * Create the panel.
-	 */
+	//Atributs
+	private JButton btnJugar,btnCrearKahoot, btnVeureDetall, btnFiltarTema, btnEditarTemes;
+	private JLabel txtTitulo, txtKahoots, txtTemes, txtTemesSeleccionats;
+	
+	//Constructor
 	public GestorKahoots() {
-		setLayout(new BorderLayout(0, 0));
 		
+		//Configuracion Basica
+		setLayout(new BorderLayout(0, 0));
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
 		panel.setBackground(Color.gray);
-		JLabel lblNewLabel = new JLabel("Explorador de Kahoots");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
-		panel.add(lblNewLabel);
-		
 		JPanel panel_1 = new JPanel();
-		
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.white);
-		JLabel lblNewLabel_1 = new JLabel("Kahoots");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(74, 40, 120, 13);
-		panel_1.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Temes");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_1.setBounds(543, 40, 58, 13);
-		panel_1.add(lblNewLabel_1_1);
+		//Annadimos todos los componentes
+		txtTitulo = new JLabel("Explorador de Kahoots");
+		txtTitulo.setFont(new Font("Tahoma", Font.BOLD, 19));
+		panel.add(txtTitulo);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Temes selecionats");
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_1_1.setBounds(543, 264, 149, 13);
-		panel_1.add(lblNewLabel_1_1_1);
+		txtKahoots = new JLabel("Kahoots");
+		txtKahoots.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtKahoots.setBounds(74, 40, 120, 13);
+		panel_1.add(txtKahoots);
 		
-		JButton btnNewButton = new JButton("Veure Detall");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnNewButton.setBounds(36, 328, 184, 51);
-		panel_1.add(btnNewButton);
+		txtTemes = new JLabel("Temes");
+		txtTemes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTemes.setBounds(543, 40, 58, 13);
+		panel_1.add(txtTemes);
+		
+		txtTemesSeleccionats = new JLabel("Temes selecionats");
+		txtTemesSeleccionats.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTemesSeleccionats.setBounds(543, 264, 149, 13);
+		panel_1.add(txtTemesSeleccionats);
+		
+		btnVeureDetall = new JButton("Veure Detall");
+		btnVeureDetall.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnVeureDetall.setBounds(36, 328, 184, 51);
+		panel_1.add(btnVeureDetall);
 		
 		btnJugar = new JButton("JUGAR");
 		btnJugar.setForeground(Color.RED);
@@ -66,24 +68,20 @@ public class GestorKahoots extends JPanel {
 		btnJugar.setBounds(160, 390, 189, 82);
 		panel_1.add(btnJugar);
 		
-		btnNewButton_1_1 = new JButton("Crear Kahoot");
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnNewButton_1_1.setBounds(261, 328, 184, 51);
-		panel_1.add(btnNewButton_1_1);
+		btnCrearKahoot = new JButton("Crear Kahoot");
+		btnCrearKahoot.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCrearKahoot.setBounds(261, 328, 184, 51);
+		panel_1.add(btnCrearKahoot);
 		
-		JButton btnNewButton_1_1_1 = new JButton("Filtrar per Tema");
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1_1_1.setBounds(543, 404, 149, 29);
-		panel_1.add(btnNewButton_1_1_1);
+		btnFiltarTema = new JButton("Filtrar per Tema");
+		btnFiltarTema.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnFiltarTema.setBounds(543, 404, 149, 29);
+		panel_1.add(btnFiltarTema);
 		
-		JButton btnNewButton_1_1_1_1 = new JButton("Editar Temes");
-		btnNewButton_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1_1_1.setBounds(553, 443, 128, 29);
-		panel_1.add(btnNewButton_1_1_1_1);
+		btnEditarTemes = new JButton("Editar Temes");
+		btnEditarTemes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnEditarTemes.setBounds(553, 443, 128, 29);
+		panel_1.add(btnEditarTemes);
 		
 		String[] datos = {"nom Kahoot1", "nom Kahoot 2", "nom Kahoot 3", "nom Kahoot n"};
 		String[] datos1 = {"Tema 1", "Tema 2", "Tema 3", "Tema 4","Tema n"};
@@ -133,17 +131,62 @@ public class GestorKahoots extends JPanel {
 		
 
 	}
+	
+	//Getters and Setters
 	public JButton getBtnJugar() {
 		return btnJugar;
 	}
 	public void setBtnJugar(JButton btnJugar) {
 		this.btnJugar = btnJugar;
 	}
-	public JButton getBtnNewButton_1_1() {
-		return btnNewButton_1_1;
+	public JButton getBtnCrearKahoot() {
+		return btnCrearKahoot;
 	}
-	public void setBtnNewButton_1_1(JButton btnNewButton_1_1) {
-		this.btnNewButton_1_1 = btnNewButton_1_1;
+	public void setBtnCrearKahoot(JButton btnCrearKahoot) {
+		this.btnCrearKahoot = btnCrearKahoot;
 	}
+	public JButton getBtnVeureDetall() {
+		return btnVeureDetall;
+	}
+	public void setBtnVeureDetall(JButton btnVeureDetall) {
+		this.btnVeureDetall = btnVeureDetall;
+	}
+	public JButton getBtnFiltarTema() {
+		return btnFiltarTema;
+	}
+	public void setBtnFiltarTema(JButton btnFiltarTema) {
+		this.btnFiltarTema = btnFiltarTema;
+	}
+	public JButton getBtnEditarTemes() {
+		return btnEditarTemes;
+	}
+	public void setBtnEditarTemes(JButton btnEditarTemes) {
+		this.btnEditarTemes = btnEditarTemes;
+	}
+	public JLabel getTxtTitulo() {
+		return txtTitulo;
+	}
+	public void setTxtTitulo(JLabel txtTitulo) {
+		this.txtTitulo = txtTitulo;
+	}
+	public JLabel getTxtKahoots() {
+		return txtKahoots;
+	}
+	public void setTxtKahoots(JLabel txtKahoots) {
+		this.txtKahoots = txtKahoots;
+	}
+	public JLabel getTxtTemes() {
+		return txtTemes;
+	}
+	public void setTxtTemes(JLabel txtTemes) {
+		this.txtTemes = txtTemes;
+	}
+	public JLabel getTxtTemesSeleccionats() {
+		return txtTemesSeleccionats;
+	}
+	public void setTxtTemesSeleccionats(JLabel txtTemesSeleccionats) {
+		this.txtTemesSeleccionats = txtTemesSeleccionats;
+	}
+	
 	
 }

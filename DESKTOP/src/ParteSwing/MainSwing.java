@@ -22,57 +22,24 @@ import kadamm.hibernate.dao.*;
 import kadamm.hibernate.util.*;
 import kadamm.hibernate.test.*;
 
-import sun.jvm.hotspot.debugger.posix.elf.ELFSectionHeader;
+
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
-	private static JPanel contentPane,panelLogin,gk;
+	//Atributos
+	private static JPanel panelLogin,gk;
 	private LecturaXML lxml;
-	
-
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
-	
-//	// comentada funcionaltat a la espera de connexiï¿½ entre repos
-//	public boolean login(String nom, String pass) {
-//		
-//		// comentat a la espera de establir connexio entre repos
-//		Usuari usuari = ud.recuperarUsuariPerNom(nom);
-//		System.out.println(usuari.getPassword());
-//		
-//		
-//		if (usuari.getPassword().equals(pass)) {
-//			return true;
-//		} else {
-//			ehc.actualitzaErrors("Contrasenya incorrecta");
-//		}
-//		return false;
-//		
-//	}
-//	
-	public boolean login(String nom, String pass) {
-		String usuariNom = nom;
-		String usuariPass = pass;
-		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
-			return true;
-		} else {
-			
-			ehc.actualitzaErrors("Login incorrecte");
-			
-			
-			
-		}
-		return false;
+	//Metodo main
+	public static void main(String[] args) {
+		new MainSwing();
+		
+		
 	}
 	
-
-	private static String[] arrayConf = new String[5];
-
-	/**
-	 * Launch the application.
-	 */
+	//Constructor
 	public MainSwing(){
-		//Empieza la conexion con el server
 		
 		//Acedemos a la configuracion inical del config.xml
 		try {
@@ -87,10 +54,8 @@ public class MainSwing extends JFrame {
 	
 		
         
-		//Configuracio basica
+		//Configuracio basica del JFrame
 		
-		
-	
 		setLayout(new BorderLayout());
 		setBackground(Color.gray);
 		setTitle("Benvingut a Kadamm!");
@@ -98,28 +63,30 @@ public class MainSwing extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
+		
 		//Anyadim el panel de Login a aquest
+		
 		panelLogin = new Login();
-		JButton botonLogin = ((Login) panelLogin).getBtnNewButton();
+		JButton botonLogin = ((Login) panelLogin).getBotonAccedir();
 		botonLogin.addActionListener(new activeBotons());
 		
-		
 		add(panelLogin,BorderLayout.CENTER);
-		
-		//
 		
 		setVisible(true);
 	}
 	
-	//Clase para gestionar las acciones de los Botones
+	//Clase para gestionar las acciones de los Botones de los diferentes paneles
 	class activeBotons implements ActionListener {
 		
 
 		public void actionPerformed(ActionEvent e) {
 			
+			//Boton 'Accedir' de Panel Login
 			if ((e.getActionCommand().equals("Accedir"))){
 				
-				if(login(((Login) panelLogin).getTextField().getText(), 
+				//Comprobaciones de que el login sea correct
+				
+				if(login(((Login) panelLogin).gettfUsuari().getText(), 
 						((Login) panelLogin).getPasswordField().getText()) == true) {
 					remove(panelLogin);
 					remove(ehc);
@@ -127,8 +94,8 @@ public class MainSwing extends JFrame {
 					setSize(800, 600);
 					setLocationRelativeTo(null);
 					gk = new GestorKahoots();
-					//Añadimos el listener de crear kahoots
-					JButton botonCrearKahoots = ((GestorKahoots) gk).getBtnNewButton_1_1();
+					//Anyadimos el listener de crear kahoots
+					JButton botonCrearKahoots = ((GestorKahoots) gk).getBtnCrearKahoot();
 					botonCrearKahoots.addActionListener(new activeBotons());
 					add(gk);
 					new ServerRMI();
@@ -140,6 +107,7 @@ public class MainSwing extends JFrame {
 					add(ehc,BorderLayout.SOUTH);
 				}
 			}
+			//Boton 'Crear Kahoot' de Panel GestorKahoots 
 			else if((e.getActionCommand().equals("Crear Kahoot"))) {
 				remove(gk);
 				repaint();
@@ -153,31 +121,21 @@ public class MainSwing extends JFrame {
 		}
 		
 	}
-	public static void main(String[] args) {
-		new MainSwing();
-		
-		
+	
+	//Funcion para comprobar User/Pass del panel Login
+	public boolean login(String nom, String pass) {
+		String usuariNom = nom;
+		String usuariPass = pass;
+		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
+			return true;
+		} else {
+			
+			ehc.actualitzaErrors("Login incorrecte");
+			
+			
+			
+		}
+		return false;
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	
-		
-	
-	
-//	public static void cambiarIdioma(String nombreIdioma){
-//		 
-//        Idioma idioma=new Idioma(nombreIdioma);
-// 
-//        //btnCambio.setText(idioma.getProperty("cambio"));
-//        setTitle(idioma.getProperty("titulo"));
-//        //lblHola.setText(idioma.getProperty("saludo"));
-// 
-//        String idiomas[]={
-//                          idioma.getProperty("espanol"),
-//                          idioma.getProperty("catala")
-//                          };
-//    }
 
 }

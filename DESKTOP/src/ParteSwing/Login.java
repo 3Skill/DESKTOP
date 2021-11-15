@@ -29,140 +29,136 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Login extends JPanel {
+	
+	//Atributs
 	private JTextField username;
-	private JTextField tx1;
-	private JPasswordField tx2;
-	private JButton button;
-	private JTextField textField;
+	private JTextField tfUsuari;
 	private JPasswordField passwordField;
-	private JButton btnNewButton;
-
-	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
+	private JButton botonAccedir;
+	private JLabel fotoLogin,txtIniciSessio,txtContra,txtUsuari;
+	private JCheckBox cbRecordarContra;
 	
-	
-	
-	/**
-	 * Create the panel.
-	 */
-	
-	//Falta poner el check box de recordar contrasenya
+	//Constructor
 	public Login() {
-		setLayout(new BorderLayout());
 		
 		
-		
-		
-		
+		//Configuracion del panel
 		setBackground(Color.white);
+		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(10, 30, 587, 114);
-		lblNewLabel.setIcon(new ImageIcon("."+File.separator+"img"+File.separator+"fotoLogin.png"));
+		//JLabels
+		fotoLogin = new JLabel("FotoLogin");
+		fotoLogin.setBounds(10, 30, 587, 114);
+		fotoLogin.setIcon(new ImageIcon("."+File.separator+"img"+File.separator+"fotoLogin.png"));
 		
-		JLabel lblNewLabel_1 = new JLabel("Inici de Sessi\u00F3");
-		lblNewLabel_1.setBounds(243, 154, 153, 38);
-		lblNewLabel_1.setForeground(SystemColor.desktop);
-		lblNewLabel_1.setFont(new Font("Calibri", Font.BOLD, 26));
+		txtIniciSessio = new JLabel("Inici de Sessi\u00F3");
+		txtIniciSessio.setBounds(243, 154, 153, 38);
+		txtIniciSessio.setForeground(SystemColor.desktop);
+		txtIniciSessio.setFont(new Font("Calibri", Font.BOLD, 26));
 		
-		JLabel lblNewLabel_2 = new JLabel("Contrasenya:");
-		lblNewLabel_2.setBounds(167, 242, 82, 18);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtUsuari = new JLabel("Usuari:");
+		txtUsuari.setBounds(204, 213, 45, 13);
+		txtUsuari.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		textField = new JTextField();
-		textField.setBounds(259, 212, 130, 19);
-		textField.setColumns(10);
+		txtContra = new JLabel("Contrasenya:");
+		txtContra.setBounds(167, 242, 82, 18);
+		txtContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Usuari:");
-		lblNewLabel_2_1.setBounds(204, 213, 45, 13);
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("   Recordar la contrasenya");
-		chckbxNewCheckBox.setBounds(231, 277, 206, 21);
-		chckbxNewCheckBox.setBackground(Color.white);
 		
-		btnNewButton = new JButton("Accedir");
-		btnNewButton.setBackground(SystemColor.menu);
-		
-		btnNewButton.setBounds(251, 326, 138, 38);
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
+		//JtextFields
+		tfUsuari = new JTextField();
+		tfUsuari.setBounds(259, 212, 130, 19);
+		tfUsuari.setColumns(10);
 		passwordField = new JPasswordField();
 		passwordField.setBounds(259, 241, 130, 19);
-		setLayout(null);
-		add(lblNewLabel);
-		add(lblNewLabel_1);
-		add(lblNewLabel_2_1);
-		add(textField);
-		add(lblNewLabel_2);
+		
+		//JCheckBox de recordar pass
+		
+		cbRecordarContra = new JCheckBox("   Recordar la contrasenya");
+		cbRecordarContra.setBounds(231, 277, 206, 21);
+		cbRecordarContra.setBackground(Color.white);
+		
+		//JButton para accedir
+		botonAccedir = new JButton("Accedir");
+		botonAccedir.setBackground(SystemColor.menu);
+		
+		botonAccedir.setBounds(251, 326, 138, 38);
+		botonAccedir.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		
+		//Anyadim tots els components al panel
+		add(fotoLogin);
+		add(txtIniciSessio);
+		add(txtUsuari);
+		add(tfUsuari);
+		add(txtContra);
 		add(passwordField);
-		add(chckbxNewCheckBox);
-		add(btnNewButton);
-		
-		
-		
-		
-		
+		add(cbRecordarContra);
+		add(botonAccedir);
 		
 		
 	}
 	
-	
-
+	//Getters and Setters del Panel
 	public JTextField getUsername() {
 		return username;
 	}
-
 	public void setUsername(JTextField username) {
 		this.username = username;
 	}
-
-	public JTextField getTx1() {
-		return tx1;
+	
+	public JTextField gettfUsuari() {
+		return tfUsuari;
 	}
-
-	public void setTx1(JTextField tx1) {
-		this.tx1 = tx1;
+	public void settfUsuari(JTextField tfUsuari) {
+		this.tfUsuari = tfUsuari;
 	}
-
-	public JPasswordField getTx2() {
-		return tx2;
-	}
-
-	public void setTx2(JPasswordField tx2) {
-		this.tx2 = tx2;
-	}
-
-	public JButton getButton() {
-		return button;
-	}
-
-	public void setButton(JButton button) {
-		this.button = button;
-	}
-
-	public JTextField getTextField() {
-		return textField;
-	}
-
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
-
 	public JPasswordField getPasswordField() {
 		return passwordField;
 	}
-
 	public void setPasswordField(JPasswordField passwordField) {
 		this.passwordField = passwordField;
 	}
-
-	public JButton getBtnNewButton() {
-		return btnNewButton;
+	public JButton getBotonAccedir() {
+		return botonAccedir;
 	}
-
-	public void setBtnNewButton(JButton btnNewButton) {
-		this.btnNewButton = btnNewButton;
+	public void setBotonAccedir(JButton botonAccedir) {
+		this.botonAccedir = botonAccedir;
 	}
+	public JLabel getFotoLogin() {
+		return fotoLogin;
+	}
+	public void setFotoLogin(JLabel fotoLogin) {
+		this.fotoLogin = fotoLogin;
+	}
+	public JLabel getTxtIniciSessio() {
+		return txtIniciSessio;
+	}
+	public void setTxtIniciSessio(JLabel txtIniciSessio) {
+		this.txtIniciSessio = txtIniciSessio;
+	}
+	public JLabel getTxtContra() {
+		return txtContra;
+	}
+	public void setTxtContra(JLabel txtContra) {
+		this.txtContra = txtContra;
+	}
+	public JLabel getTxtUsuari() {
+		return txtUsuari;
+	}
+	public void setTxtUsuari(JLabel txtUsuari) {
+		this.txtUsuari = txtUsuari;
+	}
+	public JCheckBox getCbRecordarContra() {
+		return cbRecordarContra;
+	}
+	public void setCbRecordarContra(JCheckBox cbRecordarContra) {
+		this.cbRecordarContra = cbRecordarContra;
+	}
+	
+	
+
 	
 	
 	

@@ -12,42 +12,46 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
-//ATTENTION:
-//PUEDE SER QUE LOS JLIST ALFINAL SEAN JTEXTAREA
-public class CreacionKahoots extends JPanel {
-	private JTextField textField;
 
-	/**
-	 * Create the panel.
-	 */
+public class CreacionKahoots extends JPanel {
+	
+	//Atributs
+	private JTextField tfTitol;
+	private JLabel txtTitol, txtLlistaPreguntes,txtNovaPregunta, txtTemesAso, txtRespostes, txtResCorrecta;
+	private JButton btnAfegirPregunta, btnGuardarKahoot;
+	private JCheckBox cb1,cb2,cb3,cb4;
+	private JList listPreguntas,listTemesAso;
+	
+	//Constructor
 	public CreacionKahoots() {
-		setLayout(new BorderLayout(0, 0));
 		
+		//Confg general del panel
+		setLayout(new BorderLayout(0, 0));
 		JLabel lblNewLabel = new JLabel("Crear Kahoot");
 		lblNewLabel.setBackground(Color.GRAY);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblNewLabel, BorderLayout.NORTH);
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("T\u00EDtol");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(62, 48, 46, 13);
-		panel.add(lblNewLabel_1);
+		//Titol
+		txtTitol = new JLabel("T\u00EDtol");
+		txtTitol.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTitol.setBounds(62, 48, 46, 13);
+		panel.add(txtTitol);
 		
-		textField = new JTextField();
-		textField.setBounds(118, 47, 344, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		tfTitol = new JTextField();
+		tfTitol.setBounds(118, 47, 344, 19);
+		panel.add(tfTitol);
+		tfTitol.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Llista de preguntes");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(62, 116, 201, 13);
-		panel.add(lblNewLabel_2);
+		txtLlistaPreguntes = new JLabel("Llista de preguntes");
+		txtLlistaPreguntes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtLlistaPreguntes.setBounds(62, 116, 201, 13);
+		panel.add(txtLlistaPreguntes);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(62, 157, 400, 127);
@@ -58,79 +62,218 @@ public class CreacionKahoots extends JPanel {
 		String[] llistaTemesAssociats = {"Tema 1","Tema 2","Tema 3","Tema n","..."};
 		String[] llistaRespostes = {"Resposta 1","Resposta 2","Resposta 3","Resposta 4"};
 		
-		JList list = new JList(listaPreguntas) ;
-		list.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane.setViewportView(list);
+		listPreguntas = new JList(listaPreguntas) ;
+		listPreguntas.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane.setViewportView(listPreguntas);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Nova Pregunta");
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1.setBounds(62, 321, 201, 13);
-		panel.add(lblNewLabel_2_1);
+		txtNovaPregunta = new JLabel("Nova Pregunta");
+		txtNovaPregunta.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNovaPregunta.setBounds(62, 321, 201, 13);
+		panel.add(txtNovaPregunta);
 		
-		JLabel lblNewLabel_3 = new JLabel("Temes associats");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_3.setBounds(514, 118, 151, 13);
-		panel.add(lblNewLabel_3);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(62, 362, 400, 94);
+		panel.add(scrollPane_1);
+		
+		JTextArea textArea = new JTextArea();
+		scrollPane_1.setViewportView(textArea);
+		
+		txtTemesAso = new JLabel("Temes associats");
+		txtTemesAso.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTemesAso.setBounds(514, 118, 151, 13);
+		panel.add(txtTemesAso);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(514, 157, 161, 115);
 		panel.add(scrollPane_2);
 		
-		JList list_2 = new JList(llistaTemesAssociats);
-		list_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane_2.setViewportView(list_2);
+		listTemesAso = new JList(llistaTemesAssociats);
+		listTemesAso.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane_2.setViewportView(listTemesAso);
 		
-		JLabel lblNewLabel_4 = new JLabel("Respostes");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(514, 323, 106, 13);
-		panel.add(lblNewLabel_4);
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(516, 360, 161, 96);
+		panel.add(scrollPane_3);
 		
-		JButton btnNewButton = new JButton("Afegir pregunta");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(155, 542, 181, 70);
-		panel.add(btnNewButton);
+		JTextArea textArea_1 = new JTextArea();
+		scrollPane_3.setViewportView(textArea_1);
 		
-		JButton btnNewButton_1 = new JButton("Guardar nou Kahoot");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(370, 542, 181, 70);
-		panel.add(btnNewButton_1);
+		txtRespostes = new JLabel("Respostes");
+		txtRespostes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtRespostes.setBounds(514, 323, 106, 13);
+		panel.add(txtRespostes);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBounds(718, 362, 21, 21);
-		panel.add(chckbxNewCheckBox);
+		//Botones
+		btnAfegirPregunta = new JButton("Afegir pregunta");
+		btnAfegirPregunta.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAfegirPregunta.setBounds(155, 542, 181, 70);
+		panel.add(btnAfegirPregunta);
 		
-		JLabel lblNewLabel_5 = new JLabel("Correcta");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_5.setBounds(702, 323, 70, 13);
-		panel.add(lblNewLabel_5);
+		btnGuardarKahoot = new JButton("Guardar nou Kahoot");
+		btnGuardarKahoot.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnGuardarKahoot.setBounds(370, 542, 181, 70);
+		panel.add(btnGuardarKahoot);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("");
-		chckbxNewCheckBox_1.setBounds(718, 385, 21, 21);
-		panel.add(chckbxNewCheckBox_1);
 		
-		JCheckBox chckbxNewCheckBox_1_1 = new JCheckBox("");
-		chckbxNewCheckBox_1_1.setBounds(718, 408, 21, 21);
-		panel.add(chckbxNewCheckBox_1_1);
+		//Parte de Respuestas posibles
+		txtResCorrecta = new JLabel("Correcta");
+		txtResCorrecta.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtResCorrecta.setBounds(702, 323, 70, 13);
+		panel.add(txtResCorrecta);
 		
-		JCheckBox chckbxNewCheckBox_1_2 = new JCheckBox("");
-		chckbxNewCheckBox_1_2.setBounds(718, 431, 21, 21);
-		panel.add(chckbxNewCheckBox_1_2);
+		cb1 = new JCheckBox("");
+		cb1.setBounds(718, 362, 21, 21);
+		panel.add(cb1);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(62, 357, 400, 115);
-		panel.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		cb2 = new JCheckBox("");
+		cb2.setBounds(718, 385, 21, 21);
+		panel.add(cb2);
 		
-		JTextArea areaNovaPreg = new JTextArea();
-		panel_1.add(areaNovaPreg, BorderLayout.CENTER);
+		cb3 = new JCheckBox("");
+		cb3.setBounds(718, 408, 21, 21);
+		panel.add(cb3);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(514, 362, 161, 109);
-		panel.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
-		
-		JTextArea areaRes = new JTextArea();
-		panel_2.add(areaRes, BorderLayout.CENTER);
+		cb4 = new JCheckBox("");
+		cb4.setBounds(718, 431, 21, 21);
+		panel.add(cb4);
 
+	}
+	
+	//Getters and Setters
+
+	public JTextField getTfTitol() {
+		return tfTitol;
+	}
+
+	public void setTfTitol(JTextField tfTitol) {
+		this.tfTitol = tfTitol;
+	}
+
+	public JLabel getTxtTitol() {
+		return txtTitol;
+	}
+
+	public void setTxtTitol(JLabel txtTitol) {
+		this.txtTitol = txtTitol;
+	}
+
+	public JLabel getTxtLlistaPreguntes() {
+		return txtLlistaPreguntes;
+	}
+
+	public void setTxtLlistaPreguntes(JLabel txtLlistaPreguntes) {
+		this.txtLlistaPreguntes = txtLlistaPreguntes;
+	}
+
+	public JLabel getTxtNovaPregunta() {
+		return txtNovaPregunta;
+	}
+
+	public void setTxtNovaPregunta(JLabel txtNovaPregunta) {
+		this.txtNovaPregunta = txtNovaPregunta;
+	}
+
+	public JLabel getTxtTemesAso() {
+		return txtTemesAso;
+	}
+
+	public void setTxtTemesAso(JLabel txtTemesAso) {
+		this.txtTemesAso = txtTemesAso;
+	}
+
+	public JLabel getTxtRespostes() {
+		return txtRespostes;
+	}
+
+	public void setTxtRespostes(JLabel txtRespostes) {
+		this.txtRespostes = txtRespostes;
+	}
+
+	public JLabel getTxtResCorrecta() {
+		return txtResCorrecta;
+	}
+
+	public void setTxtResCorrecta(JLabel txtResCorrecta) {
+		this.txtResCorrecta = txtResCorrecta;
+	}
+
+	public JButton getBtnAfegirPregunta() {
+		return btnAfegirPregunta;
+	}
+
+	public void setBtnAfegirPregunta(JButton btnAfegirPregunta) {
+		this.btnAfegirPregunta = btnAfegirPregunta;
+	}
+
+	public JButton getBtnGuardarKahoot() {
+		return btnGuardarKahoot;
+	}
+
+	public void setBtnGuardarKahoot(JButton btnGuardarKahoot) {
+		this.btnGuardarKahoot = btnGuardarKahoot;
+	}
+
+	public JCheckBox getCb1() {
+		return cb1;
+	}
+
+	public void setCb1(JCheckBox cb1) {
+		this.cb1 = cb1;
+	}
+
+	public JCheckBox getCb2() {
+		return cb2;
+	}
+
+	public void setCb2(JCheckBox cb2) {
+		this.cb2 = cb2;
+	}
+
+	public JCheckBox getCb3() {
+		return cb3;
+	}
+
+	public void setCb3(JCheckBox cb3) {
+		this.cb3 = cb3;
+	}
+
+	public JCheckBox getCb4() {
+		return cb4;
+	}
+
+	public void setCb4(JCheckBox cb4) {
+		this.cb4 = cb4;
+	}
+
+	public JList getListPreguntas() {
+		return listPreguntas;
+	}
+
+	public void setListPreguntas(JList listPreguntas) {
+		this.listPreguntas = listPreguntas;
+	}
+
+	public JList getListNovaPregunta() {
+		return listNovaPregunta;
+	}
+
+	public void setListNovaPregunta(JList listNovaPregunta) {
+		this.listNovaPregunta = listNovaPregunta;
+	}
+
+	public JList getListTemesAso() {
+		return listTemesAso;
+	}
+
+	public void setListTemesAso(JList listTemesAso) {
+		this.listTemesAso = listTemesAso;
+	}
+
+	public JList getListRespostes() {
+		return listRespostes;
+	}
+
+	public void setListRespostes(JList listRespostes) {
+		this.listRespostes = listRespostes;
 	}
 }
