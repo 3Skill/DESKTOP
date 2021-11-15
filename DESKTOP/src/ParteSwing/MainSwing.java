@@ -68,6 +68,7 @@ public class MainSwing extends JFrame {
 		
 		panelLogin = new Login();
 		JButton botonLogin = ((Login) panelLogin).getBotonAccedir();
+		
 		botonLogin.addActionListener(new activeBotons());
 		
 		add(panelLogin,BorderLayout.CENTER);
@@ -77,7 +78,7 @@ public class MainSwing extends JFrame {
 	
 	//Clase para gestionar las acciones de los Botones de los diferentes paneles
 	class activeBotons implements ActionListener {
-		
+		private String titolKahoot;
 
 		public void actionPerformed(ActionEvent e) {
 			
@@ -96,9 +97,12 @@ public class MainSwing extends JFrame {
 					gk = new GestorKahoots();
 					//Anyadimos el listener de crear kahoots
 					JButton botonCrearKahoots = ((GestorKahoots) gk).getBtnCrearKahoot();
+					JButton botonJugar = ((GestorKahoots) gk).getBtnJugar();
+					
 					botonCrearKahoots.addActionListener(new activeBotons());
+					botonJugar.addActionListener(new activeBotons());
 					add(gk);
-					new ServerRMI();
+					
 				} else {
 					System.out.println("login incorrecte");
 					setSize(650, 540);
@@ -110,11 +114,35 @@ public class MainSwing extends JFrame {
 			//Boton 'Crear Kahoot' de Panel GestorKahoots 
 			else if((e.getActionCommand().equals("Crear Kahoot"))) {
 				remove(gk);
+				remove(ehc);
 				repaint();
 				setTitle("Explorador de Kadamm");
 				setSize(800, 690);
 				setLocationRelativeTo(null);
 				add(new CreacionKahoots());
+			}
+			//Si le damos al boton jugar del panel 'CreacionKahoot' accedemos al panel de 'SalaDeEspera'
+			else if ((e.getActionCommand().equals("JUGAR"))) {
+				titolKahoot = ((GestorKahoots) gk).getListKahoots();
+				
+				if (titolKahoot != null) {
+					new ServerRMI();
+					remove(gk);
+					remove(ehc);
+					setTitle("Sala de Espera");
+					setSize(550, 550);
+					setLocationRelativeTo(null);
+					SalaDeEspera sde = new SalaDeEspera(titolKahoot);
+					JButton btnComencar = sde.getBtnComencar();
+					btnComencar.addActionListener(new activeBotons());
+					add(sde);
+				}else {
+					setSize(800, 650);
+					setLocationRelativeTo(null);
+					ehc.actualitzaErrors("Selecciona un Kahoot para jugar");
+					add(ehc,BorderLayout.SOUTH);
+				}
+				
 			}
 			
 			
