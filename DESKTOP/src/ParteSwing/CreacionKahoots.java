@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
 //ATTENTION:
 //PUEDE SER QUE LOS JLIST ALFINAL SEAN JTEXTAREA
 public class CreacionKahoots extends JPanel {
@@ -66,14 +67,6 @@ public class CreacionKahoots extends JPanel {
 		lblNewLabel_2_1.setBounds(62, 321, 201, 13);
 		panel.add(lblNewLabel_2_1);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(62, 362, 400, 94);
-		panel.add(scrollPane_1);
-		
-		JList list_1 = new JList(llistaNovaPregunta);
-		list_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane_1.setViewportView(list_1);
-		
 		JLabel lblNewLabel_3 = new JLabel("Temes associats");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_3.setBounds(514, 118, 151, 13);
@@ -86,14 +79,6 @@ public class CreacionKahoots extends JPanel {
 		JList list_2 = new JList(llistaTemesAssociats);
 		list_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane_2.setViewportView(list_2);
-		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(516, 360, 161, 96);
-		panel.add(scrollPane_3);
-		
-		JList list_3 = new JList(llistaRespostes);
-		list_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		scrollPane_3.setViewportView(list_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Respostes");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -130,6 +115,22 @@ public class CreacionKahoots extends JPanel {
 		JCheckBox chckbxNewCheckBox_1_2 = new JCheckBox("");
 		chckbxNewCheckBox_1_2.setBounds(718, 431, 21, 21);
 		panel.add(chckbxNewCheckBox_1_2);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(62, 357, 400, 115);
+		panel.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JTextArea areaNovaPreg = new JTextArea();
+		panel_1.add(areaNovaPreg, BorderLayout.CENTER);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(514, 362, 161, 109);
+		panel.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JTextArea areaRes = new JTextArea();
+		panel_2.add(areaRes, BorderLayout.CENTER);
 
 	}
 }
