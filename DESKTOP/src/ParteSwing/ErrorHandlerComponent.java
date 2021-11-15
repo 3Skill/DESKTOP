@@ -35,7 +35,8 @@ public class ErrorHandlerComponent extends JPanel{
 	
 	// Actualitza els missatges d'error
 	public void actualitzaErrors(String errorMessage) {
-        display.setText(display.getText() + "\n" + errorMessage);
+        //display.setText(display.getText() + "\n" + errorMessage);
+		display.setText(errorMessage);
     }
 	
 	// Recupera els missatges d'error

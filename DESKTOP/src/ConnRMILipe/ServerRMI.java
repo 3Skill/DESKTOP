@@ -7,10 +7,6 @@ import lipermi.handler.CallHandler;
 import lipermi.net.IServerListener;
 import lipermi.net.Server;
 
-
-
-
-
 public class ServerRMI implements InterRMI{
 	
    

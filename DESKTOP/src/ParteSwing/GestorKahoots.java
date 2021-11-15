@@ -23,7 +23,7 @@ public class GestorKahoots extends JPanel {
 	//Atributs
 	private JButton btnJugar,btnCrearKahoot, btnVeureDetall, btnFiltarTema, btnEditarTemes;
 	private JLabel txtTitulo, txtKahoots, txtTemes, txtTemesSeleccionats;
-	
+	private JList listKahoots;
 	//Constructor
 	public GestorKahoots() {
 		
@@ -98,10 +98,10 @@ public class GestorKahoots extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(74, 75, 327, 222);
 		panel_1.add(scrollPane_1);
-		JList list = new JList(datos);
-		list.setFont(new Font("Tahoma", Font.BOLD, 15));
-		scrollPane_1.setViewportView(list);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listKahoots = new JList(datos);
+		listKahoots.setFont(new Font("Tahoma", Font.BOLD, 15));
+		scrollPane_1.setViewportView(listKahoots);
+		listKahoots.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(543, 301, 149, 93);
@@ -186,6 +186,14 @@ public class GestorKahoots extends JPanel {
 	}
 	public void setTxtTemesSeleccionats(JLabel txtTemesSeleccionats) {
 		this.txtTemesSeleccionats = txtTemesSeleccionats;
+	}
+
+	public String getListKahoots() {
+		return (String) listKahoots.getSelectedValue();
+	}
+
+	public void setListKahoots(JList listKahoots) {
+		this.listKahoots = listKahoots;
 	}
 	
 	
