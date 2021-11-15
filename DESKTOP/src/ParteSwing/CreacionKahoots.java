@@ -21,6 +21,7 @@ public class CreacionKahoots extends JPanel {
 	private JButton btnAfegirPregunta, btnGuardarKahoot;
 	private JCheckBox cb1,cb2,cb3,cb4;
 	private JList listPreguntas,listTemesAso;
+	private JTextArea txtAreaRespostes, txtAreaPregunta;
 	
 	//Constructor
 	public CreacionKahoots() {
@@ -75,8 +76,8 @@ public class CreacionKahoots extends JPanel {
 		scrollPane_1.setBounds(62, 362, 400, 94);
 		panel.add(scrollPane_1);
 		
-		JTextArea textArea = new JTextArea();
-		scrollPane_1.setViewportView(textArea);
+		txtAreaPregunta = new JTextArea();
+		scrollPane_1.setViewportView(txtAreaPregunta);
 		
 		txtTemesAso = new JLabel("Temes associats");
 		txtTemesAso.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -95,8 +96,8 @@ public class CreacionKahoots extends JPanel {
 		scrollPane_3.setBounds(516, 360, 161, 96);
 		panel.add(scrollPane_3);
 		
-		JTextArea textArea_1 = new JTextArea();
-		scrollPane_3.setViewportView(textArea_1);
+		txtAreaRespostes = new JTextArea();
+		scrollPane_3.setViewportView(txtAreaRespostes);
 		
 		txtRespostes = new JLabel("Respostes");
 		txtRespostes.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -253,14 +254,6 @@ public class CreacionKahoots extends JPanel {
 		this.listPreguntas = listPreguntas;
 	}
 
-	public JList getListNovaPregunta() {
-		return listNovaPregunta;
-	}
-
-	public void setListNovaPregunta(JList listNovaPregunta) {
-		this.listNovaPregunta = listNovaPregunta;
-	}
-
 	public JList getListTemesAso() {
 		return listTemesAso;
 	}
@@ -269,11 +262,21 @@ public class CreacionKahoots extends JPanel {
 		this.listTemesAso = listTemesAso;
 	}
 
-	public JList getListRespostes() {
-		return listRespostes;
+	public JTextArea getTxtAreaRespostes() {
+		return txtAreaRespostes;
 	}
 
-	public void setListRespostes(JList listRespostes) {
-		this.listRespostes = listRespostes;
+	public void setTxtAreaRespostes(JTextArea txtAreaRespostes) {
+		this.txtAreaRespostes = txtAreaRespostes;
 	}
+
+	public JTextArea getTxtAreaPregunta() {
+		return txtAreaPregunta;
+	}
+
+	public void setTxtAreaPregunta(JTextArea txtAreaPregunta) {
+		this.txtAreaPregunta = txtAreaPregunta;
+	}
+	
+	
 }
