@@ -4,13 +4,22 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+
+
 import java.awt.Font;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
 
 public class SalaDeEspera extends JPanel {
 
@@ -18,7 +27,9 @@ public class SalaDeEspera extends JPanel {
 	private JLabel txtTituloPanel,txtEsperant,ipServer,txtTitol,txtIp;
 	private JButton btnComencar;
 	private JList list;
+	private DefaultListModel  modelo = new DefaultListModel(); 
 	//Constructor
+	@SuppressWarnings("unchecked")
 	public SalaDeEspera(String titolKahoot) {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -43,7 +54,9 @@ public class SalaDeEspera extends JPanel {
 		scrollPane.setBounds(185, 161, 157, 183);
 		panel.add(scrollPane);
 		
-		list = new JList();
+		
+		list = new JList(modelo);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
 		btnComencar = new JButton("COMEN\u00C7AR CONCURS");
@@ -82,7 +95,8 @@ public class SalaDeEspera extends JPanel {
 		panel_1.add(txtTitol);
 		txtTitol.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTitol.setFont(new Font("Tahoma", Font.BOLD, 19));
-
+		
+		
 	}
 	//Getters and Setters
 	public JLabel getTxtTituloPanel() {
@@ -127,5 +141,10 @@ public class SalaDeEspera extends JPanel {
 	public void setList(JList list) {
 		this.list = list;
 	}
+	public void addElementList(String name) {
+		modelo.addElement(name);
+		
+	}
+	
 	
 }
