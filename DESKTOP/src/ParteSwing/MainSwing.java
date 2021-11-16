@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -27,7 +30,7 @@ import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	//Atributos
-	private static JPanel panelLogin,gk;
+	private static JPanel panelLogin,gk,sde;
 	private LecturaXML lxml;
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	
@@ -132,8 +135,8 @@ public class MainSwing extends JFrame {
 					setTitle("Sala de Espera");
 					setSize(550, 550);
 					setLocationRelativeTo(null);
-					SalaDeEspera sde = new SalaDeEspera(titolKahoot);
-					JButton btnComencar = sde.getBtnComencar();
+					sde = new SalaDeEspera(titolKahoot);
+					JButton btnComencar = ((SalaDeEspera) sde).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
 					add(sde);
 				}else {
@@ -145,6 +148,12 @@ public class MainSwing extends JFrame {
 				
 			}
 			
+			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
+			else if ((e.getActionCommand().equals("COMENÇAR CONCURS"))) {
+				
+				int countdown = Integer.valueOf(lxml.getCountdown()); 
+				JTextField jtextfieldCountdown = ((SalaDeEspera) sde).getCountdown();
+				startCountdown(jtextfieldCountdown, countdown);
 			
 		}
 		
@@ -165,5 +174,27 @@ public class MainSwing extends JFrame {
 		}
 		return false;
 	}
+		
+	//Funcion para iniciar una cuentra atras en un JTextField
+	private void startCountdown(JTextField jTextField, int timeout) {
+			
+		Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+        	int i = timeout;
 
+            public void run() {
+
+                jTextField.setText(String.valueOf(i));
+                i--;
+                if (i < 0) {
+                    timer.cancel();
+                    
+                }
+            }
+        }, 0, 1000);
+		
+		}
+
+
+	}
 }

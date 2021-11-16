@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 
 
 public class LecturaXML {
-	private String idioma,tipus_preguntes,timeout,num_max_preguntes,rutaXML;
+	private String idioma,tipus_preguntes,timeout,num_max_preguntes,rutaXML,countdown;
 	
 	public LecturaXML() throws ParserConfigurationException, SAXException{
 		try {
@@ -31,7 +31,7 @@ public class LecturaXML {
 	         timeout = ((Element) nList.item(0)).getElementsByTagName("timeout").item(0).getTextContent(); 
 	         num_max_preguntes = ((Element) nList.item(0)).getElementsByTagName("num_max_preguntes").item(0).getTextContent(); 
 	         rutaXML = ((Element) nList.item(0)).getElementsByTagName("rutaXML").item(0).getTextContent(); 
-	         
+	         countdown = ((Element) nList.item(0)).getElementsByTagName("countdown").item(0).getTextContent(); 
 	         
 	     }
 	     catch(IOException e) {
@@ -81,7 +81,13 @@ public class LecturaXML {
 		this.rutaXML = rutaXML;
 	}
 	
-	
+	public String getCountdown() {
+		return countdown;
+	}
+
+	public void setCountdown(String countdown) {
+		this.timeout = countdown;
+	}
 	 
 }
 
