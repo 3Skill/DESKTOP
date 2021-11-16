@@ -1,15 +1,17 @@
 package ConnRMILipe;
 
 import java.net.Socket;
-import java.util.ArrayList;
+
+
+import ParteSwing.SalaDeEspera;
 
 import lipermi.handler.CallHandler;
 import lipermi.net.IServerListener;
 import lipermi.net.Server;
 
 public class ServerRMI implements InterRMI{
-	
-   
+    
+    private SalaDeEspera sde ;
     public ServerRMI() {
        
         try {
@@ -22,13 +24,14 @@ public class ServerRMI implements InterRMI{
                 @Override
                 public void clientDisconnected(Socket arg0) {
                     System.out.println("Cliente Desconectado = "+arg0);
-                    
+                    //Aqui faltara implememtar que se borre el nombre de la sala de espera cuando se desconecte
+                    //Se podria hacer almacenando los clientes en un hash 
                 }
                 
                 @Override
                 public void clientConnected(Socket arg0) {
                     System.out.println("Cliente Conectado = "+arg0);
-                    
+                    sde.addElementList(arg0.toString());//Aqui esta el problema
                 }
             });
             System.out.println("Servidor iniciado correctamente");
@@ -36,4 +39,9 @@ public class ServerRMI implements InterRMI{
             System.err.println("Error: No se ha podido iniciar el Servidor");
         }
     }
+    
+    public void setSalaEspera(SalaDeEspera sde) {
+    	this.sde =  sde;
+    }
+	
 }
