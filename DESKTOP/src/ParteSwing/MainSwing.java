@@ -22,7 +22,7 @@ import kadamm.hibernate.dao.*;
 import kadamm.hibernate.util.*;
 import kadamm.hibernate.test.*;
 
-import sun.jvm.hotspot.debugger.posix.elf.ELFSectionHeader;
+
 import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
@@ -31,39 +31,41 @@ public class MainSwing extends JFrame {
 	
 
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
+	private UsuariDao ud = new UsuariDao();
 	
 	
-//	// comentada funcionaltat a la espera de connexiï¿½ entre repos
-//	public boolean login(String nom, String pass) {
-//		
-//		// comentat a la espera de establir connexio entre repos
-//		Usuari usuari = ud.recuperarUsuariPerNom(nom);
-//		System.out.println(usuari.getPassword());
-//		
-//		
-//		if (usuari.getPassword().equals(pass)) {
-//			return true;
-//		} else {
-//			ehc.actualitzaErrors("Contrasenya incorrecta");
-//		}
-//		return false;
-//		
-//	}
-//	
+	// comentada funcionaltat a la espera de connexio entre repos
 	public boolean login(String nom, String pass) {
-		String usuariNom = nom;
-		String usuariPass = pass;
-		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
+		
+		// comentat a la espera de establir connexio entre repos
+		Usuari usuari = ud.getUsuariByName(nom);
+		
+		System.out.println(usuari.getPassword());
+		
+		
+		if (usuari.getPassword().equals(pass)) {
 			return true;
 		} else {
-			
-			ehc.actualitzaErrors("Login incorrecte");
-			
-			
-			
+			ehc.actualitzaErrors("Contrasenya incorrecta");
 		}
 		return false;
+		
 	}
+//	
+//	public boolean login(String nom, String pass) {
+//		String usuariNom = nom;
+//		String usuariPass = pass;
+//		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
+//			return true;
+//		} else {
+//			
+//			ehc.actualitzaErrors("Login incorrecte");
+//			
+//			
+//			
+//		}
+//		return false;
+//	}
 	
 
 	private static String[] arrayConf = new String[5];
@@ -118,9 +120,11 @@ public class MainSwing extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			if ((e.getActionCommand().equals("Accedir"))){
+				String nom = ((Login) panelLogin).getTextField().getText().toString();
+				String pass = ((Login) panelLogin).getPasswordField().getText();
+				System.out.println(nom + " " + pass);
 				
-				if(login(((Login) panelLogin).getTextField().getText(), 
-						((Login) panelLogin).getPasswordField().getText()) == true) {
+				if(login(nom, pass) == true) {
 					remove(panelLogin);
 					remove(ehc);
 					setTitle("Explorador de Kadamm");
@@ -155,6 +159,7 @@ public class MainSwing extends JFrame {
 	}
 	public static void main(String[] args) {
 		new MainSwing();
+		
 		
 		
 	}
