@@ -35,10 +35,37 @@ public class MainSwing extends JFrame {
 	private static JPanel panelLogin,gk,sde;
 	private LecturaXML lxml;
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
+	private UsuariDao ud = new UsuariDao();
 	
 	//Metodo main
 	public static void main(String[] args) {
 		new MainSwing();
+	}
+	
+	public boolean login(String nom, String pass) {
+		
+		// comentat a la espera de establir connexio entre repos
+		
+		try {
+			Usuari usuari = ud.getUsuariByName(nom);
+			
+			System.out.println(usuari.getPassword());
+			
+			
+			if (usuari.getPassword().equals(pass)) {
+				return true;
+			} else {
+				ehc.actualitzaErrors("Contrasenya incorrecta");
+			}
+		} catch (IllegalStateException ise) {
+			ehc.actualitzaErrors("Aquest usuari no existeix");
+			ise.printStackTrace();
+		} catch (Exception e) {
+			ehc.actualitzaErrors("Error no controlat");
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
 	//Constructor
@@ -87,11 +114,13 @@ public class MainSwing extends JFrame {
 			
 			//Boton 'Accedir' de Panel Login
 			if ((e.getActionCommand().equals("Accedir"))){
+				// Capturem els valors de usuari i password
+				String nom = ((Login) panelLogin).gettfUsuari().getText().toString();
+				String pass = ((Login) panelLogin).getPasswordField().getText();
 				
 				//Comprobaciones de que el login sea correct
 				
-				if(login(((Login) panelLogin).gettfUsuari().getText(), 
-						((Login) panelLogin).getPasswordField().getText()) == true) {
+				if(login(nom, pass) == true) {
 					remove(panelLogin);
 					remove(ehc);
 					setTitle("Explorador de Kadamm");
@@ -139,9 +168,9 @@ public class MainSwing extends JFrame {
 					JButton btnComencar = ((SalaDeEspera) sde).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
 					add(sde);
-					JList listaConcursantes = sde.getList();
+					JList listaConcursantes = ((SalaDeEspera) sde).getList();
 					//sde.addElementList(new JLabel("Hola"));
-					server.setSalaEspera(sde);
+					server.setSalaEspera((SalaDeEspera) sde);
 				}else {
 					setSize(800, 650);
 					setLocationRelativeTo(null);
@@ -162,21 +191,6 @@ public class MainSwing extends JFrame {
 		
 	}
 	
-	//Funcion para comprobar User/Pass del panel Login
-	public boolean login(String nom, String pass) {
-		String usuariNom = nom;
-		String usuariPass = pass;
-		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
-			return true;
-		} else {
-			
-			ehc.actualitzaErrors("Login incorrecte");
-			
-			
-			
-		}
-		return false;
-	}
 		
 	//Funcion para iniciar una cuentra atras en un JTextField
 	private void startCountdown(JTextField jTextField, int timeout) {
