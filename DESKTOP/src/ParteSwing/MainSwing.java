@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,7 +34,8 @@ import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	//Atributos
-	private static JPanel panelLogin,gk,sde,concurs;
+
+	private static JPanel panelLogin,gk,sde,ck,concurs;
 	private LecturaXML lxml;
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	private UsuariDao ud = new UsuariDao();
@@ -151,7 +154,10 @@ public class MainSwing extends JFrame {
 				setTitle("Explorador de Kadamm");
 				setSize(800, 690);
 				setLocationRelativeTo(null);
-				add(new CreacionKahoots());
+				ck = new CreacionKahoots();
+				JButton btn = ((CreacionKahoots) ck).getBtnAfegirPregunta();
+				btn.addActionListener(new activeBotons());
+				add(ck);
 			}
 			//Si le damos al boton jugar del panel 'CreacionKahoot' accedemos al panel de 'SalaDeEspera'
 			else if ((e.getActionCommand().equals("JUGAR"))) {
@@ -195,6 +201,44 @@ public class MainSwing extends JFrame {
 				
 			}
 			
+
+			}
+			
+			
+			else if ((e.getActionCommand().equals("Afegir pregunta"))) {
+				
+				Respostes resposta1 = null;
+				Respostes resposta2 = null;
+				
+				System.out.println("Entra");
+				Preguntes pregunta1 = new Preguntes(((CreacionKahoots) ck).getTxtAreaPregunta().getText(), 4);
+				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
+				ArrayList<JCheckBox> checkboxes= new ArrayList<JCheckBox>();
+				checkboxes.add(((CreacionKahoots) ck).getCb1());
+				checkboxes.add(((CreacionKahoots) ck).getCb2());
+				checkboxes.add(((CreacionKahoots) ck).getCb3());
+				checkboxes.add(((CreacionKahoots) ck).getCb4());
+				
+				respostes.add(resposta1);
+				respostes.add(resposta2);
+				String[] AreaRespostes = ((CreacionKahoots) ck).getTxtAreaRespostes().getText().split("\n");
+//				Respostes resposta1 = new Respostes(((CreacionKahoots) ck).getTxtAreaRespostes().getText(), ((CreacionKahoots) ck).getCb1().isSelected(), 19);
+				for (int i = 0; i < AreaRespostes.length; i++) {
+					Respostes resposta = new Respostes(AreaRespostes[i], checkboxes.get(i).isSelected(), 19);
+					respostes.set(i, resposta);
+					
+				}
+//				Respostes resposta1 = new Respostes(AreaRespostes[0], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
+//				Respostes resposta2 = new Respostes(AreaRespostes[1], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
+//				respostes.add(resposta1);
+//				respostes.add(resposta2);
+				((CreacionKahoots) ck).checkNewPregunta(pregunta1, respostes);
+
+				
+			
+			}
+			
+
 			//Si le damos a seguent pregunta es creara una altre presentacio
 			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 				
@@ -214,7 +258,7 @@ public class MainSwing extends JFrame {
 				startCountdownConcurs(((Concurs) concurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
 				
 			}
-		
+
 		
 	}
 	

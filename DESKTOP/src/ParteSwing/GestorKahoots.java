@@ -132,6 +132,7 @@ public class GestorKahoots extends JPanel {
 
 	}
 	
+	
 	//Getters and Setters
 	public JButton getBtnJugar() {
 		return btnJugar;
