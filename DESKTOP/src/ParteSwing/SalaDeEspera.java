@@ -4,15 +4,27 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+
+
 import java.awt.Font;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+
 import javax.swing.JTextField;
 import java.awt.SystemColor;
+
+import javax.swing.ListSelectionModel;
+
 
 public class SalaDeEspera extends JPanel {
 
@@ -20,8 +32,13 @@ public class SalaDeEspera extends JPanel {
 	private JLabel txtTituloPanel,txtEsperant,ipServer,txtTitol,txtIp;
 	private JButton btnComencar;
 	private JList list;
+
 	private JTextField countdown;
+
+	private DefaultListModel  modelo = new DefaultListModel(); 
+
 	//Constructor
+	@SuppressWarnings("unchecked")
 	public SalaDeEspera(String titolKahoot) {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -46,10 +63,12 @@ public class SalaDeEspera extends JPanel {
 		scrollPane.setBounds(185, 161, 157, 183);
 		panel.add(scrollPane);
 		
-		list = new JList();
+		
+		list = new JList(modelo);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
-		btnComencar = new JButton("COMENÇAR CONCURS");
+		btnComencar = new JButton("COMENï¿½AR CONCURS");
 		btnComencar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnComencar.setBounds(156, 354, 220, 50);
 		panel.add(btnComencar);
@@ -86,6 +105,7 @@ public class SalaDeEspera extends JPanel {
 		txtTitol.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTitol.setFont(new Font("Tahoma", Font.BOLD, 19));
 		
+
 		// Countdown Sala de espera (Timeout XML)  al comenzar kahoot
 		countdown = new JTextField();
 		countdown.setBackground(Color.WHITE);
@@ -95,6 +115,9 @@ public class SalaDeEspera extends JPanel {
 		countdown.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		panel.add(countdown);
 		countdown.setColumns(10);
+
+
+		
 
 	}
 	
@@ -145,6 +168,7 @@ public class SalaDeEspera extends JPanel {
 		this.list = list;
 	}
 
+
 	public JTextField getCountdown() {
 		return countdown;
 	}
@@ -152,5 +176,12 @@ public class SalaDeEspera extends JPanel {
 	public void setCountdown(JTextField countdown) {
 		this.countdown = countdown;
 	}
+
+	public void addElementList(String name) {
+		modelo.addElement(name);
+		
+	}
+	
+
 	
 }

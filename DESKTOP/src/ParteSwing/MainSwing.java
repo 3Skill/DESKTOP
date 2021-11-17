@@ -10,6 +10,8 @@ import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -37,8 +39,6 @@ public class MainSwing extends JFrame {
 	//Metodo main
 	public static void main(String[] args) {
 		new MainSwing();
-		
-		
 	}
 	
 	//Constructor
@@ -129,7 +129,7 @@ public class MainSwing extends JFrame {
 				titolKahoot = ((GestorKahoots) gk).getListKahoots();
 				
 				if (titolKahoot != null) {
-					new ServerRMI();
+					ServerRMI server = new ServerRMI();
 					remove(gk);
 					remove(ehc);
 					setTitle("Sala de Espera");
@@ -139,6 +139,9 @@ public class MainSwing extends JFrame {
 					JButton btnComencar = ((SalaDeEspera) sde).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
 					add(sde);
+					JList listaConcursantes = sde.getList();
+					//sde.addElementList(new JLabel("Hola"));
+					server.setSalaEspera(sde);
 				}else {
 					setSize(800, 650);
 					setLocationRelativeTo(null);
