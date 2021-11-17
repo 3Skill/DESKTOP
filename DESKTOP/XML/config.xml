@@ -2,8 +2,8 @@
 <configuration>
 	<idioma>espanol</idioma>
 	<tipus_preguntes>1</tipus_preguntes>
-	<timeout>30</timeout>
+	<timeout>10</timeout>
 	<num_max_preguntes>20</num_max_preguntes>
 	<rutaXML>. XML creacioKahoot.xml</rutaXML>
-	<countdown>10</countdown>
+	<countdown>3</countdown>
 </configuration>

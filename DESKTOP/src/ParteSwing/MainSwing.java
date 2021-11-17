@@ -32,7 +32,7 @@ import clasesXML.LecturaXML;
 public class MainSwing extends JFrame {
 	
 	//Atributos
-	private static JPanel panelLogin,gk,sde;
+	private static JPanel panelLogin,gk,sde,concurs;
 	private LecturaXML lxml;
 	private ErrorHandlerComponent ehc = new ErrorHandlerComponent();
 	private UsuariDao ud = new UsuariDao();
@@ -181,36 +181,98 @@ public class MainSwing extends JFrame {
 			}
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
-			else if ((e.getActionCommand().equals("COMENÇAR CONCURS"))) {
-				
+			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
+		
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
 				JTextField jtextfieldCountdown = ((SalaDeEspera) sde).getCountdown();
+				concurs = new Concurs();
+				JButton botonNextQuest = ((Concurs) concurs).getBtnNextQuest();
+				botonNextQuest.addActionListener(new activeBotons());
+				String txtTemps = ((Concurs) concurs).getTxtTemps().getText();
 				startCountdown(jtextfieldCountdown, countdown);
+				
+				
+				
+			}
 			
-		}
+			//Si le damos a seguent pregunta es creara una altre presentacio
+			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
+				
+				
+				
+				
+				remove(concurs);
+				concurs = new Concurs();
+				JButton botonNextQuest = ((Concurs) concurs).getBtnNextQuest();
+				botonNextQuest.addActionListener(new activeBotons());
+				setTitle("Concurs");
+				setResizable(true);
+				setSize(800, 750);
+				setLocationRelativeTo(null);
+				add(concurs);
+				repaint();
+				startCountdownConcurs(((Concurs) concurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
+				
+			}
+		
 		
 	}
 	
 		
-	//Funcion para iniciar una cuentra atras en un JTextField
-	private void startCountdown(JTextField jTextField, int timeout) {
+		//Funcion para iniciar una cuentra atras en un JTextField
+		private void startCountdown(JTextField jTextField, int timeout) {
+				
+			Timer timer = new Timer();
+	        timer.scheduleAtFixedRate(new TimerTask() {
+	        	int i = timeout;
+	
+	            public void run() {
+	
+	                jTextField.setText(String.valueOf(i));
+	                i--;
+	                if (i < 0) {
+	                    timer.cancel();
+	                    
+	                    remove(sde);
+	    				remove(ehc);
+	    				setTitle("Concurs");
+	    				setResizable(true);
+	    				setSize(800, 750);
+	    				setLocationRelativeTo(null);
+	    				add(concurs);
+	    				repaint();
+	    				startCountdownConcurs(((Concurs) concurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
+	                }
+	            }
+	
+				
+	        }, 0, 1000);
 			
-		Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-        	int i = timeout;
-
-            public void run() {
-
-                jTextField.setText(String.valueOf(i));
-                i--;
-                if (i < 0) {
-                    timer.cancel();
-                    
-                }
-            }
-        }, 0, 1000);
-		
 		}
+	
+		//Funcion para iniciar una cuentra atras en el Concurso para poder activar el boton
+		private void startCountdownConcurs(JLabel txt,int timeout) {
+				
+			Timer timer = new Timer();
+	        timer.scheduleAtFixedRate(new TimerTask() {
+	        	int i = timeout;
+
+	            public void run() {
+
+	                txt.setText(String.valueOf(i));
+	                i--;
+	                if (i < 0) {
+	                    timer.cancel();
+	                    ((Concurs) concurs).setEnabledButton();
+	                    
+	                }
+	            }
+
+				
+	        }, 0, 1000);
+			
+		}
+	
 
 
 	}

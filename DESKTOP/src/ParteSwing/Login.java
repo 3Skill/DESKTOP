@@ -61,7 +61,7 @@ public class Login extends JPanel {
 		txtUsuari.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		txtContra = new JLabel("Contrasenya:");
-		txtContra.setBounds(167, 242, 82, 18);
+		txtContra.setBounds(166, 242, 83, 18);
 		txtContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		
