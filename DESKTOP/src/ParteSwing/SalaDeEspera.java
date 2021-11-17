@@ -68,7 +68,7 @@ public class SalaDeEspera extends JPanel {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
-		btnComencar = new JButton("COMEN�AR CONCURS");
+		btnComencar = new JButton("COMENCAR CONCURS");
 		btnComencar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnComencar.setBounds(156, 354, 220, 50);
 		panel.add(btnComencar);
