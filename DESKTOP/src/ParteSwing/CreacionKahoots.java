@@ -4,7 +4,14 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import kadamm.hibernate.model.*;
+import kadamm.hibernate.dao.*;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -22,6 +29,9 @@ public class CreacionKahoots extends JPanel {
 	private JCheckBox cb1,cb2,cb3,cb4;
 	private JList listPreguntas,listTemesAso;
 	private JTextArea txtAreaRespostes, txtAreaPregunta;
+	private PreguntesDao pd = new PreguntesDao();
+	private RespostesDao rd = new RespostesDao();
+	
 	
 	//Constructor
 	public CreacionKahoots() {
@@ -110,6 +120,21 @@ public class CreacionKahoots extends JPanel {
 		btnAfegirPregunta.setBounds(155, 542, 181, 70);
 		panel.add(btnAfegirPregunta);
 		
+		btnAfegirPregunta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Objectes de test
+				Preguntes pregunta1 = new Preguntes("Es correcte la pregunta?", 4);
+				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
+				Respostes resposta1 = new Respostes("Es correcte", true, 19);
+				Respostes resposta2 = new Respostes("Es incorrecte", false, 19);
+				respostes.add(resposta1);
+				respostes.add(resposta2);
+				checkNewPregunta(pregunta1, respostes);
+				saveNewPregunta(pregunta1, respostes);
+				
+			}
+		});
+		
 		btnGuardarKahoot = new JButton("Guardar nou Kahoot");
 		btnGuardarKahoot.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnGuardarKahoot.setBounds(370, 542, 181, 70);
@@ -137,6 +162,11 @@ public class CreacionKahoots extends JPanel {
 		cb4 = new JCheckBox("");
 		cb4.setBounds(718, 431, 21, 21);
 		panel.add(cb4);
+		
+		
+		
+		
+		
 
 	}
 	
@@ -277,6 +307,39 @@ public class CreacionKahoots extends JPanel {
 	public void setTxtAreaPregunta(JTextArea txtAreaPregunta) {
 		this.txtAreaPregunta = txtAreaPregunta;
 	}
+	
+	// Funcionalitats de la pantalla
+	
+	
+	
+	
+	// Logica per guardar la pregunta
+	
+	public boolean checkNewPregunta(Preguntes pregunta1, ArrayList<Respostes> respostes) {
+//		if(txtAreaRespostes.getLineCount()>1) {
+		if(respostes.size()>1) {
+			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()) {
+				System.out.println("Guardem la pregunta");
+				saveNewPregunta(pregunta1, respostes);
+				return true;
+			} else {
+				System.out.println("La pregunta no conté cap reposta correcta");
+			}
+		} else {
+			System.out.println("La pregunta no te 2 o més respostes");
+		}
+		return false;
+	}
+	
+	public void saveNewPregunta(Preguntes pregunta, ArrayList<Respostes> respostes) {
+		pd.savePregunta(pregunta);
+//		long idPregunta = pregunta.getIdPreguntes();
+		rd.saveResposta(respostes.get(0));
+		rd.saveResposta(respostes.get(1));
+		
+	}
+	
+	
 	
 	
 }
