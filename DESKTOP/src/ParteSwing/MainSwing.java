@@ -60,21 +60,6 @@ public class MainSwing extends JFrame {
 		return false;
 		
 	}
-//	
-//	public boolean login(String nom, String pass) {
-//		String usuariNom = nom;
-//		String usuariPass = pass;
-//		if (usuariPass.equals("1234")) {   // "1234" per poder testejar incorrecte
-//			return true;
-//		} else {
-//			
-//			ehc.actualitzaErrors("Login incorrecte");
-//			
-//			
-//			
-//		}
-//		return false;
-//	}
 	
 
 	private static String[] arrayConf = new String[5];
