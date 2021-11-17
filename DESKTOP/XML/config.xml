@@ -5,4 +5,5 @@
 	<timeout>30</timeout>
 	<num_max_preguntes>20</num_max_preguntes>
 	<rutaXML>. XML creacioKahoot.xml</rutaXML>
+	<countdown>10</countdown>
 </configuration>

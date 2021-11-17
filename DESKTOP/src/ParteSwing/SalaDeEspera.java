@@ -19,7 +19,12 @@ import javax.swing.ListModel;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+
+import javax.swing.JTextField;
+import java.awt.SystemColor;
+
 import javax.swing.ListSelectionModel;
+
 
 public class SalaDeEspera extends JPanel {
 
@@ -27,7 +32,11 @@ public class SalaDeEspera extends JPanel {
 	private JLabel txtTituloPanel,txtEsperant,ipServer,txtTitol,txtIp;
 	private JButton btnComencar;
 	private JList list;
+
+	private JTextField countdown;
+
 	private DefaultListModel  modelo = new DefaultListModel(); 
+
 	//Constructor
 	@SuppressWarnings("unchecked")
 	public SalaDeEspera(String titolKahoot) {
@@ -59,20 +68,20 @@ public class SalaDeEspera extends JPanel {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
-		btnComencar = new JButton("COMEN\u00C7AR CONCURS");
+		btnComencar = new JButton("COMEN�AR CONCURS");
 		btnComencar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnComencar.setBounds(156, 354, 220, 50);
 		panel.add(btnComencar);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel_1.setBounds(109, 10, 315, 102);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel panel_Kahoot_Ip = new JPanel();
+		panel_Kahoot_Ip.setBackground(Color.LIGHT_GRAY);
+		panel_Kahoot_Ip.setBounds(109, 10, 315, 102);
+		panel.add(panel_Kahoot_Ip);
+		panel_Kahoot_Ip.setLayout(null);
 		
 		txtIp = new JLabel("IP:");
 		txtIp.setBounds(67, 79, 30, 13);
-		panel_1.add(txtIp);
+		panel_Kahoot_Ip.add(txtIp);
 		txtIp.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
 		ipServer = new JLabel("New label");
@@ -86,18 +95,35 @@ public class SalaDeEspera extends JPanel {
 		}
 		ipServer.setText(address.getHostAddress());
 		ipServer.setBounds(91, 79, 135, 13);
-		panel_1.add(ipServer);
+		panel_Kahoot_Ip.add(ipServer);
 		ipServer.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
 		txtTitol = new JLabel(titolKahoot);
 		txtTitol.setForeground(Color.RED);
 		txtTitol.setBounds(10, 23, 297, 31);
-		panel_1.add(txtTitol);
+		panel_Kahoot_Ip.add(txtTitol);
 		txtTitol.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTitol.setFont(new Font("Tahoma", Font.BOLD, 19));
 		
+
+		// Countdown Sala de espera (Timeout XML)  al comenzar kahoot
+		countdown = new JTextField();
+		countdown.setBackground(Color.WHITE);
+		countdown.setForeground(new Color(0, 0, 139));
+		countdown.setFont(new Font("Tahoma", Font.PLAIN, 80));
+		countdown.setBounds(374, 171, 140, 144);
+		countdown.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		panel.add(countdown);
+		countdown.setColumns(10);
+
+
 		
+
 	}
+	
+	
+	
+	
 	//Getters and Setters
 	public JLabel getTxtTituloPanel() {
 		return txtTituloPanel;
@@ -141,10 +167,21 @@ public class SalaDeEspera extends JPanel {
 	public void setList(JList list) {
 		this.list = list;
 	}
+
+
+	public JTextField getCountdown() {
+		return countdown;
+	}
+
+	public void setCountdown(JTextField countdown) {
+		this.countdown = countdown;
+	}
+
 	public void addElementList(String name) {
 		modelo.addElement(name);
 		
 	}
 	
+
 	
 }
