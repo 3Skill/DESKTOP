@@ -38,15 +38,24 @@ public class MainSwing extends JFrame {
 	public boolean login(String nom, String pass) {
 		
 		// comentat a la espera de establir connexio entre repos
-		Usuari usuari = ud.getUsuariByName(nom);
 		
-		System.out.println(usuari.getPassword());
-		
-		
-		if (usuari.getPassword().equals(pass)) {
-			return true;
-		} else {
-			ehc.actualitzaErrors("Contrasenya incorrecta");
+		try {
+			Usuari usuari = ud.getUsuariByName(nom);
+			
+			System.out.println(usuari.getPassword());
+			
+			
+			if (usuari.getPassword().equals(pass)) {
+				return true;
+			} else {
+				ehc.actualitzaErrors("Contrasenya incorrecta");
+			}
+		} catch (IllegalStateException ise) {
+			ehc.actualitzaErrors("Aquest usuari no existeix");
+			ise.printStackTrace();
+		} catch (Exception e) {
+			ehc.actualitzaErrors("Error no controlat");
+			e.printStackTrace();
 		}
 		return false;
 		
