@@ -202,7 +202,7 @@ public class MainSwing extends JFrame {
 			}
 			
 
-			}
+			
 			
 			
 			else if ((e.getActionCommand().equals("Afegir pregunta"))) {
