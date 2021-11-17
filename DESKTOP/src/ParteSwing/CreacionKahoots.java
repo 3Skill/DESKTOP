@@ -120,20 +120,6 @@ public class CreacionKahoots extends JPanel {
 		btnAfegirPregunta.setBounds(155, 542, 181, 70);
 		panel.add(btnAfegirPregunta);
 		
-		btnAfegirPregunta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Objectes de test
-				Preguntes pregunta1 = new Preguntes("Es correcte la pregunta?", 4);
-				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
-				Respostes resposta1 = new Respostes("Es correcte", true, 19);
-				Respostes resposta2 = new Respostes("Es incorrecte", false, 19);
-				respostes.add(resposta1);
-				respostes.add(resposta2);
-				checkNewPregunta(pregunta1, respostes);
-				saveNewPregunta(pregunta1, respostes);
-				
-			}
-		});
 		
 		btnGuardarKahoot = new JButton("Guardar nou Kahoot");
 		btnGuardarKahoot.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -317,7 +303,7 @@ public class CreacionKahoots extends JPanel {
 	
 	public boolean checkNewPregunta(Preguntes pregunta1, ArrayList<Respostes> respostes) {
 //		if(txtAreaRespostes.getLineCount()>1) {
-		if(respostes.size()>1) {
+		if(respostes.get(1) != null) {
 			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()) {
 				System.out.println("Guardem la pregunta");
 				saveNewPregunta(pregunta1, respostes);
@@ -333,8 +319,11 @@ public class CreacionKahoots extends JPanel {
 	
 	public void saveNewPregunta(Preguntes pregunta, ArrayList<Respostes> respostes) {
 		pd.savePregunta(pregunta);
-//		long idPregunta = pregunta.getIdPreguntes();
+		long idPregunta = pregunta.getIdPreguntes();
+		System.out.println(idPregunta);
+		respostes.get(0).setIdPregunta(idPregunta);
 		rd.saveResposta(respostes.get(0));
+		respostes.get(1).setIdPregunta(idPregunta);
 		rd.saveResposta(respostes.get(1));
 		
 	}
