@@ -22,10 +22,7 @@ import java.awt.event.ActionEvent;
 public class Concurs extends JPanel {
 	//Atributos
 	private JLabel txtPregunta;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JLabel txtResposta;
 	private JButton btnNextQuest;
 	private JLabel txtTemps;
 
@@ -43,29 +40,32 @@ public class Concurs extends JPanel {
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(2, 2, 13, 13));
 		
-		textField = new JTextField("Resposta1");
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setBackground(Color.GREEN);
-		panel.add(textField);
-		
-		textField_1 = new JTextField("Resposta2");
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setBackground(Color.RED);
-		panel.add(textField_1);
-		
-		textField_2 = new JTextField("Resposta3");
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setBackground(Color.CYAN);
-		panel.add(textField_2);
-		
-		textField_3 = new JTextField("Resposta4");
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setBackground(Color.ORANGE);
-		panel.add(textField_3);
+		for(int i = 0; i< 4 ;i++) {
+			JPanel panelRespuesta = new JPanel();
+			panelRespuesta.setLayout(new BorderLayout());
+			txtResposta = new JLabel("Resposta "+(i+1));
+			txtResposta.setFont(new Font("Tahoma", Font.BOLD, 15));
+			txtResposta.setHorizontalAlignment(SwingConstants.CENTER);
+			switch(i) {
+				case 0:
+					panelRespuesta.setBackground(Color.CYAN);
+					break;
+				case 1:
+					panelRespuesta.setBackground(Color.RED);
+					break;
+				case 2:
+					panelRespuesta.setBackground(Color.ORANGE);
+					break;
+				case 3:
+					panelRespuesta.setBackground(Color.GREEN);
+					break;
+				
+			}
+			
+			
+			panelRespuesta.add(txtResposta);
+			panel.add(panelRespuesta);
+		}
 		
 		JPanel panel2 = new JPanel();
 		add(panel2, BorderLayout.SOUTH);
@@ -93,37 +93,7 @@ public class Concurs extends JPanel {
 		this.txtPregunta = txtPregunta;
 	}
 
-	public JTextField getTextField() {
-		return textField;
-	}
-
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
-
-	public JTextField getTextField_1() {
-		return textField_1;
-	}
-
-	public void setTextField_1(JTextField textField_1) {
-		this.textField_1 = textField_1;
-	}
-
-	public JTextField getTextField_2() {
-		return textField_2;
-	}
-
-	public void setTextField_2(JTextField textField_2) {
-		this.textField_2 = textField_2;
-	}
-
-	public JTextField getTextField_3() {
-		return textField_3;
-	}
-
-	public void setTextField_3(JTextField textField_3) {
-		this.textField_3 = textField_3;
-	}
+	
 
 	public JButton getBtnNextQuest() {
 		return btnNextQuest;
