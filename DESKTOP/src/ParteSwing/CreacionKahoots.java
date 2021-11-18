@@ -19,6 +19,14 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.GridLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class CreacionKahoots extends JPanel {
 	
@@ -31,6 +39,9 @@ public class CreacionKahoots extends JPanel {
 	private JTextArea txtAreaRespostes, txtAreaPregunta;
 	private PreguntesDao pd = new PreguntesDao();
 	private RespostesDao rd = new RespostesDao();
+	private JPanel panel_1;
+	private JLabel lblNewLabel_1;
+	private JButton btnEnrere;
 	
 	
 	//Constructor
@@ -38,11 +49,6 @@ public class CreacionKahoots extends JPanel {
 		
 		//Confg general del panel
 		setLayout(new BorderLayout(0, 0));
-		JLabel lblNewLabel = new JLabel("Crear Kahoot");
-		lblNewLabel.setBackground(Color.GRAY);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel, BorderLayout.NORTH);
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		add(panel, BorderLayout.CENTER);
@@ -117,13 +123,13 @@ public class CreacionKahoots extends JPanel {
 		//Botones
 		btnAfegirPregunta = new JButton("Afegir pregunta");
 		btnAfegirPregunta.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAfegirPregunta.setBounds(155, 542, 181, 70);
+		btnAfegirPregunta.setBounds(216, 491, 181, 70);
 		panel.add(btnAfegirPregunta);
 		
 		
 		btnGuardarKahoot = new JButton("Guardar nou Kahoot");
 		btnGuardarKahoot.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnGuardarKahoot.setBounds(370, 542, 181, 70);
+		btnGuardarKahoot.setBounds(431, 491, 181, 70);
 		panel.add(btnGuardarKahoot);
 		
 		
@@ -148,6 +154,38 @@ public class CreacionKahoots extends JPanel {
 		cb4 = new JCheckBox("");
 		cb4.setBounds(718, 431, 21, 21);
 		panel.add(cb4);
+		
+		panel_1 = new JPanel();
+		add(panel_1, BorderLayout.NORTH);
+		
+		btnEnrere = new JButton("Enrere");
+		btnEnrere.setForeground(Color.RED);
+		btnEnrere.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		lblNewLabel_1 = new JLabel("Crear Kahoot");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 19));
+		lblNewLabel_1.setBackground(Color.GRAY);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(23)
+					.addComponent(btnEnrere, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+					.addGap(193)
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(381, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnEnrere, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1))
+					.addContainerGap(19, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		
 		
@@ -293,6 +331,13 @@ public class CreacionKahoots extends JPanel {
 	public void setTxtAreaPregunta(JTextArea txtAreaPregunta) {
 		this.txtAreaPregunta = txtAreaPregunta;
 	}
+	public JButton getBtnEnrere() {
+		return btnEnrere;
+	}
+
+	public void setBtnEnrere(JButton btnEnrere) {
+		this.btnEnrere = btnEnrere;
+	}
 	
 	// Funcionalitats de la pantalla
 	
@@ -301,6 +346,8 @@ public class CreacionKahoots extends JPanel {
 	
 	// Logica per guardar la pregunta
 	
+	
+
 	public boolean checkNewPregunta(Preguntes pregunta1, ArrayList<Respostes> respostes) {
 //		if(txtAreaRespostes.getLineCount()>1) {
 		if(respostes.get(1) != null) {
@@ -327,8 +374,4 @@ public class CreacionKahoots extends JPanel {
 		rd.saveResposta(respostes.get(1));
 		
 	}
-	
-	
-	
-	
 }

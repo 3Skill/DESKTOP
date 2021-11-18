@@ -151,13 +151,30 @@ public class MainSwing extends JFrame {
 				remove(gk);
 				remove(ehc);
 				repaint();
-				setTitle("Explorador de Kadamm");
+				setTitle("Creador de Kadamm");
 				setSize(800, 690);
 				setLocationRelativeTo(null);
 				ck = new CreacionKahoots();
-				JButton btn = ((CreacionKahoots) ck).getBtnAfegirPregunta();
-				btn.addActionListener(new activeBotons());
+				JButton btnCearKahoot = ((CreacionKahoots) ck).getBtnAfegirPregunta();
+				JButton btnEnrere = ((CreacionKahoots) ck).getBtnEnrere();
+				btnEnrere.addActionListener(new activeBotons());
+				btnCearKahoot.addActionListener(new activeBotons());
 				add(ck);
+			}
+			else if((e.getActionCommand().equals("Enrere"))) {
+				remove(ck);
+				remove(ehc);
+				setTitle("Explorador de Kadamm");
+				setSize(800, 600);
+				setLocationRelativeTo(null);
+				gk = new GestorKahoots();
+				//Anyadimos el listener de crear kahoots
+				JButton botonCrearKahoots = ((GestorKahoots) gk).getBtnCrearKahoot();
+				JButton botonJugar = ((GestorKahoots) gk).getBtnJugar();
+				
+				botonCrearKahoots.addActionListener(new activeBotons());
+				botonJugar.addActionListener(new activeBotons());
+				add(gk);
 			}
 			//Si le damos al boton jugar del panel 'CreacionKahoot' accedemos al panel de 'SalaDeEspera'
 			else if ((e.getActionCommand().equals("JUGAR"))) {
