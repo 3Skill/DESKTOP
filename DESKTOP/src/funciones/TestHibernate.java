@@ -1,4 +1,4 @@
-package ParteSwing;
+package funciones;
 
 import kadamm.hibernate.dao.*;
 import kadamm.hibernate.model.*;

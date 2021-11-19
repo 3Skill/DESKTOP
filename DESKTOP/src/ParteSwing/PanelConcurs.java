@@ -19,7 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 
-public class Concurs extends JPanel {
+public class PanelConcurs extends JPanel {
 	//Atributos
 	private JLabel txtPregunta;
 	private JLabel txtResposta;
@@ -27,7 +27,7 @@ public class Concurs extends JPanel {
 	private JLabel txtTemps;
 
 	//Constructor
-	public Concurs() {
+	public PanelConcurs() {
 		setLayout(new BorderLayout(0, 0));
 		
 		txtPregunta = new JLabel("Pregunta de exemple");
@@ -36,9 +36,9 @@ public class Concurs extends JPanel {
 		add(txtPregunta, BorderLayout.NORTH);
 		
 		
-		JPanel panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(2, 2, 13, 13));
+		JPanel panelRespuestas = new JPanel();
+		add(panelRespuestas, BorderLayout.CENTER);
+		panelRespuestas.setLayout(new GridLayout(2, 2, 13, 13));
 		
 		for(int i = 0; i< 4 ;i++) {
 			JPanel panelRespuesta = new JPanel();
@@ -64,22 +64,22 @@ public class Concurs extends JPanel {
 			
 			
 			panelRespuesta.add(txtResposta);
-			panel.add(panelRespuesta);
+			panelRespuestas.add(panelRespuesta);
 		}
 		
-		JPanel panel2 = new JPanel();
-		add(panel2, BorderLayout.SOUTH);
-		panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel panelBtnNextQuest = new JPanel();
+		add(panelBtnNextQuest, BorderLayout.SOUTH);
+		panelBtnNextQuest.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		txtTemps = new JLabel("temps");
 		txtTemps.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel2.add(txtTemps);
+		panelBtnNextQuest.add(txtTemps);
 		
 		btnNextQuest = new JButton("Seguent Pregunta");
 		btnNextQuest.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNextQuest.setEnabled(false);
 		
-		panel2.add(btnNextQuest);
+		panelBtnNextQuest.add(btnNextQuest);
 		
 		
 	}

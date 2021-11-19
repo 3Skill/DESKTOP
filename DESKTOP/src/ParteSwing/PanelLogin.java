@@ -28,18 +28,18 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Login extends JPanel {
+public class PanelLogin extends JPanel {
 	
 	//Atributs
 	private JTextField username;
 	private JTextField tfUsuari;
 	private JPasswordField passwordField;
 	private JButton botonAccedir;
-	private JLabel fotoLogin,txtIniciSessio,txtContra,txtUsuari;
+	private JLabel fotoLogin,titolLogin,txtContra,txtUsuari;
 	private JCheckBox cbRecordarContra;
 	
 	//Constructor
-	public Login() {
+	public PanelLogin() {
 		
 		
 		//Configuracion del panel
@@ -51,10 +51,10 @@ public class Login extends JPanel {
 		fotoLogin.setBounds(10, 30, 587, 114);
 		fotoLogin.setIcon(new ImageIcon("."+File.separator+"img"+File.separator+"fotoLogin.png"));
 		
-		txtIniciSessio = new JLabel("Inici de Sessi\u00F3");
-		txtIniciSessio.setBounds(243, 154, 153, 38);
-		txtIniciSessio.setForeground(SystemColor.desktop);
-		txtIniciSessio.setFont(new Font("Calibri", Font.BOLD, 26));
+		titolLogin = new JLabel("Inici de Sessi\u00F3");
+		titolLogin.setBounds(243, 154, 153, 38);
+		titolLogin.setForeground(SystemColor.desktop);
+		titolLogin.setFont(new Font("Calibri", Font.BOLD, 26));
 		
 		txtUsuari = new JLabel("Usuari:");
 		txtUsuari.setBounds(204, 213, 45, 13);
@@ -89,7 +89,7 @@ public class Login extends JPanel {
 		
 		//Anyadim tots els components al panel
 		add(fotoLogin);
-		add(txtIniciSessio);
+		add(titolLogin);
 		add(txtUsuari);
 		add(tfUsuari);
 		add(txtContra);
@@ -133,10 +133,10 @@ public class Login extends JPanel {
 		this.fotoLogin = fotoLogin;
 	}
 	public JLabel getTxtIniciSessio() {
-		return txtIniciSessio;
+		return titolLogin;
 	}
 	public void setTxtIniciSessio(JLabel txtIniciSessio) {
-		this.txtIniciSessio = txtIniciSessio;
+		this.titolLogin = txtIniciSessio;
 	}
 	public JLabel getTxtContra() {
 		return txtContra;

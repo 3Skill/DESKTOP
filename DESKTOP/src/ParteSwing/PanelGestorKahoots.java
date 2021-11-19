@@ -18,101 +18,101 @@ import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 
-public class GestorKahoots extends JPanel {
+public class PanelGestorKahoots extends JPanel {
 	
 	//Atributs
 	private JButton btnJugar,btnCrearKahoot, btnVeureDetall, btnFiltarTema, btnEditarTemes;
-	private JLabel txtTitulo, txtKahoots, txtTemes, txtTemesSeleccionats;
-	private JList listKahoots;
+	private JLabel tituloGestorKahoots, txtKahoots, txtTemes, txtTemesSeleccionats;
+	private JList listaKahoots;
 	//Constructor
-	public GestorKahoots() {
+	public PanelGestorKahoots() {
 		
 		//Configuracion Basica
 		setLayout(new BorderLayout(0, 0));
-		JPanel panel = new JPanel();
-		add(panel, BorderLayout.NORTH);
-		panel.setBackground(Color.gray);
-		JPanel panel_1 = new JPanel();
-		add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(null);
-		panel_1.setBackground(Color.white);
+		JPanel panelTitulo = new JPanel();
+		add(panelTitulo, BorderLayout.NORTH);
+		panelTitulo.setBackground(Color.gray);
+		JPanel panelGestorKahoots = new JPanel();
+		add(panelGestorKahoots, BorderLayout.CENTER);
+		panelGestorKahoots.setLayout(null);
+		panelGestorKahoots.setBackground(Color.white);
 		
 		//Annadimos todos los componentes
-		txtTitulo = new JLabel("Explorador de Kahoots");
-		txtTitulo.setFont(new Font("Tahoma", Font.BOLD, 19));
-		panel.add(txtTitulo);
+		tituloGestorKahoots = new JLabel("Explorador de Kahoots");
+		tituloGestorKahoots.setFont(new Font("Tahoma", Font.BOLD, 19));
+		panelTitulo.add(tituloGestorKahoots);
 		
 		txtKahoots = new JLabel("Kahoots");
 		txtKahoots.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtKahoots.setBounds(74, 40, 120, 13);
-		panel_1.add(txtKahoots);
+		panelGestorKahoots.add(txtKahoots);
 		
 		txtTemes = new JLabel("Temes");
 		txtTemes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTemes.setBounds(543, 40, 58, 13);
-		panel_1.add(txtTemes);
+		panelGestorKahoots.add(txtTemes);
 		
 		txtTemesSeleccionats = new JLabel("Temes selecionats");
 		txtTemesSeleccionats.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTemesSeleccionats.setBounds(543, 264, 149, 13);
-		panel_1.add(txtTemesSeleccionats);
+		panelGestorKahoots.add(txtTemesSeleccionats);
 		
 		btnVeureDetall = new JButton("Veure Detall");
 		btnVeureDetall.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnVeureDetall.setBounds(36, 328, 184, 51);
-		panel_1.add(btnVeureDetall);
+		panelGestorKahoots.add(btnVeureDetall);
 		
 		btnJugar = new JButton("JUGAR");
 		btnJugar.setForeground(Color.RED);
 		btnJugar.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnJugar.setBounds(160, 390, 189, 82);
-		panel_1.add(btnJugar);
+		panelGestorKahoots.add(btnJugar);
 		
 		btnCrearKahoot = new JButton("Crear Kahoot");
 		btnCrearKahoot.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnCrearKahoot.setBounds(261, 328, 184, 51);
-		panel_1.add(btnCrearKahoot);
+		panelGestorKahoots.add(btnCrearKahoot);
 		
 		btnFiltarTema = new JButton("Filtrar per Tema");
 		btnFiltarTema.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFiltarTema.setBounds(543, 404, 149, 29);
-		panel_1.add(btnFiltarTema);
+		panelGestorKahoots.add(btnFiltarTema);
 		
 		btnEditarTemes = new JButton("Editar Temes");
 		btnEditarTemes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEditarTemes.setBounds(553, 443, 128, 29);
-		panel_1.add(btnEditarTemes);
+		panelGestorKahoots.add(btnEditarTemes);
 		
 		String[] datos = {"nom Kahoot1", "nom Kahoot 2", "nom Kahoot 3", "nom Kahoot n"};
 		String[] datos1 = {"Tema 1", "Tema 2", "Tema 3", "Tema 4","Tema n"};
 		String[] datos11 = {"Tema selcc 1", "Tema selecc 2", "Tema selecc 3", "Tema selecc n"};
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(543, 75, 149, 93);
-		panel_1.add(scrollPane);
+		JScrollPane scrollPanelTemes = new JScrollPane();
+		scrollPanelTemes.setBounds(543, 75, 149, 93);
+		panelGestorKahoots.add(scrollPanelTemes);
 		
-		JList list_1 = new JList(datos1);
-		list_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		scrollPane.setViewportView(list_1);
+		JList listaTemas = new JList(datos1);
+		listaTemas.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		scrollPanelTemes.setViewportView(listaTemas);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(74, 75, 327, 222);
-		panel_1.add(scrollPane_1);
-		listKahoots = new JList(datos);
-		listKahoots.setFont(new Font("Tahoma", Font.BOLD, 15));
-		scrollPane_1.setViewportView(listKahoots);
-		listKahoots.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JScrollPane scrollPanelKahoots = new JScrollPane();
+		scrollPanelKahoots.setBounds(74, 75, 327, 222);
+		panelGestorKahoots.add(scrollPanelKahoots);
+		listaKahoots = new JList(datos);
+		listaKahoots.setFont(new Font("Tahoma", Font.BOLD, 15));
+		scrollPanelKahoots.setViewportView(listaKahoots);
+		listaKahoots.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(543, 301, 149, 93);
-		panel_1.add(scrollPane_2);
+		JScrollPane scrollPanelTemasSeleccionados = new JScrollPane();
+		scrollPanelTemasSeleccionados.setBounds(543, 301, 149, 93);
+		panelGestorKahoots.add(scrollPanelTemasSeleccionados);
 		
-		JList list_1_1 = new JList(datos11);
-		list_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		scrollPane_2.setViewportView(list_1_1);
+		JList listaTemasSeleccionados = new JList(datos11);
+		listaTemasSeleccionados.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		scrollPanelTemasSeleccionados.setViewportView(listaTemasSeleccionados);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(584, 187, 74, 67);
+		JLabel lblFlechaKahoot = new JLabel("");
+		lblFlechaKahoot.setBounds(584, 187, 74, 67);
 		String sCarpAct = System.getProperty("user.dir");
 		Toolkit mipantalla = Toolkit.getDefaultToolkit();
 		
@@ -121,8 +121,8 @@ public class GestorKahoots extends JPanel {
 
 		Image dimg = miicono.getScaledInstance(70, 60, Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(dimg);
-		lblNewLabel_2.setIcon(imageIcon);
-		panel_1.add(lblNewLabel_2);
+		lblFlechaKahoot.setIcon(imageIcon);
+		panelGestorKahoots.add(lblFlechaKahoot);
 		
 		
 		
@@ -165,10 +165,10 @@ public class GestorKahoots extends JPanel {
 		this.btnEditarTemes = btnEditarTemes;
 	}
 	public JLabel getTxtTitulo() {
-		return txtTitulo;
+		return tituloGestorKahoots;
 	}
 	public void setTxtTitulo(JLabel txtTitulo) {
-		this.txtTitulo = txtTitulo;
+		this.tituloGestorKahoots = txtTitulo;
 	}
 	public JLabel getTxtKahoots() {
 		return txtKahoots;
@@ -190,11 +190,11 @@ public class GestorKahoots extends JPanel {
 	}
 
 	public String getListKahoots() {
-		return (String) listKahoots.getSelectedValue();
+		return (String) listaKahoots.getSelectedValue();
 	}
 
 	public void setListKahoots(JList listKahoots) {
-		this.listKahoots = listKahoots;
+		this.listaKahoots = listKahoots;
 	}
 	
 	

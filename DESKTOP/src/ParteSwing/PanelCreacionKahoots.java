@@ -28,51 +28,51 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class CreacionKahoots extends JPanel {
+public class PanelCreacionKahoots extends JPanel {
 	
 	//Atributs
 	private JTextField tfTitol;
 	private JLabel txtTitol, txtLlistaPreguntes,txtNovaPregunta, txtTemesAso, txtRespostes, txtResCorrecta;
 	private JButton btnAfegirPregunta, btnGuardarKahoot;
-	private JCheckBox cb1,cb2,cb3,cb4;
-	private JList listPreguntas,listTemesAso;
-	private JTextArea txtAreaRespostes, txtAreaPregunta;
+	private JCheckBox cbRespuesta1,cbRspuesta2,cbRespuesta3,cbRespuesta4;
+	private JList listPreguntas,listaTemasAsociados;
+	private JTextArea txtAreaRespostes, txtAreaNuevaPregunta;
 	private PreguntesDao pd = new PreguntesDao();
 	private RespostesDao rd = new RespostesDao();
-	private JPanel panel_1;
-	private JLabel lblNewLabel_1;
+	private JPanel panelTituloCreacionKahoot;
+	private JLabel lbTituloCreacionKahoots;
 	private JButton btnEnrere;
 	
 	
 	//Constructor
-	public CreacionKahoots() {
+	public PanelCreacionKahoots() {
 		
 		//Confg general del panel
 		setLayout(new BorderLayout(0, 0));
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		JPanel panelPrincipalCrearKahoot = new JPanel();
+		panelPrincipalCrearKahoot.setBackground(Color.WHITE);
+		add(panelPrincipalCrearKahoot, BorderLayout.CENTER);
+		panelPrincipalCrearKahoot.setLayout(null);
 		
 		//Titol
 		txtTitol = new JLabel("T\u00EDtol");
 		txtTitol.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTitol.setBounds(62, 48, 46, 13);
-		panel.add(txtTitol);
+		panelPrincipalCrearKahoot.add(txtTitol);
 		
 		tfTitol = new JTextField();
 		tfTitol.setBounds(118, 47, 344, 19);
-		panel.add(tfTitol);
+		panelPrincipalCrearKahoot.add(tfTitol);
 		tfTitol.setColumns(10);
 		
 		txtLlistaPreguntes = new JLabel("Llista de preguntes");
 		txtLlistaPreguntes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtLlistaPreguntes.setBounds(62, 116, 201, 13);
-		panel.add(txtLlistaPreguntes);
+		panelPrincipalCrearKahoot.add(txtLlistaPreguntes);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(62, 157, 400, 127);
-		panel.add(scrollPane);
+		JScrollPane scrollPanelPreguntas = new JScrollPane();
+		scrollPanelPreguntas.setBounds(62, 157, 400, 127);
+		panelPrincipalCrearKahoot.add(scrollPanelPreguntas);
 		
 		String[] listaPreguntas = {"Text nova pregunta 1","Text nova pregunta 2","..."};
 		String[] llistaNovaPregunta = {"Text de la nova pregunta"};
@@ -81,111 +81,111 @@ public class CreacionKahoots extends JPanel {
 		
 		listPreguntas = new JList(listaPreguntas) ;
 		listPreguntas.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane.setViewportView(listPreguntas);
+		scrollPanelPreguntas.setViewportView(listPreguntas);
 		
 		txtNovaPregunta = new JLabel("Nova Pregunta");
 		txtNovaPregunta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNovaPregunta.setBounds(62, 321, 201, 13);
-		panel.add(txtNovaPregunta);
+		panelPrincipalCrearKahoot.add(txtNovaPregunta);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(62, 362, 400, 94);
-		panel.add(scrollPane_1);
+		JScrollPane scrollPanelNuevaPregunta = new JScrollPane();
+		scrollPanelNuevaPregunta.setBounds(62, 362, 400, 94);
+		panelPrincipalCrearKahoot.add(scrollPanelNuevaPregunta);
 		
-		txtAreaPregunta = new JTextArea();
-		scrollPane_1.setViewportView(txtAreaPregunta);
+		txtAreaNuevaPregunta = new JTextArea();
+		scrollPanelNuevaPregunta.setViewportView(txtAreaNuevaPregunta);
 		
 		txtTemesAso = new JLabel("Temes associats");
 		txtTemesAso.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTemesAso.setBounds(514, 118, 151, 13);
-		panel.add(txtTemesAso);
+		panelPrincipalCrearKahoot.add(txtTemesAso);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(514, 157, 161, 115);
-		panel.add(scrollPane_2);
+		JScrollPane scrollPanelTemasAsociados = new JScrollPane();
+		scrollPanelTemasAsociados.setBounds(514, 157, 161, 115);
+		panelPrincipalCrearKahoot.add(scrollPanelTemasAsociados);
 		
-		listTemesAso = new JList(llistaTemesAssociats);
-		listTemesAso.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane_2.setViewportView(listTemesAso);
+		listaTemasAsociados = new JList(llistaTemesAssociats);
+		listaTemasAsociados.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPanelTemasAsociados.setViewportView(listaTemasAsociados);
 		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(516, 360, 161, 96);
-		panel.add(scrollPane_3);
+		JScrollPane scrollPanelRespostas = new JScrollPane();
+		scrollPanelRespostas.setBounds(516, 360, 161, 96);
+		panelPrincipalCrearKahoot.add(scrollPanelRespostas);
 		
 		txtAreaRespostes = new JTextArea();
-		scrollPane_3.setViewportView(txtAreaRespostes);
+		scrollPanelRespostas.setViewportView(txtAreaRespostes);
 		
 		txtRespostes = new JLabel("Respostes");
 		txtRespostes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtRespostes.setBounds(514, 323, 106, 13);
-		panel.add(txtRespostes);
+		panelPrincipalCrearKahoot.add(txtRespostes);
 		
 		//Botones
 		btnAfegirPregunta = new JButton("Afegir pregunta");
 		btnAfegirPregunta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAfegirPregunta.setBounds(216, 491, 181, 70);
-		panel.add(btnAfegirPregunta);
+		panelPrincipalCrearKahoot.add(btnAfegirPregunta);
 		
 		
 		btnGuardarKahoot = new JButton("Guardar nou Kahoot");
 		btnGuardarKahoot.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnGuardarKahoot.setBounds(431, 491, 181, 70);
-		panel.add(btnGuardarKahoot);
+		panelPrincipalCrearKahoot.add(btnGuardarKahoot);
 		
 		
 		//Parte de Respuestas posibles
 		txtResCorrecta = new JLabel("Correcta");
 		txtResCorrecta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResCorrecta.setBounds(702, 323, 70, 13);
-		panel.add(txtResCorrecta);
+		panelPrincipalCrearKahoot.add(txtResCorrecta);
 		
-		cb1 = new JCheckBox("");
-		cb1.setBounds(718, 362, 21, 21);
-		panel.add(cb1);
+		cbRespuesta1 = new JCheckBox("");
+		cbRespuesta1.setBounds(718, 362, 21, 21);
+		panelPrincipalCrearKahoot.add(cbRespuesta1);
 		
-		cb2 = new JCheckBox("");
-		cb2.setBounds(718, 385, 21, 21);
-		panel.add(cb2);
+		cbRspuesta2 = new JCheckBox("");
+		cbRspuesta2.setBounds(718, 385, 21, 21);
+		panelPrincipalCrearKahoot.add(cbRspuesta2);
 		
-		cb3 = new JCheckBox("");
-		cb3.setBounds(718, 408, 21, 21);
-		panel.add(cb3);
+		cbRespuesta3 = new JCheckBox("");
+		cbRespuesta3.setBounds(718, 408, 21, 21);
+		panelPrincipalCrearKahoot.add(cbRespuesta3);
 		
-		cb4 = new JCheckBox("");
-		cb4.setBounds(718, 431, 21, 21);
-		panel.add(cb4);
+		cbRespuesta4 = new JCheckBox("");
+		cbRespuesta4.setBounds(718, 431, 21, 21);
+		panelPrincipalCrearKahoot.add(cbRespuesta4);
 		
-		panel_1 = new JPanel();
-		add(panel_1, BorderLayout.NORTH);
+		panelTituloCreacionKahoot = new JPanel();
+		add(panelTituloCreacionKahoot, BorderLayout.NORTH);
 		
 		btnEnrere = new JButton("Enrere");
 		btnEnrere.setForeground(Color.RED);
 		btnEnrere.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		lblNewLabel_1 = new JLabel("Crear Kahoot");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 19));
-		lblNewLabel_1.setBackground(Color.GRAY);
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		lbTituloCreacionKahoots = new JLabel("Crear Kahoot");
+		lbTituloCreacionKahoots.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbTituloCreacionKahoots.setFont(new Font("Tahoma", Font.BOLD, 19));
+		lbTituloCreacionKahoots.setBackground(Color.GRAY);
+		GroupLayout gl_panelTituloCreacionKahoot = new GroupLayout(panelTituloCreacionKahoot);
+		gl_panelTituloCreacionKahoot.setHorizontalGroup(
+			gl_panelTituloCreacionKahoot.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelTituloCreacionKahoot.createSequentialGroup()
 					.addGap(23)
 					.addComponent(btnEnrere, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 					.addGap(193)
-					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lbTituloCreacionKahoots, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(381, Short.MAX_VALUE))
 		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		gl_panelTituloCreacionKahoot.setVerticalGroup(
+			gl_panelTituloCreacionKahoot.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelTituloCreacionKahoot.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelTituloCreacionKahoot.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEnrere, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1))
+						.addComponent(lbTituloCreacionKahoots))
 					.addContainerGap(19, Short.MAX_VALUE))
 		);
-		panel_1.setLayout(gl_panel_1);
+		panelTituloCreacionKahoot.setLayout(gl_panelTituloCreacionKahoot);
 		
 		
 		
@@ -269,35 +269,35 @@ public class CreacionKahoots extends JPanel {
 	}
 
 	public JCheckBox getCb1() {
-		return cb1;
+		return cbRespuesta1;
 	}
 
 	public void setCb1(JCheckBox cb1) {
-		this.cb1 = cb1;
+		this.cbRespuesta1 = cb1;
 	}
 
 	public JCheckBox getCb2() {
-		return cb2;
+		return cbRspuesta2;
 	}
 
 	public void setCb2(JCheckBox cb2) {
-		this.cb2 = cb2;
+		this.cbRspuesta2 = cb2;
 	}
 
 	public JCheckBox getCb3() {
-		return cb3;
+		return cbRespuesta3;
 	}
 
 	public void setCb3(JCheckBox cb3) {
-		this.cb3 = cb3;
+		this.cbRespuesta3 = cb3;
 	}
 
 	public JCheckBox getCb4() {
-		return cb4;
+		return cbRespuesta4;
 	}
 
 	public void setCb4(JCheckBox cb4) {
-		this.cb4 = cb4;
+		this.cbRespuesta4 = cb4;
 	}
 
 	public JList getListPreguntas() {
@@ -309,11 +309,11 @@ public class CreacionKahoots extends JPanel {
 	}
 
 	public JList getListTemesAso() {
-		return listTemesAso;
+		return listaTemasAsociados;
 	}
 
 	public void setListTemesAso(JList listTemesAso) {
-		this.listTemesAso = listTemesAso;
+		this.listaTemasAsociados = listTemesAso;
 	}
 
 	public JTextArea getTxtAreaRespostes() {
@@ -325,11 +325,11 @@ public class CreacionKahoots extends JPanel {
 	}
 
 	public JTextArea getTxtAreaPregunta() {
-		return txtAreaPregunta;
+		return txtAreaNuevaPregunta;
 	}
 
 	public void setTxtAreaPregunta(JTextArea txtAreaPregunta) {
-		this.txtAreaPregunta = txtAreaPregunta;
+		this.txtAreaNuevaPregunta = txtAreaPregunta;
 	}
 	public JButton getBtnEnrere() {
 		return btnEnrere;

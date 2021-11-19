@@ -3,7 +3,7 @@ package ConnRMILipe;
 import java.net.Socket;
 
 
-import ParteSwing.SalaDeEspera;
+import ParteSwing.PanelSalaDeEspera;
 
 import lipermi.handler.CallHandler;
 import lipermi.net.IServerListener;
@@ -11,7 +11,7 @@ import lipermi.net.Server;
 
 public class ServerRMI implements InterRMI{
     
-    private SalaDeEspera sde ;
+    private PanelSalaDeEspera sde ;
     public ServerRMI() {
        
         try {
@@ -40,7 +40,7 @@ public class ServerRMI implements InterRMI{
         }
     }
     
-    public void setSalaEspera(SalaDeEspera sde) {
+    public void setSalaEspera(PanelSalaDeEspera sde) {
     	this.sde =  sde;
     }
 	

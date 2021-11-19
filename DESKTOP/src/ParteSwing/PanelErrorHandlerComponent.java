@@ -8,14 +8,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class ErrorHandlerComponent extends JPanel{
+public class PanelErrorHandlerComponent extends JPanel{
 	private JLabel errorLabel;
 	private JTextArea display;
 
 	
 	// Crea el component.
 	 
-	public ErrorHandlerComponent() {
+	public PanelErrorHandlerComponent() {
 		this.errorLabel = new JLabel("");
 		this.setBorder ( new TitledBorder ( new EtchedBorder (), "Error Log" ) );
 		

@@ -26,10 +26,10 @@ import java.awt.SystemColor;
 import javax.swing.ListSelectionModel;
 
 
-public class SalaDeEspera extends JPanel {
+public class PanelSalaDeEspera extends JPanel {
 
 	//Atributos
-	private JLabel txtTituloPanel,txtEsperant,ipServer,txtTitol,txtIp;
+	private JLabel tituloSalaDeEspera,txtEsperant,ipServer,txtTitol,txtIp;
 	private JButton btnComencar;
 	private JList list;
 
@@ -39,44 +39,44 @@ public class SalaDeEspera extends JPanel {
 
 	//Constructor
 	@SuppressWarnings("unchecked")
-	public SalaDeEspera(String titolKahoot) {
+	public PanelSalaDeEspera(String titolKahoot) {
 		setLayout(new BorderLayout(0, 0));
 		
-		txtTituloPanel = new JLabel("Sala d'espera");
-		txtTituloPanel.setBackground(Color.YELLOW);
-		txtTituloPanel.setFont(new Font("Tahoma", Font.BOLD, 19));
-		txtTituloPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(txtTituloPanel, BorderLayout.NORTH);
+		tituloSalaDeEspera = new JLabel("Sala d'espera");
+		tituloSalaDeEspera.setBackground(Color.YELLOW);
+		tituloSalaDeEspera.setFont(new Font("Tahoma", Font.BOLD, 19));
+		tituloSalaDeEspera.setHorizontalAlignment(SwingConstants.CENTER);
+		add(tituloSalaDeEspera, BorderLayout.NORTH);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(Color.WHITE);
+		add(panelPrincipal, BorderLayout.CENTER);
+		panelPrincipal.setLayout(null);
 		
 		txtEsperant = new JLabel("Esperant jugadors...");
 		txtEsperant.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEsperant.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEsperant.setBounds(164, 126, 197, 13);
-		panel.add(txtEsperant);
+		panelPrincipal.add(txtEsperant);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(185, 161, 157, 183);
-		panel.add(scrollPane);
+		JScrollPane scrollPaneConcursantes = new JScrollPane();
+		scrollPaneConcursantes.setBounds(185, 161, 157, 183);
+		panelPrincipal.add(scrollPaneConcursantes);
 		
 		
 		list = new JList(modelo);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(list);
+		scrollPaneConcursantes.setViewportView(list);
 		
 		btnComencar = new JButton("COMENCAR CONCURS");
 		btnComencar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnComencar.setBounds(156, 354, 220, 50);
-		panel.add(btnComencar);
+		panelPrincipal.add(btnComencar);
 		
 		JPanel panel_Kahoot_Ip = new JPanel();
 		panel_Kahoot_Ip.setBackground(Color.LIGHT_GRAY);
-		panel_Kahoot_Ip.setBounds(109, 10, 315, 102);
-		panel.add(panel_Kahoot_Ip);
+		panel_Kahoot_Ip.setBounds(109, 10, 315, 106);
+		panelPrincipal.add(panel_Kahoot_Ip);
 		panel_Kahoot_Ip.setLayout(null);
 		
 		txtIp = new JLabel("IP:");
@@ -113,7 +113,7 @@ public class SalaDeEspera extends JPanel {
 		countdown.setFont(new Font("Tahoma", Font.PLAIN, 80));
 		countdown.setBounds(374, 171, 140, 144);
 		countdown.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		panel.add(countdown);
+		panelPrincipal.add(countdown);
 		countdown.setColumns(10);
 
 
@@ -126,10 +126,10 @@ public class SalaDeEspera extends JPanel {
 	
 	//Getters and Setters
 	public JLabel getTxtTituloPanel() {
-		return txtTituloPanel;
+		return tituloSalaDeEspera;
 	}
 	public void setTxtTituloPanel(JLabel txtTituloPanel) {
-		this.txtTituloPanel = txtTituloPanel;
+		this.tituloSalaDeEspera = txtTituloPanel;
 	}
 	public JLabel getTxtEsperant() {
 		return txtEsperant;
