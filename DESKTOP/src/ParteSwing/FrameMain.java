@@ -21,7 +21,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import ConnRMILipe.ServerRMI;
+import com.example.kadamm.ui.connexio.ServerRMI;
+
 import funciones.Idioma;
 
 import kadamm.hibernate.model.*;
@@ -205,7 +206,7 @@ public class FrameMain extends JFrame {
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
 			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
-		
+				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
 				JTextField jtextfieldCountdown = ((PanelSalaDeEspera) PanelSalaDeEspera).getCountdown();
 				PanelConcurs = new PanelConcurs();
