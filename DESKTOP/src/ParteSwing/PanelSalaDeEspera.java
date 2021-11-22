@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.Color;
 import java.awt.Component;
 
@@ -32,14 +34,16 @@ public class PanelSalaDeEspera extends JPanel {
 	private JLabel tituloSalaDeEspera,txtEsperant,ipServer,txtTitol,txtIp;
 	private JButton btnComencar;
 	private JList list;
-
 	private JTextField countdown;
-
+	
+	private String nickname;
+	private boolean paramNickName = true;
 	private DefaultListModel  modelo = new DefaultListModel(); 
 
 	//Constructor
 	@SuppressWarnings("unchecked")
 	public PanelSalaDeEspera(String titolKahoot) {
+		startCountdown();
 		setLayout(new BorderLayout(0, 0));
 		
 		tituloSalaDeEspera = new JLabel("Sala d'espera");
@@ -118,10 +122,39 @@ public class PanelSalaDeEspera extends JPanel {
 
 
 		
+			
+		
 
 	}
 	
-	
+	private void startCountdown() {
+		
+		Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+        	int i = 3;
+
+            public void run() {
+                i--;
+                if (i < 0) {
+                    timer.cancel();
+                    if(nickname != null) {
+                    	addElementList(nickname);
+                    	nickname = null;
+                    }
+                    
+                    if(paramNickName) {
+                    	startCountdown();
+                    }
+                    
+                    
+                }
+                System.out.println(i);
+            }
+
+			
+        }, 0, 1000);
+        
+	}
 	
 	
 	//Getters and Setters
@@ -176,7 +209,25 @@ public class PanelSalaDeEspera extends JPanel {
 	public void setCountdown(JTextField countdown) {
 		this.countdown = countdown;
 	}
+	
+	
+	public String getNickname() {
+		return nickname;
+	}
 
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
+	public boolean isParamNickName() {
+		return paramNickName;
+	}
+
+	public void setParamNickName() {
+		this.paramNickName = false;
+	}
+
+	//
 	public void addElementList(String name) {
 		modelo.addElement(name);
 		
