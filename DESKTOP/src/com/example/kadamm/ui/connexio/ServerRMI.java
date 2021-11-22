@@ -16,6 +16,8 @@ import lipermi.net.Server;
 public class ServerRMI implements InterRMI{
     
     private PanelSalaDeEspera sde ;
+    // true for production(green traffic light), false for testing(yellow traffic light)
+    private boolean isKahootStarted = true;
     
     public ServerRMI() {
     	
@@ -53,6 +55,12 @@ public class ServerRMI implements InterRMI{
 	//Implementacio de interface InterRMI
 	public void setNickName(String nickname) {
 		sde.setNickname(nickname);
+	}
+
+	@Override
+	public boolean getKahootState() {
+		return isKahootStarted;
+		
 	}
 	
 	
