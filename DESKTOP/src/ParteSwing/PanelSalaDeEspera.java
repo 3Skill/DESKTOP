@@ -35,7 +35,7 @@ public class PanelSalaDeEspera extends JPanel {
 
 	private JTextField countdown;
 
-	private DefaultListModel  modelo = new DefaultListModel(); 
+	private DefaultListModel modelo = new DefaultListModel(); 
 
 	//Constructor
 	@SuppressWarnings("unchecked")

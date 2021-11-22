@@ -39,6 +39,8 @@ public class FrameMain extends JFrame {
 	private LecturaXML lxml;
 	private PanelErrorHandlerComponent ehc = new PanelErrorHandlerComponent();
 	private UsuariDao ud = new UsuariDao();
+	private KahootDao kd = new KahootDao();
+	private PreguntesDao pd = new PreguntesDao();
 	
 	//Metodo main
 	public static void main(String[] args) {
@@ -51,10 +53,6 @@ public class FrameMain extends JFrame {
 		
 		try {
 			Usuari usuari = ud.getUsuariByName(nom);
-			
-			System.out.println(usuari.getPassword());
-			
-			
 			if (usuari.getPassword().equals(pass)) {
 				return true;
 			} else {
@@ -156,9 +154,11 @@ public class FrameMain extends JFrame {
 				setLocationRelativeTo(null);
 				PanelCreacionKahoots = new PanelCreacionKahoots();
 				JButton btnCearKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getBtnAfegirPregunta();
+				JButton btnGuardarKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getBtnGuardarKahoot();
 				JButton btnEnrere = ((PanelCreacionKahoots) PanelCreacionKahoots).getBtnEnrere();
 				btnEnrere.addActionListener(new activeBotons());
 				btnCearKahoot.addActionListener(new activeBotons());
+				btnGuardarKahoot.addActionListener(new activeBotons());
 				add(PanelCreacionKahoots);
 			}
 			else if((e.getActionCommand().equals("Enrere"))) {
@@ -224,8 +224,7 @@ public class FrameMain extends JFrame {
 				Respostes resposta1 = null;
 				Respostes resposta2 = null;
 				
-				System.out.println("Entra");
-				Preguntes pregunta1 = new Preguntes(((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaPregunta().getText(), 4);
+				Preguntes novaPregunta = new Preguntes(((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaPregunta().getText());
 				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
 				ArrayList<JCheckBox> checkboxes= new ArrayList<JCheckBox>();
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb1());
@@ -237,20 +236,43 @@ public class FrameMain extends JFrame {
 				respostes.add(resposta2);
 				String[] AreaRespostes = ((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaRespostes().getText().split("\n");
 //				Respostes resposta1 = new Respostes(((CreacionKahoots) ck).getTxtAreaRespostes().getText(), ((CreacionKahoots) ck).getCb1().isSelected(), 19);
+				
 				for (int i = 0; i < AreaRespostes.length; i++) {
-					Respostes resposta = new Respostes(AreaRespostes[i], checkboxes.get(i).isSelected(), 19);
-					respostes.set(i, resposta);
+					if(!AreaRespostes[i].equals("")) {
+						Respostes resposta = new Respostes(AreaRespostes[i], checkboxes.get(i).isSelected());
+						respostes.set(i, resposta);
 					
+					}
 				}
 //				Respostes resposta1 = new Respostes(AreaRespostes[0], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
 //				Respostes resposta2 = new Respostes(AreaRespostes[1], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
 //				respostes.add(resposta1);
 //				respostes.add(resposta2);
-				((PanelCreacionKahoots) PanelCreacionKahoots).checkNewPregunta(pregunta1, respostes);
+				((PanelCreacionKahoots) PanelCreacionKahoots).checkNewPregunta(novaPregunta, respostes);
+				for (JCheckBox cb : checkboxes) {
+					cb.setSelected(false);
+				}
+				
 
 				
 			
 			}
+			
+			// Comando para el boton de guardar un nuevo kahoot
+			else if ((e.getActionCommand().equals("Guardar nou Kahoot"))) {
+				String nomKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getTfTitol().getText();
+				ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
+				Kahoot kahoot = new Kahoot(nomKahoot);
+				kd.saveKahoot(kahoot);
+				Kahoot idKahoot = kd.getKahootByName(nomKahoot);
+				for (Preguntes pregunta : preguntes) {
+					pregunta.setIdKahoot(idKahoot);
+					pd.updatePregunta(pregunta);
+				}
+				System.out.println("Kahoot Guardat");
+				
+			}
+			
 			
 
 			//Si le damos a seguent pregunta es creara una altre presentacio

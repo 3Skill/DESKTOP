@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import kadamm.hibernate.model.*;
 import kadamm.hibernate.dao.*;
@@ -20,6 +21,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -42,6 +45,7 @@ public class PanelCreacionKahoots extends JPanel {
 	private JPanel panelTituloCreacionKahoot;
 	private JLabel lbTituloCreacionKahoots;
 	private JButton btnEnrere;
+	private DefaultListModel modelo = new DefaultListModel(); 
 	
 	
 	//Constructor
@@ -73,13 +77,14 @@ public class PanelCreacionKahoots extends JPanel {
 		JScrollPane scrollPanelPreguntas = new JScrollPane();
 		scrollPanelPreguntas.setBounds(62, 157, 400, 127);
 		panelPrincipalCrearKahoot.add(scrollPanelPreguntas);
+
 		
-		String[] listaPreguntas = {"Text nova pregunta 1","Text nova pregunta 2","..."};
-		String[] llistaNovaPregunta = {"Text de la nova pregunta"};
+		String textNovaPregunta; 										// Variable per guardar la descripció d'una nova pregunta
 		String[] llistaTemesAssociats = {"Tema 1","Tema 2","Tema 3","Tema n","..."};
 		String[] llistaRespostes = {"Resposta 1","Resposta 2","Resposta 3","Resposta 4"};
 		
-		listPreguntas = new JList(listaPreguntas) ;
+		fetchPreguntes();
+		listPreguntas = new JList(modelo);
 		listPreguntas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPanelPreguntas.setViewportView(listPreguntas);
 		
@@ -354,6 +359,7 @@ public class PanelCreacionKahoots extends JPanel {
 			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()) {
 				System.out.println("Guardem la pregunta");
 				saveNewPregunta(pregunta1, respostes);
+				resetFields(pregunta1);
 				return true;
 			} else {
 				System.out.println("La pregunta no conté cap reposta correcta");
@@ -368,10 +374,35 @@ public class PanelCreacionKahoots extends JPanel {
 		pd.savePregunta(pregunta);
 		long idPregunta = pregunta.getIdPreguntes();
 		System.out.println(idPregunta);
-		respostes.get(0).setIdPregunta(idPregunta);
+		respostes.get(0).setIdPregunta(pregunta);
 		rd.saveResposta(respostes.get(0));
-		respostes.get(1).setIdPregunta(idPregunta);
+		respostes.get(1).setIdPregunta(pregunta);
 		rd.saveResposta(respostes.get(1));
 		
 	}
+	
+	public void fetchPreguntes() {
+		ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
+//		String[] textPreguntes = new String[preguntes.size()];
+		for (int i = 0; i < preguntes.size(); i++) {
+//			textPreguntes[i] = preguntes.get(i).getDescripcio();
+			modelo.addElement(preguntes.get(i).getDescripcio());
+		}
+		
+		
+	}
+	
+	public void resetFields(Preguntes pregunta1) {
+		modelo.addElement(pregunta1.getDescripcio());
+		txtAreaNuevaPregunta.setText("");
+		txtAreaRespostes.setText("");
+		
+		
+	}
+	
+	public void saveNewKahoot() {
+		
+	}
+	
+	
 }

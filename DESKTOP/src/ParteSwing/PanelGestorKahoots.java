@@ -11,11 +11,17 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+import javax.swing.ListModel;
 import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
+
+import kadamm.hibernate.dao.KahootDao;
+import kadamm.hibernate.model.Kahoot;
+
 import javax.swing.JScrollPane;
 
 public class PanelGestorKahoots extends JPanel {
@@ -24,6 +30,7 @@ public class PanelGestorKahoots extends JPanel {
 	private JButton btnJugar,btnCrearKahoot, btnVeureDetall, btnFiltarTema, btnEditarTemes;
 	private JLabel tituloGestorKahoots, txtKahoots, txtTemes, txtTemesSeleccionats;
 	private JList listaKahoots;
+	private KahootDao kd = new KahootDao();
 	//Constructor
 	public PanelGestorKahoots() {
 		
@@ -83,7 +90,7 @@ public class PanelGestorKahoots extends JPanel {
 		btnEditarTemes.setBounds(553, 443, 128, 29);
 		panelGestorKahoots.add(btnEditarTemes);
 		
-		String[] datos = {"nom Kahoot1", "nom Kahoot 2", "nom Kahoot 3", "nom Kahoot n"};
+//		String[] datos = {"nom Kahoot1", "nom Kahoot 2", "nom Kahoot 3", "nom Kahoot n"};       // Sustituido abajo por AL
 		String[] datos1 = {"Tema 1", "Tema 2", "Tema 3", "Tema 4","Tema n"};
 		String[] datos11 = {"Tema selcc 1", "Tema selecc 2", "Tema selecc 3", "Tema selecc n"};
 		
@@ -98,7 +105,14 @@ public class PanelGestorKahoots extends JPanel {
 		JScrollPane scrollPanelKahoots = new JScrollPane();
 		scrollPanelKahoots.setBounds(74, 75, 327, 222);
 		panelGestorKahoots.add(scrollPanelKahoots);
-		listaKahoots = new JList(datos);
+		
+		// Se ha sustituido el array estatico por uno dinamico que recoge los kahoots de BD con hibernate - Iwo
+		ArrayList<Kahoot>kahoots = (ArrayList<Kahoot>) kd.getAllKahoots();
+		String[] nomKahoots = new String[kahoots.size()];
+		for (int i = 0; i < kahoots.size(); i++) {
+			nomKahoots[i] = kahoots.get(i).getNom();
+		}
+		listaKahoots = new JList(nomKahoots);
 		listaKahoots.setFont(new Font("Tahoma", Font.BOLD, 15));
 		scrollPanelKahoots.setViewportView(listaKahoots);
 		listaKahoots.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
