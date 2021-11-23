@@ -7,6 +7,13 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import kadamm.hibernate.dao.PreguntesDao;
+import kadamm.hibernate.dao.RespostesDao;
+import kadamm.hibernate.model.Kahoot;
+import kadamm.hibernate.model.Preguntes;
+import kadamm.hibernate.model.Respostes;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
@@ -15,6 +22,7 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
@@ -25,10 +33,14 @@ public class PanelConcurs extends JPanel {
 	private JLabel txtResposta;
 	private JButton btnNextQuest;
 	private JLabel txtTemps;
+	ArrayList<Respostes> respostes;
+	RespostesDao rd = new RespostesDao();
+	PreguntesDao pd = new PreguntesDao();
 
 	//Constructor
-	public PanelConcurs() {
+	public PanelConcurs(Preguntes preguntes) {
 		setLayout(new BorderLayout(0, 0));
+		respostes  = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(preguntes.getIdPreguntes()); // Aqui tienes las respuestas
 		
 		txtPregunta = new JLabel("Pregunta de exemple");
 		txtPregunta.setFont(new Font("Tahoma", Font.BOLD, 18));

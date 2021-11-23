@@ -134,6 +134,11 @@ public class TestHibernate {
 		rd.saveResposta(resposta24);
 		
 		
+		ArrayList<Respostes>listaRespostes = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(pd.getPreguntaById(11).getIdPreguntes());
+		for (Respostes resposta : listaRespostes) {
+			System.out.println(resposta.getDescripcio());
+		}
+		
 		Concursant concursant1 = new Concursant("Pepe", "Password");
 		Concurs concurs1 = new Concurs(kahoot1.getIdKahoot());
 		
