@@ -356,18 +356,21 @@ public class PanelCreacionKahoots extends JPanel {
 
 	public boolean checkNewPregunta(Preguntes pregunta1, ArrayList<Respostes> respostes) {
 //		if(txtAreaRespostes.getLineCount()>1) {
-		if(respostes.get(1) != null) {
+		if(pregunta1.getDescripcio().equals("") || pregunta1 == null) {
+			panelError.actualitzaErrors("ERROR: La pregunta està en blanc");
+		}
+		else if(respostes.get(1) != null) {
 			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()) {
 				System.out.println("Guardem la pregunta");
 				saveNewPregunta(pregunta1, respostes);
 				resetFields(pregunta1);
 				return true;
 			} else {
-				panelError.actualitzaErrors("La pregunta no conté cap reposta correcta");
+				panelError.actualitzaErrors("ERROR: La pregunta no conté cap reposta correcta");
 				//System.out.println("La pregunta no conté cap reposta correcta");
 			}
 		} else {
-			panelError.actualitzaErrors("La pregunta no te 2 o més respostes");
+			panelError.actualitzaErrors("ERROR: La pregunta no te 2 o més respostes");
 			//System.out.println("La pregunta no te 2 o més respostes");
 		}
 		return false;

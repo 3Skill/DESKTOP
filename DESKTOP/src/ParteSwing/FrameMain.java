@@ -42,8 +42,18 @@ public class FrameMain extends JFrame {
 	private UsuariDao ud = new UsuariDao();
 	private KahootDao kd = new KahootDao();
 	private PreguntesDao pd = new PreguntesDao();
-	private Usuari usuariActual;
+	private static Usuari usuariActual;
 	
+	
+	
+	public static Usuari getUsuariActual() {
+		return usuariActual;
+	}
+
+	public void setUsuariActual(Usuari usuari) {
+		this.usuariActual = usuari;
+	}
+
 	//Metodo main
 	public static void main(String[] args) {
 		new FrameMain();
@@ -55,7 +65,7 @@ public class FrameMain extends JFrame {
 		
 		try {
 			Usuari usuari = ud.getUsuariByName(nom);
-			usuariActual = usuari;
+			setUsuariActual(usuari);
 			if (usuari.getPassword().equals(pass)) {
 				return true;
 			} else {
@@ -276,16 +286,47 @@ public class FrameMain extends JFrame {
 			// Comando para el boton de guardar un nuevo kahoot
 			else if ((e.getActionCommand().equals("Guardar nou Kahoot"))) {
 				String nomKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getTfTitol().getText();
-				ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
-				Kahoot kahoot = new Kahoot(nomKahoot, usuariActual);
-				kd.saveKahoot(kahoot);
-				Kahoot idKahoot = kd.getKahootByName(nomKahoot);
-				for (Preguntes pregunta : preguntes) {
-					pregunta.setIdKahoot(idKahoot);
-					pd.updatePregunta(pregunta);
+				if(nomKahoot.equals("")|| nomKahoot == null) {
+					setSize(800, 710);
+					setLocationRelativeTo(null);
+					add(ehc,BorderLayout.SOUTH);
+					ehc.actualitzaErrors("Error al guardar el Kahoot: El kahoot no té títol");
+				}else {
+					try {
+						ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
+						Kahoot kahoot = new Kahoot(nomKahoot, usuariActual);
+						kd.saveKahoot(kahoot);
+						Kahoot idKahoot = kd.getKahootByName(nomKahoot);
+						for (Preguntes pregunta : preguntes) {
+							pregunta.setIdKahoot(idKahoot);
+							pd.updatePregunta(pregunta);
+						}
+						setSize(800, 710);
+						setLocationRelativeTo(null);
+						add(ehc,BorderLayout.SOUTH);
+						ehc.actualitzaErrors("Kahoot Guardat");
+						// Si se ha guardado el kahoot sin problema, se vuelve a abrir la ventana de gestion de kahoots.
+						remove(PanelCreacionKahoots);
+						remove(ehc);
+						setTitle("Explorador de Kadamm");
+						setSize(800, 600);
+						setLocationRelativeTo(null);
+						PanelGestorKahoots = new PanelGestorKahoots();
+						//Anyadimos el listener de crear kahoots
+						JButton botonCrearKahoots = ((PanelGestorKahoots) PanelGestorKahoots).getBtnCrearKahoot();
+						JButton botonJugar = ((PanelGestorKahoots) PanelGestorKahoots).getBtnJugar();
+						
+						botonCrearKahoots.addActionListener(new activeBotons());
+						botonJugar.addActionListener(new activeBotons());
+						add(PanelGestorKahoots);
+						
+					} catch (Exception e1) {
+						setSize(800, 710);
+						setLocationRelativeTo(null);
+						add(ehc,BorderLayout.SOUTH);
+						ehc.actualitzaErrors("Ha ocorregut un error a l'hora de guardar el Kahoot");
+					}
 				}
-				System.out.println("Kahoot Guardat");
-				
 			}
 			
 			

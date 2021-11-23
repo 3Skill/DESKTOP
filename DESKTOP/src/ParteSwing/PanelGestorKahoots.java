@@ -107,7 +107,8 @@ public class PanelGestorKahoots extends JPanel {
 		panelGestorKahoots.add(scrollPanelKahoots);
 		
 		// Se ha sustituido el array estatico por uno dinamico que recoge los kahoots de BD con hibernate - Iwo
-		ArrayList<Kahoot>kahoots = (ArrayList<Kahoot>) kd.getAllKahoots();
+		
+		ArrayList<Kahoot>kahoots = (ArrayList<Kahoot>) kd.getAllKahootsByUsuari(FrameMain.getUsuariActual().getIdUsuaris());
 		String[] nomKahoots = new String[kahoots.size()];
 		for (int i = 0; i < kahoots.size(); i++) {
 			nomKahoots[i] = kahoots.get(i).getNom();
