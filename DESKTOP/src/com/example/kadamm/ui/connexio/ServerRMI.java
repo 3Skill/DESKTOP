@@ -54,7 +54,7 @@ public class ServerRMI implements InterRMI{
 
 	//Implementacio de interface InterRMI
 	public void setNickName(String nickname) {
-		sde.setNickname(nickname);
+		sde.addElementList(nickname);
 	}
 
 	@Override
