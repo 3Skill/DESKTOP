@@ -198,6 +198,7 @@ public class FrameMain extends JFrame {
 				
 				if (titolKahoot != null) {
 					ServerRMI server = new ServerRMI();
+					kahootActual = kd.getKahootByName(titolKahoot);
 					llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
 					
 					remove(PanelGestorKahoots);
@@ -205,7 +206,7 @@ public class FrameMain extends JFrame {
 					setTitle("Sala de Espera");
 					setSize(550, 550);
 					setLocationRelativeTo(null);
-					kahootActual = kd.getKahootByName(titolKahoot);
+					
 					PanelSalaDeEspera = new PanelSalaDeEspera(kahootActual);
 					JButton btnComencar = ((PanelSalaDeEspera) PanelSalaDeEspera).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
@@ -238,7 +239,27 @@ public class FrameMain extends JFrame {
 				
 				
 			}
-			
+			//Si le damos a seguent pregunta es creara una altre presentacio
+			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
+				
+				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
+				if(iteradorConcurs!=llistaPreguntes.size()) {
+					remove(PanelConcurs);
+					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs));
+					iteradorConcurs++;
+					JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
+					botonNextQuest.addActionListener(new activeBotons());
+					setTitle("Concurs");
+					setResizable(true);
+					setSize(800, 750);
+					setLocationRelativeTo(null);
+					add(PanelConcurs);
+					repaint();
+					startCountdownConcurs(((PanelConcurs) PanelConcurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
+				}
+				
+				
+			}
 			
 			else if ((e.getActionCommand().equals("Afegir pregunta"))) {
 				
@@ -338,22 +359,7 @@ public class FrameMain extends JFrame {
 			
 			
 
-			//Si le damos a seguent pregunta es creara una altre presentacio
-			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 			
-				remove(PanelConcurs);
-				PanelConcurs = new PanelConcurs(kahootActual);
-				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
-				botonNextQuest.addActionListener(new activeBotons());
-				setTitle("Concurs");
-				setResizable(true);
-				setSize(800, 750);
-				setLocationRelativeTo(null);
-				add(PanelConcurs);
-				repaint();
-				startCountdownConcurs(((PanelConcurs) PanelConcurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
-				
-			}
 
 		
 	}

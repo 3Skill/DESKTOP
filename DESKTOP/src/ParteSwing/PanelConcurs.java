@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 
 import kadamm.hibernate.dao.PreguntesDao;
 import kadamm.hibernate.dao.RespostesDao;
-import kadamm.hibernate.model.Kahoot;
 import kadamm.hibernate.model.Preguntes;
 import kadamm.hibernate.model.Respostes;
 
@@ -36,13 +35,11 @@ public class PanelConcurs extends JPanel {
 	ArrayList<Respostes> respostes;
 	RespostesDao rd = new RespostesDao();
 	PreguntesDao pd = new PreguntesDao();
-
 	//Constructor
 	public PanelConcurs(Preguntes preguntes) {
 		setLayout(new BorderLayout(0, 0));
 		respostes  = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(preguntes.getIdPreguntes()); // Aqui tienes las respuestas
-		
-		txtPregunta = new JLabel("Pregunta de exemple");
+		txtPregunta = new JLabel(preguntes.getDescripcio());
 		txtPregunta.setFont(new Font("Tahoma", Font.BOLD, 18));
 		txtPregunta.setHorizontalAlignment(SwingConstants.CENTER);
 		add(txtPregunta, BorderLayout.NORTH);
@@ -52,10 +49,10 @@ public class PanelConcurs extends JPanel {
 		add(panelRespuestas, BorderLayout.CENTER);
 		panelRespuestas.setLayout(new GridLayout(2, 2, 13, 13));
 		
-		for(int i = 0; i< 4 ;i++) {
+		for(int i = 0; i< respostes.size() ;i++) {
 			JPanel panelRespuesta = new JPanel();
 			panelRespuesta.setLayout(new BorderLayout());
-			txtResposta = new JLabel("Resposta "+(i+1));
+			txtResposta = new JLabel(respostes.get(i).getDescripcio());
 			txtResposta.setFont(new Font("Tahoma", Font.BOLD, 15));
 			txtResposta.setHorizontalAlignment(SwingConstants.CENTER);
 			switch(i) {
