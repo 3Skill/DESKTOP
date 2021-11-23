@@ -35,10 +35,10 @@ public class PanelSalaDeEspera extends JPanel {
 	private JButton btnComencar;
 	private JList list;
 	private JTextField countdown;
-	
 	private String nickname;
 	private boolean paramNickName = true;
 	private DefaultListModel  modelo = new DefaultListModel(); 
+
 
 	//Constructor
 	@SuppressWarnings("unchecked")
