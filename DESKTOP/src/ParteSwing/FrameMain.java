@@ -42,6 +42,7 @@ public class FrameMain extends JFrame {
 	private UsuariDao ud = new UsuariDao();
 	private KahootDao kd = new KahootDao();
 	private PreguntesDao pd = new PreguntesDao();
+	private Usuari usuariActual;
 	
 	//Metodo main
 	public static void main(String[] args) {
@@ -54,6 +55,7 @@ public class FrameMain extends JFrame {
 		
 		try {
 			Usuari usuari = ud.getUsuariByName(nom);
+			usuariActual = usuari;
 			if (usuari.getPassword().equals(pass)) {
 				return true;
 			} else {
@@ -263,7 +265,7 @@ public class FrameMain extends JFrame {
 			else if ((e.getActionCommand().equals("Guardar nou Kahoot"))) {
 				String nomKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getTfTitol().getText();
 				ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
-				Kahoot kahoot = new Kahoot(nomKahoot);
+				Kahoot kahoot = new Kahoot(nomKahoot, usuariActual);
 				kd.saveKahoot(kahoot);
 				Kahoot idKahoot = kd.getKahootByName(nomKahoot);
 				for (Preguntes pregunta : preguntes) {
