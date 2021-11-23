@@ -17,7 +17,7 @@ public class ServerRMI implements InterRMI{
     
     private PanelSalaDeEspera sde ;
     // true for production(green traffic light), false for testing(yellow traffic light)
-    private boolean isKahootStarted = true;
+    private boolean isKahootStarted = false;
     
     public ServerRMI() {
     	
