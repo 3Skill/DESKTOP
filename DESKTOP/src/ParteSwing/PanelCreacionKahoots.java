@@ -47,10 +47,11 @@ public class PanelCreacionKahoots extends JPanel {
 	private JButton btnEnrere;
 	private DefaultListModel modelo = new DefaultListModel(); 
 	
-	
+	private PanelErrorHandlerComponent panelError;
 	//Constructor
-	public PanelCreacionKahoots() {
+	public PanelCreacionKahoots(PanelErrorHandlerComponent panelError) {
 		
+		this.panelError = panelError;
 		//Confg general del panel
 		setLayout(new BorderLayout(0, 0));
 		JPanel panelPrincipalCrearKahoot = new JPanel();
@@ -128,13 +129,13 @@ public class PanelCreacionKahoots extends JPanel {
 		//Botones
 		btnAfegirPregunta = new JButton("Afegir pregunta");
 		btnAfegirPregunta.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAfegirPregunta.setBounds(216, 491, 181, 70);
+		btnAfegirPregunta.setBounds(220, 478, 181, 70);
 		panelPrincipalCrearKahoot.add(btnAfegirPregunta);
 		
 		
 		btnGuardarKahoot = new JButton("Guardar nou Kahoot");
 		btnGuardarKahoot.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnGuardarKahoot.setBounds(431, 491, 181, 70);
+		btnGuardarKahoot.setBounds(430, 478, 181, 70);
 		panelPrincipalCrearKahoot.add(btnGuardarKahoot);
 		
 		
@@ -362,10 +363,12 @@ public class PanelCreacionKahoots extends JPanel {
 				resetFields(pregunta1);
 				return true;
 			} else {
-				System.out.println("La pregunta no conté cap reposta correcta");
+				panelError.actualitzaErrors("La pregunta no conté cap reposta correcta");
+				//System.out.println("La pregunta no conté cap reposta correcta");
 			}
 		} else {
-			System.out.println("La pregunta no te 2 o més respostes");
+			panelError.actualitzaErrors("La pregunta no te 2 o més respostes");
+			//System.out.println("La pregunta no te 2 o més respostes");
 		}
 		return false;
 	}

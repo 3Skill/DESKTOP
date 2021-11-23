@@ -152,8 +152,9 @@ public class FrameMain extends JFrame {
 				repaint();
 				setTitle("Creador de Kadamm");
 				setSize(800, 690);
+				setResizable(true);
 				setLocationRelativeTo(null);
-				PanelCreacionKahoots = new PanelCreacionKahoots();
+				PanelCreacionKahoots = new PanelCreacionKahoots(ehc);
 				JButton btnCearKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getBtnAfegirPregunta();
 				JButton btnGuardarKahoot = ((PanelCreacionKahoots) PanelCreacionKahoots).getBtnGuardarKahoot();
 				JButton btnEnrere = ((PanelCreacionKahoots) PanelCreacionKahoots).getBtnEnrere();
@@ -249,10 +250,21 @@ public class FrameMain extends JFrame {
 //				Respostes resposta2 = new Respostes(AreaRespostes[1], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
 //				respostes.add(resposta1);
 //				respostes.add(resposta2);
-				((PanelCreacionKahoots) PanelCreacionKahoots).checkNewPregunta(novaPregunta, respostes);
-				for (JCheckBox cb : checkboxes) {
-					cb.setSelected(false);
+				
+				if (((PanelCreacionKahoots) PanelCreacionKahoots).checkNewPregunta(novaPregunta, respostes)) {
+					for (JCheckBox cb : checkboxes) {
+						remove(ehc);
+						setSize(800, 690);
+						setLocationRelativeTo(null);
+						cb.setSelected(false);
+					}
+				}else {
+					
+					setSize(800, 710);
+					setLocationRelativeTo(null);
+					add(ehc,BorderLayout.SOUTH);
 				}
+				
 				
 
 				
@@ -278,10 +290,7 @@ public class FrameMain extends JFrame {
 
 			//Si le damos a seguent pregunta es creara una altre presentacio
 			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
-				
-				
-				
-				
+			
 				remove(PanelConcurs);
 				PanelConcurs = new PanelConcurs();
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
