@@ -45,16 +45,11 @@ public class PanelSalaDeEspera extends JPanel {
 
 	//Constructor
 	@SuppressWarnings("unchecked")
-<<<<<<< HEAD
-	public PanelSalaDeEspera(Kahoot kahootActual) {
-		
-		// get all preguntes from actual kahoot
-//		ArrayList<Preguntes> llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
-		startCountdown();
-=======
+
+	
 	public PanelSalaDeEspera(String titolKahoot) {
 		//startCountdown();
->>>>>>> int
+
 		setLayout(new BorderLayout(0, 0));
 		
 		tituloSalaDeEspera = new JLabel("Sala d'espera");
@@ -113,7 +108,7 @@ public class PanelSalaDeEspera extends JPanel {
 		panel_Kahoot_Ip.add(ipServer);
 		ipServer.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
-		txtTitol = new JLabel(kahootActual.getNom());
+		txtTitol = new JLabel(titolKahoot);
 		txtTitol.setForeground(Color.RED);
 		txtTitol.setBounds(10, 23, 297, 31);
 		panel_Kahoot_Ip.add(txtTitol);

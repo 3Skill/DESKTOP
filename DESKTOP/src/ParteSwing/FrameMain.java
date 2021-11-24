@@ -208,7 +208,7 @@ public class FrameMain extends JFrame {
 					setSize(550, 550);
 					setLocationRelativeTo(null);
 					
-					PanelSalaDeEspera = new PanelSalaDeEspera(kahootActual);
+					PanelSalaDeEspera = new PanelSalaDeEspera(kahootActual.getNom());
 					JButton btnComencar = ((PanelSalaDeEspera) PanelSalaDeEspera).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
 					add(PanelSalaDeEspera);
