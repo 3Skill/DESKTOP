@@ -7,6 +7,12 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import kadamm.hibernate.dao.PreguntesDao;
+import kadamm.hibernate.dao.RespostesDao;
+import kadamm.hibernate.model.Preguntes;
+import kadamm.hibernate.model.Respostes;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
@@ -15,6 +21,7 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
@@ -25,12 +32,14 @@ public class PanelConcurs extends JPanel {
 	private JLabel txtResposta;
 	private JButton btnNextQuest;
 	private JLabel txtTemps;
-
+	ArrayList<Respostes> respostes;
+	RespostesDao rd = new RespostesDao();
+	PreguntesDao pd = new PreguntesDao();
 	//Constructor
-	public PanelConcurs() {
+	public PanelConcurs(Preguntes preguntes, boolean isUltimaPregunta) {
 		setLayout(new BorderLayout(0, 0));
-		
-		txtPregunta = new JLabel("Pregunta de exemple");
+		respostes  = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(preguntes.getIdPreguntes()); // Aqui tienes las respuestas
+		txtPregunta = new JLabel(preguntes.getDescripcio());
 		txtPregunta.setFont(new Font("Tahoma", Font.BOLD, 18));
 		txtPregunta.setHorizontalAlignment(SwingConstants.CENTER);
 		add(txtPregunta, BorderLayout.NORTH);
@@ -40,10 +49,10 @@ public class PanelConcurs extends JPanel {
 		add(panelRespuestas, BorderLayout.CENTER);
 		panelRespuestas.setLayout(new GridLayout(2, 2, 13, 13));
 		
-		for(int i = 0; i< 4 ;i++) {
+		for(int i = 0; i< respostes.size() ;i++) {
 			JPanel panelRespuesta = new JPanel();
 			panelRespuesta.setLayout(new BorderLayout());
-			txtResposta = new JLabel("Resposta "+(i+1));
+			txtResposta = new JLabel(respostes.get(i).getDescripcio());
 			txtResposta.setFont(new Font("Tahoma", Font.BOLD, 15));
 			txtResposta.setHorizontalAlignment(SwingConstants.CENTER);
 			switch(i) {
@@ -75,7 +84,11 @@ public class PanelConcurs extends JPanel {
 		txtTemps.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelBtnNextQuest.add(txtTemps);
 		
-		btnNextQuest = new JButton("Seguent Pregunta");
+		if(isUltimaPregunta) {
+			btnNextQuest = new JButton("Finalitzar");
+		}else {
+			btnNextQuest = new JButton("Seguent Pregunta");
+		}
 		btnNextQuest.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNextQuest.setEnabled(false);
 		

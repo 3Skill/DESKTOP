@@ -43,7 +43,10 @@ public class FrameMain extends JFrame {
 	private KahootDao kd = new KahootDao();
 	private PreguntesDao pd = new PreguntesDao();
 	private static Usuari usuariActual;
-	
+	private Kahoot kahootActual;
+	private int iteradorConcurs = 0;
+	private ArrayList<Preguntes> llistaPreguntes;
+	private boolean isUltimaPregunta = false;
 	
 	
 	public static Usuari getUsuariActual() {
@@ -196,12 +199,16 @@ public class FrameMain extends JFrame {
 				
 				if (titolKahoot != null) {
 					ServerRMI server = new ServerRMI();
+					kahootActual = kd.getKahootByName(titolKahoot);
+					llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
+					
 					remove(PanelGestorKahoots);
 					remove(ehc);
 					setTitle("Sala de Espera");
 					setSize(550, 550);
 					setLocationRelativeTo(null);
-					PanelSalaDeEspera = new PanelSalaDeEspera(titolKahoot);
+					
+					PanelSalaDeEspera = new PanelSalaDeEspera(kahootActual);
 					JButton btnComencar = ((PanelSalaDeEspera) PanelSalaDeEspera).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
 					add(PanelSalaDeEspera);
@@ -219,10 +226,15 @@ public class FrameMain extends JFrame {
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
 			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
+				
 				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
 				JTextField jtextfieldCountdown = ((PanelSalaDeEspera) PanelSalaDeEspera).getCountdown();
-				PanelConcurs = new PanelConcurs();
+				if(iteradorConcurs == llistaPreguntes.size()-1) {
+					isUltimaPregunta = true;
+				}
+				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
+				iteradorConcurs++;
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
 				botonNextQuest.addActionListener(new activeBotons());
 				String txtTemps = ((PanelConcurs) PanelConcurs).getTxtTemps().getText();
@@ -231,7 +243,30 @@ public class FrameMain extends JFrame {
 				
 				
 			}
-			
+			//Si le damos a seguent pregunta es creara una altre presentacio
+			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
+				
+				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
+				if(iteradorConcurs!=llistaPreguntes.size()) {
+					remove(PanelConcurs);
+					if(iteradorConcurs == llistaPreguntes.size()-1) {
+						isUltimaPregunta = true;
+					}
+					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
+					iteradorConcurs++;
+					JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
+					botonNextQuest.addActionListener(new activeBotons());
+					setTitle("Concurs");
+					setResizable(true);
+					setSize(800, 750);
+					setLocationRelativeTo(null);
+					add(PanelConcurs);
+					repaint();
+					startCountdownConcurs(((PanelConcurs) PanelConcurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
+				}
+				
+				
+			}
 			
 			else if ((e.getActionCommand().equals("Afegir pregunta"))) {
 				
@@ -331,22 +366,7 @@ public class FrameMain extends JFrame {
 			
 			
 
-			//Si le damos a seguent pregunta es creara una altre presentacio
-			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 			
-				remove(PanelConcurs);
-				PanelConcurs = new PanelConcurs();
-				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
-				botonNextQuest.addActionListener(new activeBotons());
-				setTitle("Concurs");
-				setResizable(true);
-				setSize(800, 750);
-				setLocationRelativeTo(null);
-				add(PanelConcurs);
-				repaint();
-				startCountdownConcurs(((PanelConcurs) PanelConcurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
-				
-			}
 
 		
 	}

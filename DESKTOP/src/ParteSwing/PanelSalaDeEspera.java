@@ -5,7 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-
+import kadamm.hibernate.dao.PreguntesDao;
+import kadamm.hibernate.model.Kahoot;
+import kadamm.hibernate.model.Preguntes;
 
 import java.awt.Font;
 import java.net.InetAddress;
@@ -38,12 +40,21 @@ public class PanelSalaDeEspera extends JPanel {
 	private String nickname;
 	private boolean paramNickName = true;
 	private DefaultListModel  modelo = new DefaultListModel(); 
+	private PreguntesDao pd = new PreguntesDao();
 
 
 	//Constructor
 	@SuppressWarnings("unchecked")
+<<<<<<< HEAD
+	public PanelSalaDeEspera(Kahoot kahootActual) {
+		
+		// get all preguntes from actual kahoot
+//		ArrayList<Preguntes> llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
+		startCountdown();
+=======
 	public PanelSalaDeEspera(String titolKahoot) {
 		//startCountdown();
+>>>>>>> int
 		setLayout(new BorderLayout(0, 0));
 		
 		tituloSalaDeEspera = new JLabel("Sala d'espera");
@@ -102,7 +113,7 @@ public class PanelSalaDeEspera extends JPanel {
 		panel_Kahoot_Ip.add(ipServer);
 		ipServer.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
-		txtTitol = new JLabel(titolKahoot);
+		txtTitol = new JLabel(kahootActual.getNom());
 		txtTitol.setForeground(Color.RED);
 		txtTitol.setBounds(10, 23, 297, 31);
 		panel_Kahoot_Ip.add(txtTitol);
