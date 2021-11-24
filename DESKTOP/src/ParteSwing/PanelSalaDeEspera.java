@@ -45,11 +45,16 @@ public class PanelSalaDeEspera extends JPanel {
 
 	//Constructor
 	@SuppressWarnings("unchecked")
+<<<<<<< HEAD
 	public PanelSalaDeEspera(Kahoot kahootActual) {
 		
 		// get all preguntes from actual kahoot
 //		ArrayList<Preguntes> llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
 		startCountdown();
+=======
+	public PanelSalaDeEspera(String titolKahoot) {
+		//startCountdown();
+>>>>>>> int
 		setLayout(new BorderLayout(0, 0));
 		
 		tituloSalaDeEspera = new JLabel("Sala d'espera");
@@ -133,35 +138,7 @@ public class PanelSalaDeEspera extends JPanel {
 
 	}
 	
-	private void startCountdown() {
-		
-		Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-        	int i = 3;
 
-            public void run() {
-                i--;
-                if (i < 0) {
-                    timer.cancel();
-                    if(nickname != null) {
-                    	addElementList(nickname);
-                    	nickname = null;
-                    }
-                    
-                    if(paramNickName) {
-                    	startCountdown();
-                    }
-                    
-                    
-                }
-                System.out.println(i);
-            }
-
-			
-        }, 0, 1000);
-        
-	}
-	
 	
 	//Getters and Setters
 	public JLabel getTxtTituloPanel() {
@@ -238,6 +215,7 @@ public class PanelSalaDeEspera extends JPanel {
 		modelo.addElement(name);
 		
 	}
+	
 	
 
 	
