@@ -36,7 +36,7 @@ public class PanelConcurs extends JPanel {
 	RespostesDao rd = new RespostesDao();
 	PreguntesDao pd = new PreguntesDao();
 	//Constructor
-	public PanelConcurs(Preguntes preguntes) {
+	public PanelConcurs(Preguntes preguntes, boolean isUltimaPregunta) {
 		setLayout(new BorderLayout(0, 0));
 		respostes  = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(preguntes.getIdPreguntes()); // Aqui tienes las respuestas
 		txtPregunta = new JLabel(preguntes.getDescripcio());
@@ -84,7 +84,11 @@ public class PanelConcurs extends JPanel {
 		txtTemps.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelBtnNextQuest.add(txtTemps);
 		
-		btnNextQuest = new JButton("Seguent Pregunta");
+		if(isUltimaPregunta) {
+			btnNextQuest = new JButton("Finalitzar");
+		}else {
+			btnNextQuest = new JButton("Seguent Pregunta");
+		}
 		btnNextQuest.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNextQuest.setEnabled(false);
 		

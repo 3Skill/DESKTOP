@@ -46,6 +46,7 @@ public class FrameMain extends JFrame {
 	private Kahoot kahootActual;
 	private int iteradorConcurs = 0;
 	private ArrayList<Preguntes> llistaPreguntes;
+	private boolean isUltimaPregunta = false;
 	
 	
 	public static Usuari getUsuariActual() {
@@ -229,7 +230,10 @@ public class FrameMain extends JFrame {
 				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
 				JTextField jtextfieldCountdown = ((PanelSalaDeEspera) PanelSalaDeEspera).getCountdown();
-				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs));
+				if(iteradorConcurs == llistaPreguntes.size()-1) {
+					isUltimaPregunta = true;
+				}
+				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 				iteradorConcurs++;
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
 				botonNextQuest.addActionListener(new activeBotons());
@@ -245,7 +249,10 @@ public class FrameMain extends JFrame {
 				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
 				if(iteradorConcurs!=llistaPreguntes.size()) {
 					remove(PanelConcurs);
-					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs));
+					if(iteradorConcurs == llistaPreguntes.size()-1) {
+						isUltimaPregunta = true;
+					}
+					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 					iteradorConcurs++;
 					JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
 					botonNextQuest.addActionListener(new activeBotons());
