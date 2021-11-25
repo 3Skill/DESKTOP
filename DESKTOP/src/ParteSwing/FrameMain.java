@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -115,18 +117,65 @@ public class FrameMain extends JFrame {
 		
 		panelLogin = new PanelLogin();
 		JButton botonLogin = ((PanelLogin) panelLogin).getBotonAccedir();
-		
+		JTextField txtpass = ((PanelLogin) panelLogin).getPasswordField();
+		JTextField txtuser = ((PanelLogin) panelLogin).gettfUsuari();
 		botonLogin.addActionListener(new activeBotons());
-		
+		//Listener del teclado
+		KeyListener keyListener =  new KeyListener(){
+            public void keyTyped(KeyEvent e){
+            	//System.out.println("Enter");
+            }
+            public void keyPressed(KeyEvent e){
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                	System.out.println("Enter");
+    				// Capturem els valors de usuari i password
+    				String nom = ((PanelLogin) panelLogin).gettfUsuari().getText().toString();
+    				String pass = ((PanelLogin) panelLogin).getPasswordField().getText();
+    				
+    				//Comprobaciones de que el login sea correct
+    				
+    				if(login(nom, pass) == true) {
+    					remove(panelLogin);
+    					remove(ehc);
+    					setTitle("Explorador de Kadamm");
+    					setSize(800, 600);
+    					setLocationRelativeTo(null);
+    					PanelGestorKahoots = new PanelGestorKahoots();
+    					//Anyadimos el listener de crear kahoots
+    					JButton botonCrearKahoots = ((PanelGestorKahoots) PanelGestorKahoots).getBtnCrearKahoot();
+    					JButton botonJugar = ((PanelGestorKahoots) PanelGestorKahoots).getBtnJugar();
+    					
+    					botonCrearKahoots.addActionListener(new activeBotons());
+    					botonJugar.addActionListener(new activeBotons());
+    					add(PanelGestorKahoots);
+                } else {
+					System.out.println("login incorrecte");
+					setSize(650, 540);
+					setResizable(true);
+					setResizable(false);
+					add(ehc,BorderLayout.SOUTH);
+				}
+                
+            }
+            }
+            public void keyReleased(KeyEvent e){
+            	//System.out.println("Enter");
+            }
+        };
+        txtpass.addKeyListener(keyListener);
+        txtuser.addKeyListener(keyListener);
 		add(panelLogin,BorderLayout.CENTER);
 		
 		setVisible(true);
 	}
 	
+
+	
 	//Clase para gestionar las acciones de los Botones de los diferentes paneles
 	class activeBotons implements ActionListener {
+		
 		private String titolKahoot;
-
+		
 		public void actionPerformed(ActionEvent e) {
 			
 			//Boton 'Accedir' de Panel Login
@@ -272,10 +321,12 @@ public class FrameMain extends JFrame {
 				
 				Respostes resposta1 = null;
 				Respostes resposta2 = null;
+				Respostes resposta3 = null;
+				Respostes resposta4 = null;
 				
 				Preguntes novaPregunta = new Preguntes(((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaPregunta().getText());
 				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
-				ArrayList<JCheckBox> checkboxes= new ArrayList<JCheckBox>();
+				ArrayList<JCheckBox> checkboxes=  new ArrayList<JCheckBox>();
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb1());
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb2());
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb3());
@@ -283,14 +334,17 @@ public class FrameMain extends JFrame {
 				
 				respostes.add(resposta1);
 				respostes.add(resposta2);
+				respostes.add(resposta3);
+				respostes.add(resposta4);
 				String[] AreaRespostes = ((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaRespostes().getText().split("\n");
+				System.out.println("Respuestas: "+ AreaRespostes.length);
 //				Respostes resposta1 = new Respostes(((CreacionKahoots) ck).getTxtAreaRespostes().getText(), ((CreacionKahoots) ck).getCb1().isSelected(), 19);
 				
 				for (int i = 0; i < AreaRespostes.length; i++) {
 					if(!AreaRespostes[i].equals("")) {
 						Respostes resposta = new Respostes(AreaRespostes[i], checkboxes.get(i).isSelected());
 						respostes.set(i, resposta);
-					
+						System.out.println(AreaRespostes[i]);
 					}
 				}
 //				Respostes resposta1 = new Respostes(AreaRespostes[0], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
@@ -328,7 +382,7 @@ public class FrameMain extends JFrame {
 					ehc.actualitzaErrors("Error al guardar el Kahoot: El kahoot no té títol");
 				}else {
 					try {
-						ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
+						ArrayList<Preguntes> preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
 						Kahoot kahoot = new Kahoot(nomKahoot, usuariActual);
 						kd.saveKahoot(kahoot);
 						Kahoot idKahoot = kd.getKahootByName(nomKahoot);
@@ -425,8 +479,13 @@ public class FrameMain extends JFrame {
 	        }, 0, 1000);
 			
 		}
+
+
+		
 	
 
 
 	}
+
+	
 }

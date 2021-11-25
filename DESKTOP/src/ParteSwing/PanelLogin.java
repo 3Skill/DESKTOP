@@ -26,9 +26,11 @@ import javax.swing.JCheckBox;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
-public class PanelLogin extends JPanel {
+public class PanelLogin extends JPanel implements KeyListener{
 	
 	//Atributs
 	private JTextField username;
@@ -155,6 +157,29 @@ public class PanelLogin extends JPanel {
 	}
 	public void setCbRecordarContra(JCheckBox cbRecordarContra) {
 		this.cbRecordarContra = cbRecordarContra;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+	            System.out.println("Right key pressed");
+	        }
+	        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	            System.out.println("Left key pressed");
+	        }
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
