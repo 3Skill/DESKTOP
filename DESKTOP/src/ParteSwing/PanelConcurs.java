@@ -33,7 +33,10 @@ public class PanelConcurs extends JPanel {
 	private JButton btnNextQuest;
 	private JLabel txtTemps;
 	ArrayList<Respostes> respostes;
+	ArrayList<JPanel> llistaPanelRespostes;
 	RespostesDao rd = new RespostesDao();
+	
+
 	PreguntesDao pd = new PreguntesDao();
 	//Constructor
 	public PanelConcurs(Preguntes preguntes, boolean isUltimaPregunta) {
@@ -74,6 +77,7 @@ public class PanelConcurs extends JPanel {
 			
 			panelRespuesta.add(txtResposta);
 			panelRespuestas.add(panelRespuesta);
+			llistaPanelRespostes.add(panelRespuesta);
 		}
 		
 		JPanel panelBtnNextQuest = new JPanel();
@@ -97,6 +101,29 @@ public class PanelConcurs extends JPanel {
 		
 	}
 	
+	public JLabel getTxtResposta() {
+		return txtResposta;
+	}
+
+	public void setTxtResposta(JLabel txtResposta) {
+		this.txtResposta = txtResposta;
+	}
+
+	public ArrayList<JPanel> getLlistaPanelRespostes() {
+		return llistaPanelRespostes;
+	}
+
+	public void setLlistaPanelRespostes(ArrayList<JPanel> llistaPanelRespostes) {
+		this.llistaPanelRespostes = llistaPanelRespostes;
+	}
+	public ArrayList<Respostes> getRespostes() {
+		return respostes;
+	}
+
+	public void setRespostes(ArrayList<Respostes> respostes) {
+		this.respostes = respostes;
+	}
+
 	//Getters and Setters
 	public JLabel getTxtPregunta() {
 		return txtPregunta;

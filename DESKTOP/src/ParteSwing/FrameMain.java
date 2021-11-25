@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,9 +49,10 @@ public class FrameMain extends JFrame {
 	private Kahoot kahootActual;
 	private int iteradorConcurs = 0;
 	private ArrayList<Preguntes> llistaPreguntes;
+	private ArrayList<JPanel> llistaPanelPreguntes;
 	private boolean isUltimaPregunta = false;
 	
-	
+	private ArrayList<Respostes> respostes;
 	public static Usuari getUsuariActual() {
 		return usuariActual;
 	}
@@ -285,8 +287,10 @@ public class FrameMain extends JFrame {
 				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 				iteradorConcurs++;
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
+				;
 				botonNextQuest.addActionListener(new activeBotons());
 				String txtTemps = ((PanelConcurs) PanelConcurs).getTxtTemps().getText();
+				respostes  = ((ParteSwing.PanelConcurs) PanelConcurs).getRespostes();
 				startCountdown(jtextfieldCountdown, countdown);
 				
 				
@@ -438,6 +442,18 @@ public class FrameMain extends JFrame {
 	                jTextField.setText(String.valueOf(i));
 	                i--;
 	                if (i < 0) {
+	                	RespostesDao rd = new RespostesDao();
+	                	for(int i = 0;i<respostes.size();i++) {
+	                		
+	                		if (rd.checkCorrectResposta(respostes.get(i).getIdResposta()).equals("0")) {
+								for (JPanel panel : llistaPanelPreguntes) {
+									if (rootPaneCheckingEnabled) {
+										
+									}
+									
+								}
+							}
+	                	}
 	                    timer.cancel();
 	                    
 	                    remove(PanelSalaDeEspera);
