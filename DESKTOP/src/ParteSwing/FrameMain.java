@@ -52,7 +52,7 @@ public class FrameMain extends JFrame {
 	private ArrayList<JPanel> llistaPanelPreguntes;
 	private boolean isUltimaPregunta = false;
 	
-	private ArrayList<Respostes> respostes;
+	
 	public static Usuari getUsuariActual() {
 		return usuariActual;
 	}
@@ -231,6 +231,24 @@ public class FrameMain extends JFrame {
 			}
 			else if((e.getActionCommand().equals("Enrere"))) {
 				remove(PanelCreacionKahoots);
+				
+				remove(ehc);
+				setTitle("Explorador de Kadamm");
+				setSize(800, 600);
+				setLocationRelativeTo(null);
+				PanelGestorKahoots = new PanelGestorKahoots();
+				//Anyadimos el listener de crear kahoots
+				JButton botonCrearKahoots = ((PanelGestorKahoots) PanelGestorKahoots).getBtnCrearKahoot();
+				JButton botonJugar = ((PanelGestorKahoots) PanelGestorKahoots).getBtnJugar();
+				
+				botonCrearKahoots.addActionListener(new activeBotons());
+				botonJugar.addActionListener(new activeBotons());
+				add(PanelGestorKahoots);
+			}
+			else if(e.getActionCommand().equals("Finalitzar")) {
+				iteradorConcurs = 0;
+				isUltimaPregunta = false;
+				remove(PanelConcurs);
 				remove(ehc);
 				setTitle("Explorador de Kadamm");
 				setSize(800, 600);
@@ -284,13 +302,15 @@ public class FrameMain extends JFrame {
 				if(iteradorConcurs == llistaPreguntes.size()-1) {
 					isUltimaPregunta = true;
 				}
+				//
 				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 				iteradorConcurs++;
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
-				;
+				
 				botonNextQuest.addActionListener(new activeBotons());
 				String txtTemps = ((PanelConcurs) PanelConcurs).getTxtTemps().getText();
-				respostes  = ((ParteSwing.PanelConcurs) PanelConcurs).getRespostes();
+				
+				llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 				startCountdown(jtextfieldCountdown, countdown);
 				
 				
@@ -304,6 +324,7 @@ public class FrameMain extends JFrame {
 					remove(PanelConcurs);
 					if(iteradorConcurs == llistaPreguntes.size()-1) {
 						isUltimaPregunta = true;
+						
 					}
 					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 					iteradorConcurs++;
@@ -315,6 +336,8 @@ public class FrameMain extends JFrame {
 					setLocationRelativeTo(null);
 					add(PanelConcurs);
 					repaint();
+					
+					llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 					startCountdownConcurs(((PanelConcurs) PanelConcurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
 				}
 				
@@ -323,10 +346,7 @@ public class FrameMain extends JFrame {
 			
 			else if ((e.getActionCommand().equals("Afegir pregunta"))) {
 				
-				Respostes resposta1 = null;
-				Respostes resposta2 = null;
-				Respostes resposta3 = null;
-				Respostes resposta4 = null;
+
 				
 				Preguntes novaPregunta = new Preguntes(((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaPregunta().getText());
 				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
@@ -336,25 +356,19 @@ public class FrameMain extends JFrame {
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb3());
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb4());
 				
-				respostes.add(resposta1);
-				respostes.add(resposta2);
-				respostes.add(resposta3);
-				respostes.add(resposta4);
+
 				String[] AreaRespostes = ((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaRespostes().getText().split("\n");
 				System.out.println("Respuestas: "+ AreaRespostes.length);
-//				Respostes resposta1 = new Respostes(((CreacionKahoots) ck).getTxtAreaRespostes().getText(), ((CreacionKahoots) ck).getCb1().isSelected(), 19);
+
 				
 				for (int i = 0; i < AreaRespostes.length; i++) {
 					if(!AreaRespostes[i].equals("")) {
 						Respostes resposta = new Respostes(AreaRespostes[i], checkboxes.get(i).isSelected());
-						respostes.set(i, resposta);
+						respostes.add(resposta);
 						System.out.println(AreaRespostes[i]);
 					}
 				}
-//				Respostes resposta1 = new Respostes(AreaRespostes[0], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
-//				Respostes resposta2 = new Respostes(AreaRespostes[1], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
-//				respostes.add(resposta1);
-//				respostes.add(resposta2);
+
 				
 				if (((PanelCreacionKahoots) PanelCreacionKahoots).checkNewPregunta(novaPregunta, respostes)) {
 					for (JCheckBox cb : checkboxes) {
@@ -442,18 +456,7 @@ public class FrameMain extends JFrame {
 	                jTextField.setText(String.valueOf(i));
 	                i--;
 	                if (i < 0) {
-	                	RespostesDao rd = new RespostesDao();
-	                	for(int i = 0;i<respostes.size();i++) {
-	                		
-	                		if (rd.checkCorrectResposta(respostes.get(i).getIdResposta()).equals("0")) {
-								for (JPanel panel : llistaPanelPreguntes) {
-									if (rootPaneCheckingEnabled) {
-										
-									}
-									
-								}
-							}
-	                	}
+	                	
 	                    timer.cancel();
 	                    
 	                    remove(PanelSalaDeEspera);
@@ -488,6 +491,10 @@ public class FrameMain extends JFrame {
 	                    timer.cancel();
 	                    ((PanelConcurs) PanelConcurs).setEnabledButton();
 	                    
+	                	for(int i = 0;i<llistaPanelPreguntes.size();i++) {
+	                		llistaPanelPreguntes.get(i).setBackground(Color.GRAY);
+	                		
+	                	}
 	                }
 	            }
 

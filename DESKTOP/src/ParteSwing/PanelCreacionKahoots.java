@@ -360,7 +360,7 @@ public class PanelCreacionKahoots extends JPanel {
 		if(pregunta1.getDescripcio().equals("") || pregunta1 == null) {
 			panelError.actualitzaErrors("ERROR: La pregunta està en blanc");
 		}
-		else if(respostes.get(1) != null) {
+		else if(respostes.get(1) != null ) {
 			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()|| respostes.get(2).isRespostaCorrecta()|| respostes.get(3).isRespostaCorrecta()) {
 				System.out.println("Guardem la pregunta");
 				saveNewPregunta(pregunta1, respostes);

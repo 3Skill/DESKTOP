@@ -29,11 +29,11 @@ import java.awt.event.ActionEvent;
 public class PanelConcurs extends JPanel {
 	//Atributos
 	private JLabel txtPregunta;
-	private JLabel txtResposta;
+	
 	private JButton btnNextQuest;
 	private JLabel txtTemps;
 	ArrayList<Respostes> respostes;
-	ArrayList<JPanel> llistaPanelRespostes;
+	ArrayList<JPanel> llistaPanelRespostes = new ArrayList<JPanel>();
 	RespostesDao rd = new RespostesDao();
 	
 
@@ -53,31 +53,13 @@ public class PanelConcurs extends JPanel {
 		panelRespuestas.setLayout(new GridLayout(2, 2, 13, 13));
 		
 		for(int i = 0; i< respostes.size() ;i++) {
-			JPanel panelRespuesta = new JPanel();
-			panelRespuesta.setLayout(new BorderLayout());
-			txtResposta = new JLabel(respostes.get(i).getDescripcio());
-			txtResposta.setFont(new Font("Tahoma", Font.BOLD, 15));
-			txtResposta.setHorizontalAlignment(SwingConstants.CENTER);
-			switch(i) {
-				case 0:
-					panelRespuesta.setBackground(Color.CYAN);
-					break;
-				case 1:
-					panelRespuesta.setBackground(Color.RED);
-					break;
-				case 2:
-					panelRespuesta.setBackground(Color.ORANGE);
-					break;
-				case 3:
-					panelRespuesta.setBackground(Color.GREEN);
-					break;
-				
+			generadorPanelesRespuestas panelRespuesta = new generadorPanelesRespuestas(respostes.get(i),i);
+			
+			panelRespuestas.add(panelRespuesta);
+			if(!respostes.get(i).isRespostaCorrecta()) {
+				llistaPanelRespostes.add(panelRespuesta);
 			}
 			
-			
-			panelRespuesta.add(txtResposta);
-			panelRespuestas.add(panelRespuesta);
-			llistaPanelRespostes.add(panelRespuesta);
 		}
 		
 		JPanel panelBtnNextQuest = new JPanel();
@@ -100,14 +82,44 @@ public class PanelConcurs extends JPanel {
 		
 		
 	}
-	
-	public JLabel getTxtResposta() {
-		return txtResposta;
-	}
+	class generadorPanelesRespuestas extends JPanel{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private JLabel txtResposta;
+		public generadorPanelesRespuestas(Respostes resuesta, int i) {
+			setLayout(new BorderLayout());
+			txtResposta = new JLabel(resuesta.getDescripcio());
+			txtResposta.setFont(new Font("Tahoma", Font.BOLD, 15));
+			txtResposta.setHorizontalAlignment(SwingConstants.CENTER);
+			switch(i) {
+				case 0:
+					setBackground(Color.CYAN);
+					break;
+				case 1:
+					setBackground(Color.RED);
+					break;
+				case 2:
+					setBackground(Color.ORANGE);
+					break;
+				case 3:
+					setBackground(Color.GREEN);
+					break;
+				
+			}
+			add(txtResposta);
+		}
+		public JLabel getTxtResposta() {
+			return txtResposta;
+		}
 
-	public void setTxtResposta(JLabel txtResposta) {
-		this.txtResposta = txtResposta;
+		public void setTxtResposta(JLabel txtResposta) {
+			this.txtResposta = txtResposta;
+		}
 	}
+	
+	
 
 	public ArrayList<JPanel> getLlistaPanelRespostes() {
 		return llistaPanelRespostes;
