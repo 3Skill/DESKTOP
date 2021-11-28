@@ -205,6 +205,13 @@ public class PanelSalaDeEspera extends JPanel {
 		
 	}
 	
+	public boolean getElementList(String nickname) {
+		
+		System.out.println(modelo.contains(nickname));
+		return modelo.contains(nickname);
+		
+	}
+	
 	
 
 	
