@@ -16,8 +16,7 @@ import lipermi.net.Server;
 public class ServerRMI implements InterRMI{
     
     private PanelSalaDeEspera sde ;
-    // true for production(green traffic light), false for testing(yellow traffic light)
-    private boolean isKahootStarted = false;
+    private boolean isWaitingRoom;
     
     public ServerRMI() {
     	
@@ -42,9 +41,11 @@ public class ServerRMI implements InterRMI{
                 }
             });
             System.out.println("Servidor iniciado correctamente");
+            isWaitingRoom = true;
             
         }catch (Exception e) {
             System.err.println("Error: No se ha podido iniciar el Servidor");
+            isWaitingRoom = false;
         }
     }
     
@@ -58,10 +59,18 @@ public class ServerRMI implements InterRMI{
 	}
 
 	@Override
-	public boolean getKahootState() {
-		return isKahootStarted;
-		
+	public boolean getWaitingRoomStatus() {
+		// TODO Auto-generated method stub
+		return isWaitingRoom;
 	}
+	
+	
+	public boolean isUserAvailable(String nickname) {
+		//If true then is not available
+		return sde.getElementList(nickname) ? false : true;
+				
+	}
+
 	
 	
 }

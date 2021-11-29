@@ -1,10 +1,10 @@
 package com.example.kadamm.ui.connexio;
 
-import java.rmi.Remote;
 
-public interface InterRMI extends Remote{
+public interface InterRMI{
 	public void setNickName(String nickname);
-	public boolean getKahootState();
+	public boolean getWaitingRoomStatus();
+	public boolean isUserAvailable(String nickname);
 }
 
 //ConnRMILipe
