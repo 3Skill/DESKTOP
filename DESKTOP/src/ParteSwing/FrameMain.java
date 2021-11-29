@@ -250,9 +250,11 @@ public class FrameMain extends JFrame {
 				isUltimaPregunta = false;
 				remove(PanelConcurs);
 				remove(ehc);
+				
 				setTitle("Explorador de Kadamm");
 				setSize(800, 600);
 				setLocationRelativeTo(null);
+				setResizable(false);
 				PanelGestorKahoots = new PanelGestorKahoots();
 				//Anyadimos el listener de crear kahoots
 				JButton botonCrearKahoots = ((PanelGestorKahoots) PanelGestorKahoots).getBtnCrearKahoot();
