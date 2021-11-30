@@ -205,12 +205,13 @@ public class PanelSalaDeEspera extends JPanel {
 		this.paramNickName = false;
 	}
 
-	//
+	//Metodo para annadir concursantes al jlist
 	public void addElementList(String name) {
 		modelo.addElement(name);
 		
 	}
 	
+	//Funcion para coger elementos del JList
 	public boolean getElementList(String nickname) {
 		
 		System.out.println(modelo.contains(nickname));
