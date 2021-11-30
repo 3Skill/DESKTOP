@@ -40,6 +40,7 @@ public class PanelConcurs extends JPanel {
 	PreguntesDao pd = new PreguntesDao();
 	//Constructor
 	public PanelConcurs(Preguntes preguntes, boolean isUltimaPregunta) {
+		//Configuracion basica
 		setLayout(new BorderLayout(0, 0));
 		respostes  = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(preguntes.getIdPreguntes()); // Aqui tienes las respuestas
 		txtPregunta = new JLabel(preguntes.getDescripcio());
@@ -51,7 +52,7 @@ public class PanelConcurs extends JPanel {
 		JPanel panelRespuestas = new JPanel();
 		add(panelRespuestas, BorderLayout.CENTER);
 		panelRespuestas.setLayout(new GridLayout(2, 2, 13, 13));
-		
+		//Annadimoss paneles de respuesta segun la cantidad de respuestas
 		for(int i = 0; i< respostes.size() ;i++) {
 			generadorPanelesRespuestas panelRespuesta = new generadorPanelesRespuestas(respostes.get(i),i);
 			
@@ -69,7 +70,7 @@ public class PanelConcurs extends JPanel {
 		txtTemps = new JLabel("temps");
 		txtTemps.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelBtnNextQuest.add(txtTemps);
-		
+		//El boton cambia segun si es la ultima pregunta o no
 		if(isUltimaPregunta) {
 			btnNextQuest = new JButton("Finalitzar");
 		}else {
@@ -82,17 +83,17 @@ public class PanelConcurs extends JPanel {
 		
 		
 	}
+	//Clase para generar 
 	class generadorPanelesRespuestas extends JPanel{
-		/**
-		 * 
-		 */
+		
 		private static final long serialVersionUID = 1L;
 		private JLabel txtResposta;
-		public generadorPanelesRespuestas(Respostes resuesta, int i) {
+		public generadorPanelesRespuestas(Respostes respuesta, int i) {
 			setLayout(new BorderLayout());
-			txtResposta = new JLabel(resuesta.getDescripcio());
+			txtResposta = new JLabel(respuesta.getDescripcio());
 			txtResposta.setFont(new Font("Tahoma", Font.BOLD, 15));
 			txtResposta.setHorizontalAlignment(SwingConstants.CENTER);
+			//Segun la respuesta se pondra el panel de un color
 			switch(i) {
 				case 0:
 					setBackground(Color.CYAN);
@@ -119,7 +120,7 @@ public class PanelConcurs extends JPanel {
 		}
 	}
 	
-	
+	//Getters y Setters
 
 	public ArrayList<JPanel> getLlistaPanelRespostes() {
 		return llistaPanelRespostes;

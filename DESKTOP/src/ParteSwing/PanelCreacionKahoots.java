@@ -81,7 +81,7 @@ public class PanelCreacionKahoots extends JPanel {
 		panelPrincipalCrearKahoot.add(scrollPanelPreguntas);
 
 		
-		String textNovaPregunta; 										// Variable per guardar la descripció d'una nova pregunta
+		String textNovaPregunta;// Variable per guardar la descripció d'una nova pregunta
 		String[] llistaTemesAssociats = {"Tema 1","Tema 2","Tema 3","Tema n","..."};
 		String[] llistaRespostes = {"Resposta 1","Resposta 2","Resposta 3","Resposta 4"};
 		
@@ -356,7 +356,6 @@ public class PanelCreacionKahoots extends JPanel {
 	
 
 	public boolean checkNewPregunta(Preguntes pregunta1, ArrayList<Respostes> respostes) {
-//		if(txtAreaRespostes.getLineCount()>1) {
 		if(pregunta1.getDescripcio().equals("") || pregunta1 == null) {
 			panelError.actualitzaErrors("ERROR: La pregunta està en blanc");
 		}
