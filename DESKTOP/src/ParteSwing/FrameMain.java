@@ -8,7 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,7 +54,7 @@ public class FrameMain extends JFrame {
 	private ArrayList<Preguntes> llistaPreguntes;
 	private ArrayList<JPanel> llistaPanelPreguntes;
 	private boolean isUltimaPregunta = false;
-	
+	private ServerRMI server;
 	
 	public static Usuari getUsuariActual() {
 		return usuariActual;
@@ -269,9 +272,21 @@ public class FrameMain extends JFrame {
 				titolKahoot = ((PanelGestorKahoots) PanelGestorKahoots).getListKahoots();
 				
 				if (titolKahoot != null) {
-					ServerRMI server = new ServerRMI();
+					//Coger las respuestas de cada pregunta 
+					
+					
+					//Hashtable<String, String> infoPreguntas = getHashPreguntas(llistaPreguntes);
+					ArrayList<String> infoKahoot = new ArrayList<String>();	
+					infoKahoot.add(lxml.getCountdown());
+					infoKahoot.add(lxml.getTimeout());
+					
+					
 					kahootActual = kd.getKahootByName(titolKahoot);
 					llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
+					server = new ServerRMI(infoKahoot,llistaPreguntes);
+					
+					
+					
 					
 					remove(PanelGestorKahoots);
 					remove(ehc);
@@ -297,7 +312,7 @@ public class FrameMain extends JFrame {
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
 			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
-				
+				server.setWaitingRoom2Status(true);
 				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
 				JTextField jtextfieldCountdown = ((PanelSalaDeEspera) PanelSalaDeEspera).getCountdown();
@@ -445,7 +460,8 @@ public class FrameMain extends JFrame {
 		
 	}
 	
-		
+
+
 		//Funcion para iniciar una cuentra atras en un JTextField
 		private void startCountdown(JTextField jTextField, int timeout) {
 				
