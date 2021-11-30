@@ -7,6 +7,8 @@ import java.util.Set;
 
 import kadamm.hibernate.dao.*;
 import kadamm.hibernate.model.*;
+import kadamm.hibernate.model.Torn.TornId;
+
 
 public class TestHibernate {
 
@@ -17,6 +19,7 @@ public class TestHibernate {
 		RespostesDao rd = new RespostesDao();
 		ConcursantDao ctd = new ConcursantDao();
 		ConcursDao cd = new ConcursDao();
+		TornDao td = new TornDao();
 		
 		
 		
@@ -139,15 +142,30 @@ public class TestHibernate {
 			System.out.println(resposta.getDescripcio());
 		}
 		
-		Concursant concursant1 = new Concursant("Pepe", "Password");
+		Concursant concursant1 = new Concursant("Pepe", "pass1");
+		Concursant concursant2 = new Concursant("Paco", "pass2");
 		Concurs concurs1 = new Concurs(kahoot1.getIdKahoot());
 		
 		ctd.saveConcursant(concursant1);
+		ctd.saveConcursant(concursant2);
 		Concursant concursantRecuperat = ctd.getConcursantById(1);
-		ArrayList<Concursant> concursants = new ArrayList<Concursant>();
-		concursants.add(concursantRecuperat);
-		Concurs concurs2 = new Concurs(kahoot1.getIdKahoot(), concursants);
-		cd.addConcurs(concurs2);
+//		ArrayList<Concursant> concursants = new ArrayList<Concursant>();
+//		concursants.add(concursant1);
+//		concursants.add(concursant2);
+		
+		concurs1.addConcursant(concursant1);
+		concurs1.addConcursant(concursant2);
+		System.out.println(concurs1.getConcursants());
+		concurs1.setConcursants(concurs1.getConcursants());
+		cd.addConcurs(concurs1);
+//		TornId tornId = new TornId(concurs1.getIdConcurs(),pregunta1.getIdPreguntes(), concursant1.getIdConcursant());
+		Torn torn = new Torn(new TornId(), concurs1, pregunta1,concursant1, resposta1.getIdResposta());
+		Torn torn2 = new Torn(new TornId(), concurs1, pregunta1, concursant2, resposta8.getIdResposta());
+		torn.setResposta(resposta1.getIdResposta());
+		td.saveTorn(torn);
+		td.saveTorn(torn2);
+		
+		
 		
 		
 		
