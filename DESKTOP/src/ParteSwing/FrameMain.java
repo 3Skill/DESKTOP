@@ -336,6 +336,8 @@ public class FrameMain extends JFrame {
 			//Si le damos a seguent pregunta es creara una altre presentacio
 			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 				
+				
+			
 				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
 				if(iteradorConcurs!=llistaPreguntes.size()) {
 					remove(PanelConcurs);
