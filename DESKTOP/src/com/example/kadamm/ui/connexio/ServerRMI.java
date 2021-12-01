@@ -147,11 +147,12 @@ public class ServerRMI implements InterRMI{
 	}
 	
 	// Add user answer to the list of answers [Jose, Los romanos]
-	public void setUserAnswer(ArrayList<String> nicknameAnswer) {
+	public boolean setUserAnswer(ArrayList<String> nicknameAnswer) {
 		System.out.println(nicknameAnswer.toString());
 		tornActual.setConcursant(ctd.getConcursantByName(nicknameAnswer.get(0)));
 		tornActual.setResposta(rd.getRespostaByText(nicknameAnswer.get(1)).getIdResposta());
 		td.saveTorn(tornActual);
+		return true;
 		
 		
 		//listOfAnswers.add(nicknameAnswer);
