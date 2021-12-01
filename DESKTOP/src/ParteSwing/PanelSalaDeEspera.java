@@ -179,7 +179,7 @@ public class PanelSalaDeEspera extends JPanel {
 		this.list = list;
 	}
 
-
+	
 	public JTextField getCountdown() {
 		return countdown;
 	}

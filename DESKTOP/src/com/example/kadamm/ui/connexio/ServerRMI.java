@@ -22,7 +22,7 @@ import lipermi.net.Server;
 public class ServerRMI implements InterRMI{
     private ArrayList<String> kahootActual;
     private PanelSalaDeEspera sde;
-    
+    private ArrayList<ArrayList<String>> listOfAnswers;
     private boolean isWaitingRoom;
     private boolean isWaitingRoom2 = false;
     private ArrayList<Preguntes> infoPreguntas;
@@ -122,6 +122,20 @@ public class ServerRMI implements InterRMI{
 		return array;
 		
 	}
+	
+	// Add user answer to the list of answers [Jose, Los romanos]
+	public void setUserAnswer(ArrayList<String> nicknameAnswer) {
+		System.out.println(nicknameAnswer.toString());
+		//listOfAnswers.add(nicknameAnswer);
+	}
+	
+//	public ArrayList<ArrayList<String>> getListOfAnswers(){
+//		return listOfAnswers;
+//	}
+//	
+//	public void resetListOfAnswers() {
+//		listOfAnswers = new ArrayList<ArrayList<String>>();
+//	}
 
 	
 

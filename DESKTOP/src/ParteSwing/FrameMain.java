@@ -220,7 +220,7 @@ public class FrameMain extends JFrame {
 			}
 			//Boton 'Crear Kahoot' de Panel GestorKahoots 
 			else if((e.getActionCommand().equals("Crear Kahoot"))) {
-				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
+				//Elimiamos los paneles puestos, ponemos el nuevo y aÃ±adimos listeners a sendos paneles
 				remove(PanelGestorKahoots);
 				remove(ehc);
 				repaint();
@@ -239,7 +239,7 @@ public class FrameMain extends JFrame {
 			}
 			//Boton 'Enrere' de panel de Creacion de kahoots
 			else if((e.getActionCommand().equals("Enrere"))) {
-				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
+				//Elimiamos los paneles puestos, ponemos el nuevo y aÃ±adimos listeners a sendos paneles
 				remove(PanelCreacionKahoots);
 				remove(ehc);
 				setTitle("Explorador de Kadamm");
@@ -256,10 +256,18 @@ public class FrameMain extends JFrame {
 			}
 			//Boton 'Finalitzar' de panel concurs, unicamente cuando es la ultima presentacion
 			else if(e.getActionCommand().equals("Finalitzar")) {
+
+				
+				// Spec 33
+				server.setWaitingRoom2Status(true);
+				
+				
+
 				//Reseteamos variables para que no salten errores
+
 				iteradorConcurs = 0;
 				isUltimaPregunta = false;
-				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
+				//Elimiamos los paneles puestos, ponemos el nuevo y aÃ±adimos listeners a sendos paneles
 				remove(PanelConcurs);
 				remove(ehc);
 				
@@ -317,7 +325,7 @@ public class FrameMain extends JFrame {
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
 			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
-				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
+				//Elimiamos los paneles puestos, ponemos el nuevo y aÃ±adimos listeners a sendos paneles
 				server.setWaitingRoom2Status(true);
 				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
@@ -342,6 +350,9 @@ public class FrameMain extends JFrame {
 			//Si le damos a seguent pregunta es creara una altre presentacio
 			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 				
+				//Spec32
+				server.setWaitingRoom2Status(true);
+			
 				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
 				if(iteradorConcurs!=llistaPreguntes.size()) {
 					remove(PanelConcurs);
@@ -418,7 +429,7 @@ public class FrameMain extends JFrame {
 					setSize(800, 710);
 					setLocationRelativeTo(null);
 					add(ehc,BorderLayout.SOUTH);
-					ehc.actualitzaErrors("Error al guardar el Kahoot: El kahoot no té títol");
+					ehc.actualitzaErrors("Error al guardar el Kahoot: El kahoot no tÃ© tÃ­tol");
 				}else {
 					try {
 						ArrayList<Preguntes> preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
