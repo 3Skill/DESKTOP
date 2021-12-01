@@ -27,9 +27,10 @@ public class TestHibernate {
 		Usuari usuari2 = new Usuari("VMV", "VMerchanHitler");
 		Usuari usuari3 = new Usuari("JoseMRN", "Coleta69");
 		
-		Kahoot kahoot1 = new Kahoot("Animales", usuari1);
+		Kahoot kahoot1 = new Kahoot("Animales", usuari2);
 		Kahoot kahoot2 = new Kahoot("Blockchain", usuari1);
 		Kahoot kahoot3 = new Kahoot("DAM2", usuari3);
+		Kahoot kahoot4 = new Kahoot("Sprint4", usuari1);
 		
 		ud.saveUsuari(usuari1);
 		ud.saveUsuari(usuari2);
@@ -38,6 +39,7 @@ public class TestHibernate {
 		kd.saveKahoot(kahoot1);
 		kd.saveKahoot(kahoot2);
 		kd.saveKahoot(kahoot3);
+		kd.saveKahoot(kahoot4);
 		
 		ArrayList<Kahoot>listaKahoots = (ArrayList<Kahoot>) kd.getAllKahoots();
 		for (Kahoot kahoot : listaKahoots) {
@@ -59,6 +61,50 @@ public class TestHibernate {
 		Preguntes pregunta11 = new Preguntes("Un smart contract es", kahoot2);
 		Preguntes pregunta12 = new Preguntes("No se puede comprar Etherium", kahoot2);
 		
+		Preguntes pregunta13 = new Preguntes("Fem crides POLL cada 2\"?", kahoot4);
+		Preguntes pregunta14 = new Preguntes("Al inici del concurs es mostren botons amb respostes i un compte enrera. Quan s'acaba, es bloquegen els botons de respostes", kahoot4);
+		Preguntes pregunta15 = new Preguntes("L'usuari tria resposta, que s'il·lumina i s'envia el nickname i la resposta a servidor per guardar a la BD", kahoot4);
+		Preguntes pregunta16 = new Preguntes("L'usuari pot corregir la resposta?", kahoot4);
+		Preguntes pregunta17 = new Preguntes("L'algorisme per determinar la puntuació está documentat a la wiki", kahoot4);
+		Preguntes pregunta18 = new Preguntes("Al finalitzar el temps per pregunta, es mostra la resposta correcta i un rànking", kahoot4);
+		Preguntes pregunta19 = new Preguntes("Al final del Concurs, es mostra el Nick del guanyadors?", kahoot4);
+		Preguntes pregunta20 = new Preguntes("quan s'acaba el concurs es torna a la pantalla de CONNEXIÓ?", kahoot4);
+		
+		Respostes resposta29 = new Respostes("Si", true,  pregunta13);
+		Respostes resposta30 = new Respostes("No", false,  pregunta13);
+		
+		Respostes resposta31 = new Respostes("Fals", false,  pregunta14);
+		Respostes resposta32 = new Respostes("Cert", true,  pregunta14);
+		Respostes resposta33 = new Respostes("Si, pero els botons no es bloquegen", false,  pregunta14);
+		
+		Respostes resposta34 = new Respostes("Els botons no s'iluminen", false,  pregunta15);
+		Respostes resposta35 = new Respostes("Els botons s'iluminen pero no s'envia cap dada", false,  pregunta15);
+		Respostes resposta36 = new Respostes("Si, i es guarda cada resposta per pregunta per jugador per partida", true,  pregunta15);
+		Respostes resposta37 = new Respostes("El servidor rep les dades pero aquestes no es guarden a BD", false,  pregunta15);
+		
+		Respostes resposta38 = new Respostes("No", false,  pregunta16);
+		Respostes resposta39 = new Respostes("Si", true,  pregunta16);
+		
+		Respostes resposta40 = new Respostes("Si, esta molt ben explicat", true,  pregunta17);
+		Respostes resposta41 = new Respostes("No tenim wiki", false,  pregunta17);
+		Respostes resposta42 = new Respostes("No", false,  pregunta17);
+		
+		Respostes resposta43 = new Respostes("Fals", false,  pregunta18);
+		Respostes resposta44 = new Respostes("Cert", true,  pregunta18);
+		
+		Respostes resposta45 = new Respostes("Si", true,  pregunta19);
+		Respostes resposta46 = new Respostes("No ha donat temps de fer una classificació", false,  pregunta19);
+		Respostes resposta47 = new Respostes("No", false,  pregunta19);
+		
+		Respostes resposta48 = new Respostes("No es demanava aquesta especificació", false,  pregunta20);
+		Respostes resposta49 = new Respostes("No", false,  pregunta20);
+		Respostes resposta50 = new Respostes("Si, ho comprovarem ara en finalitzar", true,  pregunta20);
+		
+		
+		
+		
+		
+		
 		
 		
 		pd.savePregunta(pregunta1);
@@ -74,6 +120,15 @@ public class TestHibernate {
 		pd.savePregunta(pregunta10);
 		pd.savePregunta(pregunta11);
 		pd.savePregunta(pregunta12);
+		
+		pd.savePregunta(pregunta13);
+		pd.savePregunta(pregunta14);
+		pd.savePregunta(pregunta15);
+		pd.savePregunta(pregunta16);
+		pd.savePregunta(pregunta17);
+		pd.savePregunta(pregunta18);
+		pd.savePregunta(pregunta19);
+		pd.savePregunta(pregunta20);
 		
 		
 		
@@ -143,6 +198,31 @@ public class TestHibernate {
 		rd.saveResposta(resposta26);
 		rd.saveResposta(resposta27);
 //		rd.saveResposta(resposta28);
+		
+		
+		
+		rd.saveResposta(resposta29);
+		rd.saveResposta(resposta30);
+		rd.saveResposta(resposta31);
+		rd.saveResposta(resposta32);
+		rd.saveResposta(resposta33);
+		rd.saveResposta(resposta34);
+		rd.saveResposta(resposta35);
+		rd.saveResposta(resposta36);
+		rd.saveResposta(resposta37);
+		rd.saveResposta(resposta38);
+		rd.saveResposta(resposta39);
+		rd.saveResposta(resposta40);
+		rd.saveResposta(resposta41);
+		rd.saveResposta(resposta42);
+		rd.saveResposta(resposta43);
+		rd.saveResposta(resposta44);
+		rd.saveResposta(resposta45);
+		rd.saveResposta(resposta46);
+		rd.saveResposta(resposta47);
+		rd.saveResposta(resposta48);
+		rd.saveResposta(resposta49);
+		rd.saveResposta(resposta50);
 		
 		
 		ArrayList<Respostes>listaRespostes = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(pd.getPreguntaById(11).getIdPreguntes());

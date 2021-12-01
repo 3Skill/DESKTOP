@@ -314,12 +314,12 @@ public class FrameMain extends JFrame {
 				concursActual = new Concurs(kahootActual.getIdKahoot());
 				// Placeholder-- Aqui hay que recuperar la lista de concursantes---------------------------------
 
-				Concursant concursant1 = new Concursant("pepe", "pass1");
-				ctd.saveConcursant(concursant1);
-				Concursant concursant2 = new Concursant("paco", "pass2");
-				ctd.saveConcursant(concursant2);
-				Concursant concursant3 = new Concursant("pedro", "pass3");
-				ctd.saveConcursant(concursant3);
+//				Concursant concursant1 = new Concursant("pepe", "pass1");
+//				ctd.saveConcursant(concursant1);
+//				Concursant concursant2 = new Concursant("paco", "pass2");
+//				ctd.saveConcursant(concursant2);
+//				Concursant concursant3 = new Concursant("pedro", "pass3");
+//				ctd.saveConcursant(concursant3);
 				
 //				concursActual.addConcursant(concursant1);
 //				concursActual.addConcursant(concursant2);
@@ -328,6 +328,15 @@ public class FrameMain extends JFrame {
 				System.out.println("getModel" + listaConcursantes.getModel());
 				
 				for (int i = 0; i < listaConcursantes.getModel().getSize(); i++) {
+					Concursant concursant = new Concursant((String) listaConcursantes.getModel().getElementAt(i));
+					try {
+						ctd.getConcursantByName(concursant.getNickname());
+					}catch(Exception ex){
+						ctd.saveConcursant(concursant);
+					}
+//					if(ctd.getConcursantByName((String) listaConcursantes.getModel().getElementAt(i))==null){
+//						ctd.saveConcursant(concursant);
+//					}
 					concursActual.addConcursant(ctd.getConcursantByName((String) listaConcursantes.getModel().getElementAt(i)));
 				}
 				
@@ -367,17 +376,17 @@ public class FrameMain extends JFrame {
 				llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 				startCountdown(jtextfieldCountdown, countdown);
 				// Concursant1 respon i Server RMI rep la resposta
-				tornActual.setConcursant(concursant1);
+				tornActual.setConcursant(concursActual.getConcursants().get(0));
 				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
 				td.saveTorn(tornActual);
 				
 				//Concursant3 respon
-				tornActual.setConcursant(concursant3);
+				tornActual.setConcursant(concursActual.getConcursants().get(2));
 				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
 				td.saveTorn(tornActual);
 				
 				//Concursant2 no respon
-				tornActual.setConcursant(concursant2);
+				tornActual.setConcursant(concursActual.getConcursants().get(1));
 				tornActual.setResposta(-1);
 				td.saveTorn(tornActual);
 				
