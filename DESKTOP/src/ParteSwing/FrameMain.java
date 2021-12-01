@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +30,7 @@ import com.example.kadamm.ui.connexio.ServerRMI;
 import funciones.Idioma;
 
 import kadamm.hibernate.model.*;
+import kadamm.hibernate.model.Torn.TornId;
 import kadamm.hibernate.dao.*;
 import kadamm.hibernate.util.*;
 import kadamm.hibernate.test.*;
@@ -45,12 +47,21 @@ public class FrameMain extends JFrame {
 	private UsuariDao ud = new UsuariDao();
 	private KahootDao kd = new KahootDao();
 	private PreguntesDao pd = new PreguntesDao();
+	private RespostesDao rd = new RespostesDao();
+	private ConcursDao cd = new ConcursDao();
+	private ConcursantDao ctd = new ConcursantDao();
+	private TornDao td = new TornDao();
 	private static Usuari usuariActual;
 	private Kahoot kahootActual;
+	private Preguntes preguntaActual;
+	private Concurs concursActual;
+	private Torn tornActual = new Torn();
 	private int iteradorConcurs = 0;
 	private ArrayList<Preguntes> llistaPreguntes;
 	private ArrayList<JPanel> llistaPanelPreguntes;
 	private boolean isUltimaPregunta = false;
+	private ServerRMI server = new ServerRMI();
+	private JList listaConcursantes;
 	
 	
 	public static Usuari getUsuariActual() {
@@ -269,7 +280,7 @@ public class FrameMain extends JFrame {
 				titolKahoot = ((PanelGestorKahoots) PanelGestorKahoots).getListKahoots();
 				
 				if (titolKahoot != null) {
-					ServerRMI server = new ServerRMI();
+//					server = new ServerRMI();
 					kahootActual = kd.getKahootByName(titolKahoot);
 					llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
 					
@@ -283,7 +294,10 @@ public class FrameMain extends JFrame {
 					JButton btnComencar = ((PanelSalaDeEspera) PanelSalaDeEspera).getBtnComencar();
 					btnComencar.addActionListener(new activeBotons());
 					add(PanelSalaDeEspera);
-					JList listaConcursantes = ((PanelSalaDeEspera) PanelSalaDeEspera).getList();
+					
+//					JList listaConcursantes = ((PanelSalaDeEspera) PanelSalaDeEspera).getList();
+					
+					listaConcursantes = ((PanelSalaDeEspera) PanelSalaDeEspera).getList();
 					//sde.addElementList(new JLabel("Hola"));
 					server.setSalaEspera((PanelSalaDeEspera) PanelSalaDeEspera);
 				}else {
@@ -297,6 +311,39 @@ public class FrameMain extends JFrame {
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
 			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
+				concursActual = new Concurs(kahootActual.getIdKahoot());
+				// Placeholder-- Aqui hay que recuperar la lista de concursantes---------------------------------
+
+				Concursant concursant1 = new Concursant("pepe", "pass1");
+				ctd.saveConcursant(concursant1);
+				Concursant concursant2 = new Concursant("paco", "pass2");
+				ctd.saveConcursant(concursant2);
+				Concursant concursant3 = new Concursant("pedro", "pass3");
+				ctd.saveConcursant(concursant3);
+				
+//				concursActual.addConcursant(concursant1);
+//				concursActual.addConcursant(concursant2);
+//				concursActual.addConcursant(concursant3);
+				
+				System.out.println("getModel" + listaConcursantes.getModel());
+				
+				for (int i = 0; i < listaConcursantes.getModel().getSize(); i++) {
+					concursActual.addConcursant(ctd.getConcursantByName((String) listaConcursantes.getModel().getElementAt(i)));
+				}
+				
+				
+//				for (String concursant : lista) {
+//					concursActual.addConcursant(ctd.getConcursantByName(concursant));
+//				}
+				
+//				concursActual.setConcursants((List<Concursant>) listaConcursantes);
+//				System.out.println(listaConcursantes);
+				
+//				cd.addConcurs(concursActual, concursActual.getConcursants());
+				cd.addConcurs(concursActual);
+				concursActual.setConcursants(concursActual.getConcursants());
+				cd.updateConcurs(concursActual);
+				//-----------------------------------------------------------------------------------------------
 				
 				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
@@ -304,7 +351,12 @@ public class FrameMain extends JFrame {
 				if(iteradorConcurs == llistaPreguntes.size()-1) {
 					isUltimaPregunta = true;
 				}
-				//
+				// recuperamos la primera pregunta al iniciar y su ID para el objeto turno
+				tornActual.setTornId(new TornId());
+				tornActual.setConcurs(concursActual);
+				preguntaActual = llistaPreguntes.get(iteradorConcurs);
+				tornActual.setPregunta(preguntaActual);
+				// Pasamos la pregunta ------------------------------------------------------------------
 				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 				iteradorConcurs++;
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
@@ -314,6 +366,20 @@ public class FrameMain extends JFrame {
 				
 				llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 				startCountdown(jtextfieldCountdown, countdown);
+				// Concursant1 respon i Server RMI rep la resposta
+				tornActual.setConcursant(concursant1);
+				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
+				td.saveTorn(tornActual);
+				
+				//Concursant3 respon
+				tornActual.setConcursant(concursant3);
+				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
+				td.saveTorn(tornActual);
+				
+				//Concursant2 no respon
+				tornActual.setConcursant(concursant2);
+				tornActual.setResposta(-1);
+				td.saveTorn(tornActual);
 				
 				
 				
@@ -328,6 +394,25 @@ public class FrameMain extends JFrame {
 						isUltimaPregunta = true;
 						
 					}
+					// recuperamos la pregunta siguiente para guardar en el objeto torn
+					preguntaActual = llistaPreguntes.get(iteradorConcurs);
+					tornActual.setPregunta(preguntaActual);
+					// los concursantes responden
+					// Concursant1 respon i Server RMI rep la resposta
+					tornActual.setConcursant(concursActual.getConcursants().get(0));
+					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
+					td.saveTorn(tornActual);
+					
+					//Concursant3 respon
+					tornActual.setConcursant(concursActual.getConcursants().get(2));
+					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
+					td.saveTorn(tornActual);
+					
+					//Concursant2 no respon
+					tornActual.setConcursant(concursActual.getConcursants().get(1));
+					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
+					td.saveTorn(tornActual);
+					
 					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 					iteradorConcurs++;
 					JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();

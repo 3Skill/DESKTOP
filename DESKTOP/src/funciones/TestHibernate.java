@@ -124,8 +124,12 @@ public class TestHibernate {
 		Respostes resposta20 = new Respostes("Falso", true,  pregunta10);
 		Respostes resposta21 = new Respostes("Un contrato de un coche", false,  pregunta11);
 		Respostes resposta22 = new Respostes("Un contrato inteligente", true,  pregunta11);
-		Respostes resposta23 = new Respostes("No", false,  pregunta12);
-		Respostes resposta24 = new Respostes("Si", true,  pregunta12);
+		Respostes resposta23 = new Respostes("Un contrato listo", false,  pregunta11);
+		Respostes resposta24 = new Respostes("Contacto Inteligente", false,  pregunta11);
+		Respostes resposta25 = new Respostes("No", false,  pregunta12);
+		Respostes resposta26 = new Respostes("Si", true,  pregunta12);
+		Respostes resposta27 = new Respostes("Si, pero solo gastando etherium", false,  pregunta12);
+//		Respostes resposta28 = new Respostes("El etherium no existe", false,  pregunta12);
 		
 		rd.saveResposta(resposta17);
 		rd.saveResposta(resposta18);
@@ -135,6 +139,10 @@ public class TestHibernate {
 		rd.saveResposta(resposta22);
 		rd.saveResposta(resposta23);
 		rd.saveResposta(resposta24);
+		rd.saveResposta(resposta25);
+		rd.saveResposta(resposta26);
+		rd.saveResposta(resposta27);
+//		rd.saveResposta(resposta28);
 		
 		
 		ArrayList<Respostes>listaRespostes = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(pd.getPreguntaById(11).getIdPreguntes());
@@ -142,28 +150,28 @@ public class TestHibernate {
 			System.out.println(resposta.getDescripcio());
 		}
 		
-		Concursant concursant1 = new Concursant("Pepe", "pass1");
-		Concursant concursant2 = new Concursant("Paco", "pass2");
-		Concurs concurs1 = new Concurs(kahoot1.getIdKahoot());
-		
-		ctd.saveConcursant(concursant1);
-		ctd.saveConcursant(concursant2);
-		Concursant concursantRecuperat = ctd.getConcursantById(1);
+//		Concursant concursant1 = new Concursant("Pepe", "pass1");
+//		Concursant concursant2 = new Concursant("Paco", "pass2");
+//		Concurs concurs1 = new Concurs(kahoot1.getIdKahoot());
+//		
+//		ctd.saveConcursant(concursant1);
+//		ctd.saveConcursant(concursant2);
+//		Concursant concursantRecuperat = ctd.getConcursantById(1);
 //		ArrayList<Concursant> concursants = new ArrayList<Concursant>();
 //		concursants.add(concursant1);
 //		concursants.add(concursant2);
 		
-		concurs1.addConcursant(concursant1);
-		concurs1.addConcursant(concursant2);
-		System.out.println(concurs1.getConcursants());
-		concurs1.setConcursants(concurs1.getConcursants());
-		cd.addConcurs(concurs1);
+//		concurs1.addConcursant(concursant1);
+//		concurs1.addConcursant(concursant2);
+//		System.out.println(concurs1.getConcursants());
+//		concurs1.setConcursants(concurs1.getConcursants());
+//		cd.addConcurs(concurs1);
 //		TornId tornId = new TornId(concurs1.getIdConcurs(),pregunta1.getIdPreguntes(), concursant1.getIdConcursant());
-		Torn torn = new Torn(new TornId(), concurs1, pregunta1,concursant1, resposta1.getIdResposta());
-		Torn torn2 = new Torn(new TornId(), concurs1, pregunta1, concursant2, resposta8.getIdResposta());
-		torn.setResposta(resposta1.getIdResposta());
-		td.saveTorn(torn);
-		td.saveTorn(torn2);
+//		Torn torn = new Torn(new TornId(), concurs1, pregunta1,concursant1, resposta1.getIdResposta());
+//		Torn torn2 = new Torn(new TornId(), concurs1, pregunta1, concursant2, resposta8.getIdResposta());
+//		torn.setResposta(resposta1.getIdResposta());
+//		td.saveTorn(torn);
+//		td.saveTorn(torn2);
 		
 		
 		

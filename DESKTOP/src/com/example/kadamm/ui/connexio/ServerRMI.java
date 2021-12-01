@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 
 import ParteSwing.PanelConcurs;
 import ParteSwing.PanelSalaDeEspera;
-
+import kadamm.hibernate.dao.TornDao;
+import kadamm.hibernate.model.Respostes;
+import kadamm.hibernate.model.Torn;
 import lipermi.handler.CallHandler;
 import lipermi.net.IServerListener;
 import lipermi.net.Server;
@@ -16,7 +18,9 @@ import lipermi.net.Server;
 public class ServerRMI implements InterRMI{
     
     private PanelSalaDeEspera sde ;
+    private PanelConcurs pc;
     private boolean isWaitingRoom;
+    private TornDao td = new TornDao();
     
     public ServerRMI() {
     	
@@ -51,6 +55,14 @@ public class ServerRMI implements InterRMI{
     
     public void setSalaEspera(PanelSalaDeEspera sde) {
     	this.sde =  sde;
+    }
+    
+    public void concursReceiver(PanelConcurs pc) {
+    	this.pc = pc;
+    }
+    
+    public void recieveResposta(Torn torn, Respostes resposta) {
+    	torn.setResposta(resposta.getIdResposta());
     }
 
 	//Implementacio de interface InterRMI

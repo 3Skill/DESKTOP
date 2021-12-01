@@ -1,33 +1,24 @@
 package ParteSwing;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import kadamm.hibernate.dao.PreguntesDao;
-import kadamm.hibernate.model.Kahoot;
-import kadamm.hibernate.model.Preguntes;
-
+import java.awt.Color;
 import java.awt.Font;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.awt.Color;
-import java.awt.Component;
 
-import javax.swing.JScrollPane;
-import javax.swing.ListModel;
-import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import java.awt.SystemColor;
-
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+
+import kadamm.hibernate.dao.ConcursantDao;
+import kadamm.hibernate.dao.PreguntesDao;
+import kadamm.hibernate.model.Concursant;
 
 
 public class PanelSalaDeEspera extends JPanel {
@@ -41,6 +32,7 @@ public class PanelSalaDeEspera extends JPanel {
 	private boolean paramNickName = true;
 	private DefaultListModel  modelo = new DefaultListModel(); 
 	private PreguntesDao pd = new PreguntesDao();
+	private ConcursantDao ctd = new ConcursantDao();
 
 
 	//Constructor
@@ -73,6 +65,12 @@ public class PanelSalaDeEspera extends JPanel {
 		scrollPaneConcursantes.setBounds(185, 161, 157, 183);
 		panelPrincipal.add(scrollPaneConcursantes);
 		
+		modelo.addElement("Pepe");
+		ctd.saveConcursant(new Concursant("Pepe"));
+		modelo.addElement("Paco");
+		ctd.saveConcursant(new Concursant("Paco"));
+		modelo.addElement("Pedro");
+		ctd.saveConcursant(new Concursant("Pedro"));
 		
 		list = new JList(modelo);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -208,6 +206,7 @@ public class PanelSalaDeEspera extends JPanel {
 	//
 	public void addElementList(String name) {
 		modelo.addElement(name);
+		
 		
 	}
 	
