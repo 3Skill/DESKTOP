@@ -82,8 +82,8 @@ public class TestHibernate {
 		Respostes resposta36 = new Respostes("Si, i es guarda cada resposta per pregunta per jugador per partida", true,  pregunta15);
 		Respostes resposta37 = new Respostes("El servidor rep les dades pero aquestes no es guarden a BD", false,  pregunta15);
 		
-		Respostes resposta38 = new Respostes("No", false,  pregunta16);
-		Respostes resposta39 = new Respostes("Si", true,  pregunta16);
+		Respostes resposta38 = new Respostes("No", true,  pregunta16);
+		Respostes resposta39 = new Respostes("Si", false,  pregunta16);
 		
 		Respostes resposta40 = new Respostes("Si, esta molt ben explicat", true,  pregunta17);
 		Respostes resposta41 = new Respostes("No tenim wiki", false,  pregunta17);

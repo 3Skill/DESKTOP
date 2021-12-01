@@ -65,11 +65,11 @@ public class PanelSalaDeEspera extends JPanel {
 		scrollPaneConcursantes.setBounds(185, 161, 157, 183);
 		panelPrincipal.add(scrollPaneConcursantes);
 		
-		modelo.addElement("Pepe");
+//		modelo.addElement("Pepe");
 //		ctd.saveConcursant(new Concursant("Pepe"));
-		modelo.addElement("Paco");
+//		modelo.addElement("Paco");
 //		ctd.saveConcursant(new Concursant("Paco"));
-		modelo.addElement("Pedro");
+//		modelo.addElement("Pedro");
 //		ctd.saveConcursant(new Concursant("Pedro"));
 		
 		list = new JList(modelo);

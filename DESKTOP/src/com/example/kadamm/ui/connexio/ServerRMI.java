@@ -14,7 +14,9 @@ import ParteSwing.PanelSalaDeEspera;
 import kadamm.hibernate.dao.TornDao;
 import kadamm.hibernate.model.Respostes;
 import kadamm.hibernate.model.Torn;
+import kadamm.hibernate.dao.ConcursantDao;
 import kadamm.hibernate.dao.RespostesDao;
+import kadamm.hibernate.model.Concurs;
 import kadamm.hibernate.model.Kahoot;
 import kadamm.hibernate.model.Preguntes;
 import kadamm.hibernate.model.Respostes;
@@ -26,15 +28,16 @@ public class ServerRMI implements InterRMI{
     
     private PanelSalaDeEspera sde ;
     private PanelConcurs pc;
-    private boolean isWaitingRoom;
     private TornDao td = new TornDao();
+    private ConcursantDao ctd = new ConcursantDao();
     private ArrayList<String> kahootActual;
-    private PanelSalaDeEspera sde;
     private ArrayList<ArrayList<String>> listOfAnswers;
     private boolean isWaitingRoom;
     private boolean isWaitingRoom2 = false;
     private ArrayList<Preguntes> infoPreguntas;
     private RespostesDao rd = new RespostesDao();
+    private Concurs concursActual;
+    private Torn tornActual;
 
     public ServerRMI(ArrayList<String> infoKahoot, ArrayList<Preguntes> llistaPreguntes) {
     	this.kahootActual = infoKahoot;
@@ -146,8 +149,14 @@ public class ServerRMI implements InterRMI{
 	// Add user answer to the list of answers [Jose, Los romanos]
 	public void setUserAnswer(ArrayList<String> nicknameAnswer) {
 		System.out.println(nicknameAnswer.toString());
+		tornActual.setConcursant(ctd.getConcursantByName(nicknameAnswer.get(0)));
+		tornActual.setResposta(rd.getRespostaByText(nicknameAnswer.get(1)).getIdResposta());
+		td.saveTorn(tornActual);
+		
+		
 		//listOfAnswers.add(nicknameAnswer);
 	}
+
 	
 //	public ArrayList<ArrayList<String>> getListOfAnswers(){
 //		return listOfAnswers;
@@ -156,7 +165,25 @@ public class ServerRMI implements InterRMI{
 //	public void resetListOfAnswers() {
 //		listOfAnswers = new ArrayList<ArrayList<String>>();
 //	}
+	
+	
 
+	public Concurs getConcursActual() {
+		return concursActual;
+	}
+	
+	public void setConcursActual(Concurs concursActual) {
+		this.concursActual = concursActual;
+	}
+
+	public Torn getTornActual() {
+		return tornActual;
+	}
+
+	public void setTornActual(Torn tornActual) {
+		this.tornActual = tornActual;
+	}
+	
 	
 
 	

@@ -68,7 +68,6 @@ public class FrameMain extends JFrame {
 	private ArrayList<JPanel> llistaPanelPreguntes;
 	private boolean isUltimaPregunta = false;
 
-	private ServerRMI server = new ServerRMI();
 	private JList listaConcursantes;
 
 	private ServerRMI server;
@@ -418,19 +417,23 @@ public class FrameMain extends JFrame {
 				llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 				startCountdown(jtextfieldCountdown, countdown);
 				// Concursant1 respon i Server RMI rep la resposta
-				tornActual.setConcursant(concursActual.getConcursants().get(0));
-				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
-				td.saveTorn(tornActual);
+				server.setConcursActual(concursActual);
+				server.setTornActual(tornActual);
 				
-				//Concursant3 respon
-				tornActual.setConcursant(concursActual.getConcursants().get(2));
-				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
-				td.saveTorn(tornActual);
 				
-				//Concursant2 no respon
-				tornActual.setConcursant(concursActual.getConcursants().get(1));
-				tornActual.setResposta(-1);
-				td.saveTorn(tornActual);
+//				tornActual.setConcursant(concursActual.getConcursants().get(0));
+//				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
+//				td.saveTorn(tornActual);
+//				
+//				//Concursant3 respon
+//				tornActual.setConcursant(concursActual.getConcursants().get(2));
+//				tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
+//				td.saveTorn(tornActual);
+//				
+//				//Concursant2 no respon
+//				tornActual.setConcursant(concursActual.getConcursants().get(1));
+//				tornActual.setResposta(-1);
+//				td.saveTorn(tornActual);
 				
 				
 				
@@ -452,20 +455,22 @@ public class FrameMain extends JFrame {
 					preguntaActual = llistaPreguntes.get(iteradorConcurs);
 					tornActual.setPregunta(preguntaActual);
 					// los concursantes responden
-					// Concursant1 respon i Server RMI rep la resposta
-					tornActual.setConcursant(concursActual.getConcursants().get(0));
-					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
-					td.saveTorn(tornActual);
+					// Concursant1 respon i Server RMI rep la respostaserver.setConcursActual(concursActual);
+					server.setTornActual(tornActual);
 					
-					//Concursant3 respon
-					tornActual.setConcursant(concursActual.getConcursants().get(2));
-					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
-					td.saveTorn(tornActual);
-					
-					//Concursant2 no respon
-					tornActual.setConcursant(concursActual.getConcursants().get(1));
-					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
-					td.saveTorn(tornActual);
+//					tornActual.setConcursant(concursActual.getConcursants().get(0));
+//					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
+//					td.saveTorn(tornActual);
+//					
+//					//Concursant3 respon
+//					tornActual.setConcursant(concursActual.getConcursants().get(2));
+//					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(0).getIdResposta());
+//					td.saveTorn(tornActual);
+//					
+//					//Concursant2 no respon
+//					tornActual.setConcursant(concursActual.getConcursants().get(1));
+//					tornActual.setResposta(rd.getRespostesByPreguntaId(tornActual.getPregunta().getIdPreguntes()).get(1).getIdResposta());
+//					td.saveTorn(tornActual);
 					
 					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 					iteradorConcurs++;
