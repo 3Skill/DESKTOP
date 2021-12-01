@@ -11,7 +11,12 @@ import javax.swing.JLabel;
 
 import ParteSwing.PanelConcurs;
 import ParteSwing.PanelSalaDeEspera;
+import kadamm.hibernate.dao.TornDao;
+import kadamm.hibernate.model.Respostes;
+import kadamm.hibernate.model.Torn;
+import kadamm.hibernate.dao.ConcursantDao;
 import kadamm.hibernate.dao.RespostesDao;
+import kadamm.hibernate.model.Concurs;
 import kadamm.hibernate.model.Kahoot;
 import kadamm.hibernate.model.Preguntes;
 import kadamm.hibernate.model.Respostes;
@@ -20,16 +25,24 @@ import lipermi.net.IServerListener;
 import lipermi.net.Server;
 
 public class ServerRMI implements InterRMI{
+    
+    private PanelSalaDeEspera sde ;
+    private PanelConcurs pc;
+    private TornDao td = new TornDao();
+    private ConcursantDao ctd = new ConcursantDao();
     private ArrayList<String> kahootActual;
-    private PanelSalaDeEspera sde;
     private ArrayList<ArrayList<String>> listOfAnswers;
     private boolean isWaitingRoom;
     private boolean isWaitingRoom2 = false;
     private ArrayList<Preguntes> infoPreguntas;
     private RespostesDao rd = new RespostesDao();
+    private Concurs concursActual;
+    private Torn tornActual;
+
     public ServerRMI(ArrayList<String> infoKahoot, ArrayList<Preguntes> llistaPreguntes) {
     	this.kahootActual = infoKahoot;
     	this.infoPreguntas = llistaPreguntes;
+
         try {
             CallHandler callHandler = new CallHandler();
             callHandler.registerGlobal(InterRMI.class, this);
@@ -62,6 +75,16 @@ public class ServerRMI implements InterRMI{
     public void setSalaEspera(PanelSalaDeEspera sde) {
     	this.sde =  sde;
     }
+
+    
+    public void concursReceiver(PanelConcurs pc) {
+    	this.pc = pc;
+    }
+    
+    public void recieveResposta(Torn torn, Respostes resposta) {
+    	torn.setResposta(resposta.getIdResposta());
+    }
+
     //Funcion de SERVERRMI
     private ArrayList<Respostes> getArrayRespostes(int i) {
 		ArrayList<Respostes> respostes  = (ArrayList<Respostes>) rd.getRespostesByPreguntaId(infoPreguntas.get(i).getIdPreguntes());
@@ -124,10 +147,17 @@ public class ServerRMI implements InterRMI{
 	}
 	
 	// Add user answer to the list of answers [Jose, Los romanos]
-	public void setUserAnswer(ArrayList<String> nicknameAnswer) {
+	public boolean setUserAnswer(ArrayList<String> nicknameAnswer) {
 		System.out.println(nicknameAnswer.toString());
+		tornActual.setConcursant(ctd.getConcursantByName(nicknameAnswer.get(0)));
+		tornActual.setResposta(rd.getRespostaByText(nicknameAnswer.get(1)).getIdResposta());
+		td.saveTorn(tornActual);
+		return true;
+		
+		
 		//listOfAnswers.add(nicknameAnswer);
 	}
+
 	
 //	public ArrayList<ArrayList<String>> getListOfAnswers(){
 //		return listOfAnswers;
@@ -136,7 +166,25 @@ public class ServerRMI implements InterRMI{
 //	public void resetListOfAnswers() {
 //		listOfAnswers = new ArrayList<ArrayList<String>>();
 //	}
+	
+	
 
+	public Concurs getConcursActual() {
+		return concursActual;
+	}
+	
+	public void setConcursActual(Concurs concursActual) {
+		this.concursActual = concursActual;
+	}
+
+	public Torn getTornActual() {
+		return tornActual;
+	}
+
+	public void setTornActual(Torn tornActual) {
+		this.tornActual = tornActual;
+	}
+	
 	
 
 	
