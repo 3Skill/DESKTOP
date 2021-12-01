@@ -249,6 +249,11 @@ public class FrameMain extends JFrame {
 				add(PanelGestorKahoots);
 			}
 			else if(e.getActionCommand().equals("Finalitzar")) {
+				
+				// Spec 33
+				server.setWaitingRoom2Status(true);
+				
+				
 				iteradorConcurs = 0;
 				isUltimaPregunta = false;
 				remove(PanelConcurs);
@@ -336,7 +341,8 @@ public class FrameMain extends JFrame {
 			//Si le damos a seguent pregunta es creara una altre presentacio
 			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 				
-				
+				//Spec32
+				server.setWaitingRoom2Status(true);
 			
 				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
 				if(iteradorConcurs!=llistaPreguntes.size()) {
