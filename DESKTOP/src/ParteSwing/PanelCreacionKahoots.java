@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -80,7 +81,7 @@ public class PanelCreacionKahoots extends JPanel {
 		panelPrincipalCrearKahoot.add(scrollPanelPreguntas);
 
 		
-		String textNovaPregunta; 										// Variable per guardar la descripció d'una nova pregunta
+		String textNovaPregunta;// Variable per guardar la descripció d'una nova pregunta
 		String[] llistaTemesAssociats = {"Tema 1","Tema 2","Tema 3","Tema n","..."};
 		String[] llistaRespostes = {"Resposta 1","Resposta 2","Resposta 3","Resposta 4"};
 		
@@ -355,12 +356,11 @@ public class PanelCreacionKahoots extends JPanel {
 	
 
 	public boolean checkNewPregunta(Preguntes pregunta1, ArrayList<Respostes> respostes) {
-//		if(txtAreaRespostes.getLineCount()>1) {
 		if(pregunta1.getDescripcio().equals("") || pregunta1 == null) {
 			panelError.actualitzaErrors("ERROR: La pregunta està en blanc");
 		}
-		else if(respostes.get(1) != null) {
-			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()) {
+		else if(respostes.get(1) != null ) {
+			if(respostes.get(0).isRespostaCorrecta() || respostes.get(1).isRespostaCorrecta()|| respostes.get(2).isRespostaCorrecta()|| respostes.get(3).isRespostaCorrecta()) {
 				System.out.println("Guardem la pregunta");
 				saveNewPregunta(pregunta1, respostes);
 				resetFields(pregunta1);
@@ -380,10 +380,12 @@ public class PanelCreacionKahoots extends JPanel {
 		pd.savePregunta(pregunta);
 		long idPregunta = pregunta.getIdPreguntes();
 		System.out.println(idPregunta);
-		respostes.get(0).setIdPregunta(pregunta);
-		rd.saveResposta(respostes.get(0));
-		respostes.get(1).setIdPregunta(pregunta);
-		rd.saveResposta(respostes.get(1));
+		for (int i = 0; i < respostes.size(); i++) {
+			respostes.get(i).setIdPregunta(pregunta);
+			rd.saveResposta(respostes.get(i));
+		}
+		
+		
 		
 	}
 	
