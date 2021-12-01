@@ -26,9 +26,11 @@ import javax.swing.JCheckBox;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
-public class PanelLogin extends JPanel {
+public class PanelLogin extends JPanel{
 	
 	//Atributs
 	private JTextField username;
@@ -156,6 +158,8 @@ public class PanelLogin extends JPanel {
 	public void setCbRecordarContra(JCheckBox cbRecordarContra) {
 		this.cbRecordarContra = cbRecordarContra;
 	}
+
+	
 	
 	
 

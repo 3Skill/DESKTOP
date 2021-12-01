@@ -5,7 +5,13 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,19 +42,23 @@ public class FrameMain extends JFrame {
 	
 	//Atributos
 
-	private static JPanel panelLogin,PanelGestorKahoots,PanelSalaDeEspera,PanelCreacionKahoots,PanelConcurs;
-	private LecturaXML lxml;
-	private PanelErrorHandlerComponent ehc = new PanelErrorHandlerComponent();
+	private static JPanel panelLogin,PanelGestorKahoots,PanelSalaDeEspera,PanelCreacionKahoots,PanelConcurs;//Paneles
+	private LecturaXML lxml;//Clase de lectura de config.xml
+	private PanelErrorHandlerComponent ehc = new PanelErrorHandlerComponent();//Panel de gestor de errores
+	//Metodos Dao
 	private UsuariDao ud = new UsuariDao();
 	private KahootDao kd = new KahootDao();
 	private PreguntesDao pd = new PreguntesDao();
+	//Atributos varios
 	private static Usuari usuariActual;
 	private Kahoot kahootActual;
 	private int iteradorConcurs = 0;
 	private ArrayList<Preguntes> llistaPreguntes;
+	private ArrayList<JPanel> llistaPanelPreguntes;
 	private boolean isUltimaPregunta = false;
+	private ServerRMI server;
 	
-	
+	//Getters y setters
 	public static Usuari getUsuariActual() {
 		return usuariActual;
 	}
@@ -115,18 +125,66 @@ public class FrameMain extends JFrame {
 		
 		panelLogin = new PanelLogin();
 		JButton botonLogin = ((PanelLogin) panelLogin).getBotonAccedir();
-		
+		JTextField txtpass = ((PanelLogin) panelLogin).getPasswordField();
+		JTextField txtuser = ((PanelLogin) panelLogin).gettfUsuari();
 		botonLogin.addActionListener(new activeBotons());
 		
+		//Listener del teclado
+		KeyListener keyListener =  new KeyListener(){
+            public void keyTyped(KeyEvent e){
+            	//System.out.println("Enter");
+            }
+            public void keyPressed(KeyEvent e){
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                	System.out.println("Enter");
+    				// Capturem els valors de usuari i password
+    				String nom = ((PanelLogin) panelLogin).gettfUsuari().getText().toString();
+    				String pass = ((PanelLogin) panelLogin).getPasswordField().getText();
+    				
+    				//Comprobaciones de que el login sea correct
+    				
+    				if(login(nom, pass) == true) {
+    					remove(panelLogin);
+    					remove(ehc);
+    					setTitle("Explorador de Kadamm");
+    					setSize(800, 600);
+    					setLocationRelativeTo(null);
+    					PanelGestorKahoots = new PanelGestorKahoots();
+    					//Anyadimos el listener de crear kahoots
+    					JButton botonCrearKahoots = ((PanelGestorKahoots) PanelGestorKahoots).getBtnCrearKahoot();
+    					JButton botonJugar = ((PanelGestorKahoots) PanelGestorKahoots).getBtnJugar();
+    					
+    					botonCrearKahoots.addActionListener(new activeBotons());
+    					botonJugar.addActionListener(new activeBotons());
+    					add(PanelGestorKahoots);
+                } else {
+					System.out.println("login incorrecte");
+					setSize(650, 540);
+					setResizable(true);
+					setResizable(false);
+					add(ehc,BorderLayout.SOUTH);
+				}
+                
+            }
+            }
+            public void keyReleased(KeyEvent e){
+            	//System.out.println("Enter");
+            }
+        };
+        txtpass.addKeyListener(keyListener);
+        txtuser.addKeyListener(keyListener);
 		add(panelLogin,BorderLayout.CENTER);
 		
 		setVisible(true);
 	}
 	
+
+	
 	//Clase para gestionar las acciones de los Botones de los diferentes paneles
 	class activeBotons implements ActionListener {
+		
 		private String titolKahoot;
-
+		
 		public void actionPerformed(ActionEvent e) {
 			
 			//Boton 'Accedir' de Panel Login
@@ -162,6 +220,7 @@ public class FrameMain extends JFrame {
 			}
 			//Boton 'Crear Kahoot' de Panel GestorKahoots 
 			else if((e.getActionCommand().equals("Crear Kahoot"))) {
+				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
 				remove(PanelGestorKahoots);
 				remove(ehc);
 				repaint();
@@ -178,7 +237,9 @@ public class FrameMain extends JFrame {
 				btnGuardarKahoot.addActionListener(new activeBotons());
 				add(PanelCreacionKahoots);
 			}
+			//Boton 'Enrere' de panel de Creacion de kahoots
 			else if((e.getActionCommand().equals("Enrere"))) {
+				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
 				remove(PanelCreacionKahoots);
 				remove(ehc);
 				setTitle("Explorador de Kadamm");
@@ -193,14 +254,52 @@ public class FrameMain extends JFrame {
 				botonJugar.addActionListener(new activeBotons());
 				add(PanelGestorKahoots);
 			}
+			//Boton 'Finalitzar' de panel concurs, unicamente cuando es la ultima presentacion
+			else if(e.getActionCommand().equals("Finalitzar")) {
+
+				
+				// Spec 33
+				server.setWaitingRoom2Status(true);
+				
+				
+
+				//Reseteamos variables para que no salten errores
+
+				iteradorConcurs = 0;
+				isUltimaPregunta = false;
+				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
+				remove(PanelConcurs);
+				remove(ehc);
+				
+				setTitle("Explorador de Kadamm");
+				setSize(800, 600);
+				setLocationRelativeTo(null);
+				setResizable(false);
+				PanelGestorKahoots = new PanelGestorKahoots();
+				//Anyadimos el listener de crear kahoots
+				JButton botonCrearKahoots = ((PanelGestorKahoots) PanelGestorKahoots).getBtnCrearKahoot();
+				JButton botonJugar = ((PanelGestorKahoots) PanelGestorKahoots).getBtnJugar();
+				
+				botonCrearKahoots.addActionListener(new activeBotons());
+				botonJugar.addActionListener(new activeBotons());
+				add(PanelGestorKahoots);
+			}
 			//Si le damos al boton jugar del panel 'CreacionKahoot' accedemos al panel de 'SalaDeEspera'
 			else if ((e.getActionCommand().equals("JUGAR"))) {
 				titolKahoot = ((PanelGestorKahoots) PanelGestorKahoots).getListKahoots();
 				
 				if (titolKahoot != null) {
-					ServerRMI server = new ServerRMI();
+					//Coger las respuestas de cada pregunta 
+					
+					ArrayList<String> infoKahoot = new ArrayList<String>();	
+					infoKahoot.add(lxml.getCountdown());
+					infoKahoot.add(lxml.getTimeout());
+					
+					
 					kahootActual = kd.getKahootByName(titolKahoot);
 					llistaPreguntes = (ArrayList<Preguntes>) pd.getAllPreguntesByKahoot(kahootActual.getIdKahoot());
+					server = new ServerRMI(infoKahoot,llistaPreguntes);
+					
 					
 					remove(PanelGestorKahoots);
 					remove(ehc);
@@ -226,18 +325,23 @@ public class FrameMain extends JFrame {
 			
 			//Si le damos al boton comenzar Kahoot de la Sala de espera comienza la cuenta atras
 			else if ((e.getActionCommand().equals("COMENCAR CONCURS"))) {
-				
+				//Elimiamos los paneles puestos, ponemos el nuevo y añadimos listeners a sendos paneles
+				server.setWaitingRoom2Status(true);
 				((ParteSwing.PanelSalaDeEspera) PanelSalaDeEspera).setParamNickName();
 				int countdown = Integer.valueOf(lxml.getCountdown()); 
 				JTextField jtextfieldCountdown = ((PanelSalaDeEspera) PanelSalaDeEspera).getCountdown();
 				if(iteradorConcurs == llistaPreguntes.size()-1) {
 					isUltimaPregunta = true;
 				}
+				//
 				PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 				iteradorConcurs++;
 				JButton botonNextQuest = ((PanelConcurs) PanelConcurs).getBtnNextQuest();
+				
 				botonNextQuest.addActionListener(new activeBotons());
 				String txtTemps = ((PanelConcurs) PanelConcurs).getTxtTemps().getText();
+				
+				llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 				startCountdown(jtextfieldCountdown, countdown);
 				
 				
@@ -246,11 +350,15 @@ public class FrameMain extends JFrame {
 			//Si le damos a seguent pregunta es creara una altre presentacio
 			else if ((e.getActionCommand().equals("Seguent Pregunta"))) {
 				
+				//Spec32
+				server.setWaitingRoom2Status(true);
+			
 				//La condicion esta es probisional, mas que nada esta para que no pete si no hay mas preguntas
 				if(iteradorConcurs!=llistaPreguntes.size()) {
 					remove(PanelConcurs);
 					if(iteradorConcurs == llistaPreguntes.size()-1) {
 						isUltimaPregunta = true;
+						
 					}
 					PanelConcurs = new PanelConcurs(llistaPreguntes.get(iteradorConcurs), isUltimaPregunta);
 					iteradorConcurs++;
@@ -262,41 +370,37 @@ public class FrameMain extends JFrame {
 					setLocationRelativeTo(null);
 					add(PanelConcurs);
 					repaint();
+					
+					llistaPanelPreguntes = ((ParteSwing.PanelConcurs) PanelConcurs).getLlistaPanelRespostes();
 					startCountdownConcurs(((PanelConcurs) PanelConcurs).getTxtTemps(),Integer.valueOf(lxml.getTimeout()));
 				}
 				
 				
 			}
-			
+			//Boton afegir pregunta de panel creacion de kahoots
 			else if ((e.getActionCommand().equals("Afegir pregunta"))) {
-				
-				Respostes resposta1 = null;
-				Respostes resposta2 = null;
-				
+				//Cogemos las preguntas, las annadimos al hibernate(con la comprobacion de errores) y actualizamos la lista de preguntas
 				Preguntes novaPregunta = new Preguntes(((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaPregunta().getText());
 				ArrayList<Respostes> respostes = new ArrayList<Respostes>();
-				ArrayList<JCheckBox> checkboxes= new ArrayList<JCheckBox>();
+				ArrayList<JCheckBox> checkboxes=  new ArrayList<JCheckBox>();
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb1());
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb2());
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb3());
 				checkboxes.add(((PanelCreacionKahoots) PanelCreacionKahoots).getCb4());
 				
-				respostes.add(resposta1);
-				respostes.add(resposta2);
+
 				String[] AreaRespostes = ((PanelCreacionKahoots) PanelCreacionKahoots).getTxtAreaRespostes().getText().split("\n");
-//				Respostes resposta1 = new Respostes(((CreacionKahoots) ck).getTxtAreaRespostes().getText(), ((CreacionKahoots) ck).getCb1().isSelected(), 19);
+				System.out.println("Respuestas: "+ AreaRespostes.length);
+
 				
 				for (int i = 0; i < AreaRespostes.length; i++) {
 					if(!AreaRespostes[i].equals("")) {
 						Respostes resposta = new Respostes(AreaRespostes[i], checkboxes.get(i).isSelected());
-						respostes.set(i, resposta);
-					
+						respostes.add(resposta);
+						System.out.println(AreaRespostes[i]);
 					}
 				}
-//				Respostes resposta1 = new Respostes(AreaRespostes[0], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
-//				Respostes resposta2 = new Respostes(AreaRespostes[1], ((CreacionKahoots) ck).getCb1().isSelected(), 19);
-//				respostes.add(resposta1);
-//				respostes.add(resposta2);
+
 				
 				if (((PanelCreacionKahoots) PanelCreacionKahoots).checkNewPregunta(novaPregunta, respostes)) {
 					for (JCheckBox cb : checkboxes) {
@@ -325,10 +429,10 @@ public class FrameMain extends JFrame {
 					setSize(800, 710);
 					setLocationRelativeTo(null);
 					add(ehc,BorderLayout.SOUTH);
-					ehc.actualitzaErrors("Error al guardar el Kahoot: El kahoot no t� t�tol");
+					ehc.actualitzaErrors("Error al guardar el Kahoot: El kahoot no té títol");
 				}else {
 					try {
-						ArrayList<Preguntes>preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
+						ArrayList<Preguntes> preguntes = (ArrayList<Preguntes>) pd.getAllPreguntesWithoutKahoot();
 						Kahoot kahoot = new Kahoot(nomKahoot, usuariActual);
 						kd.saveKahoot(kahoot);
 						Kahoot idKahoot = kd.getKahootByName(nomKahoot);
@@ -371,7 +475,8 @@ public class FrameMain extends JFrame {
 		
 	}
 	
-		
+
+
 		//Funcion para iniciar una cuentra atras en un JTextField
 		private void startCountdown(JTextField jTextField, int timeout) {
 				
@@ -384,6 +489,7 @@ public class FrameMain extends JFrame {
 	                jTextField.setText(String.valueOf(i));
 	                i--;
 	                if (i < 0) {
+	                	
 	                    timer.cancel();
 	                    
 	                    remove(PanelSalaDeEspera);
@@ -418,6 +524,10 @@ public class FrameMain extends JFrame {
 	                    timer.cancel();
 	                    ((PanelConcurs) PanelConcurs).setEnabledButton();
 	                    
+	                	for(int i = 0;i<llistaPanelPreguntes.size();i++) {
+	                		llistaPanelPreguntes.get(i).setBackground(Color.GRAY);
+	                		
+	                	}
 	                }
 	            }
 
@@ -425,8 +535,13 @@ public class FrameMain extends JFrame {
 	        }, 0, 1000);
 			
 		}
+
+
+		
 	
 
 
 	}
+
+	
 }
